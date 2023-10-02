@@ -1,0 +1,14 @@
+.comment {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 1rem 5px;
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+app-cmt-control {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+}

@@ -23,6 +23,11 @@ import { AlertComponent } from './common/alert/alert.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { HttpClientModule } from '@angular/common/http';
 import { PostDetailComponent } from './pages/client/post-detail/post-detail.component';
+import { ListImageComponent } from './common/list-image/list-image.component';
+import { ClientComponent } from './pages/client/client.component';
+import { CommentComponent } from './common/comment/comment.component';
+import { CmtControlComponent } from './common/comment/cmt-control/cmt-control.component';
+import { CmtItemComponent } from './common/comment/cmt-item/cmt-item.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,11 @@ import { PostDetailComponent } from './pages/client/post-detail/post-detail.comp
     NotificationComponent,
     AlertComponent,
     PostDetailComponent,
+    ListImageComponent,
+    ClientComponent,
+    CommentComponent,
+    CmtControlComponent,
+    CmtItemComponent,
   ],
   imports: [
     BrowserModule,

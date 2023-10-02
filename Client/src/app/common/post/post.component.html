@@ -1,150 +1,83 @@
-<div class="newfeeds">
-  <div class="list-feed" *ngFor="let item of listPosts">
-    <div class="post">
-      <div class="title-post">
-        <div class="avatar">
-          <img src="{{ item.user.avatar }}" alt="avatar" />
-        </div>
-        <div class="info mx-3">
-          <div class="name d-flex flex-column">
-            <a href="">{{ item.user.name }}</a>
-            <small>{{ calculateTime(item.time) }}</small>
-          </div>
-        </div>
-        <div class="action ms-auto dropdown-center">
-          <button
-            class="btn dropdown-toggle border-0"
-            data-bs-toggle="dropdown"
-            aria-expanded="true"
-          >
-            <i class="fa-solid fa-ellipsis"></i>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <button class="dropdown-item" (click)="removePost(item.id)">
-                <i class="fa-regular fa-square-minus mx-3"></i>
-                Delete
-              </button>
-            </li>
-            <li>
-              <button class="dropdown-item">
-                <i class="fa-regular fa-edit mx-3"></i>
-                Edit
-              </button>
-            </li>
-            <li>
-              <button class="dropdown-item" (click)="openLink(item.id)">
-                <i class="fa-regular fa-copy mx-3"></i>
-                Open Post
-              </button>
-            </li>
-          </ul>
+<div class="list-feed" *ngFor="let item of posts">
+  <div class="post">
+    <div class="title-post">
+      <div class="avatar">
+        <img src="{{ item.user.avatar }}" alt="avatar" />
+      </div>
+      <div class="info mx-3">
+        <div class="name d-flex flex-column">
+          <a href="">{{ item.user.name }}</a>
+          <small>{{ calculateTime(item.time) }}</small>
         </div>
       </div>
-      <p class="mx-3 text-dark-emphasis" *ngIf="item.emoji?.native">
-        feeling {{ item.emoji?.native }} today
-      </p>
-      <p class="content-text">{{ item.content }}</p>
-      <div class="list-video" *ngIf="item.video.length > 0">
-        <video controls src="{{ item.video[0] }}" width="100%"></video>
-      </div>
-      <div class="list-img">
-        <ng-container
-          *ngIf="
-            item.images.length === 1;
-            then oneImg;
-            else item.images.length === 2
-              ? twoImg
-              : item.images.length === 3
-              ? threeImg
-              : item.images.length === 4
-              ? fourImg
-              : item.images.length === 5
-              ? fiveImg
-              : more
-          "
-        >
-        </ng-container>
-
-        <ng-template #oneImg>
-          <div class="onePic">
-            <img src="{{ item.images[0] }}" alt="image" />
-          </div>
-        </ng-template>
-
-        <ng-template #twoImg>
-          <div class="twoPic">
-            <img src="{{ item.images[0] }}" alt="image" />
-            <img src="{{ item.images[1] }}" alt="image" />
-          </div>
-        </ng-template>
-
-        <ng-template #threeImg>
-          <div class="threePic">
-            <img class="fullwidth" src="{{ item.images[0] }}" title="1" />
-            <div class="halfwidth">
-              <img class="item-half" src="{{ item.images[1] }}" title="2" />
-              <img class="item-half" src="{{ item.images[2] }}" title="3" />
-            </div>
-          </div>
-        </ng-template>
-
-        <ng-template #fourImg>
-          <div class="fourPic">
-            <img class="item-half" src="{{ item.images[0] }}" />
-            <img class="item-half" src="{{ item.images[1] }}" />
-            <img class="item-half" src="{{ item.images[2] }}" />
-            <img class="item-half" src="{{ item.images[3] }}" />
-          </div>
-        </ng-template>
-
-        <ng-template #fiveImg>
-          <div class="fivePic">
-            <div class="firstRow">
-              <img class="item-half" src="{{ item.images[0] }}" />
-              <img class="item-half" src="{{ item.images[1] }}" />
-            </div>
-            <div class="secondRow">
-              <img class="item-half" src="{{ item.images[2] }}" />
-              <img class="item-half" src="{{ item.images[3] }}" />
-              <img class="item-half" src="{{ item.images[4] }}" />
-            </div>
-          </div>
-        </ng-template>
-
-        <ng-template #more>
-          <div class="morePic">
-            <ng-container *ngFor="let img of item.images | slice : 0 : 6">
-              <img src="{{ img }}" alt="image" />
-            </ng-container>
-          </div>
-        </ng-template>
-      </div>
-      <div class="footer d-flex justify-content-end p-1">
+      <div class="action ms-auto dropdown-center">
         <button
-          class="btn border-0 position-relative"
-          (click)="likePost(item.id)"
+          class="btn dropdown-toggle border-0"
+          data-bs-toggle="dropdown"
+          aria-expanded="true"
         >
-          <i class="bi bi-hand-thumbs-up{{ item.liked ? '-fill' : '' }}"></i>
-          <span
-            *ngIf="item.like > 0"
-            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-          >
-            {{ item.like }}
-          </span>
+          <i class="fa-solid fa-ellipsis"></i>
         </button>
-        <button class="btn border-0 mx-2 position-relative">
-          <i class="bi bi-chat-right-quote"></i>
-          <span *ngIf="item.comment.length > 0" class="badge bg-danger">
-            {{ item.comment }}
-            class="position-absolute top-0 start-100 translate-middle badge
-            rounded-pill bg-danger" > {{ item.comment.length }}
-          </span>
-        </button>
-        <button class="btn border-0" (click)="copyLink(item.id)">
-          <i class="bi bi-share"></i>
-        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <button class="dropdown-item" (click)="removePost(item.id)">
+              <i class="fa-regular fa-square-minus mx-3"></i>
+              Delete
+            </button>
+          </li>
+          <li>
+            <button class="dropdown-item">
+              <i class="fa-regular fa-edit mx-3"></i>
+              Edit
+            </button>
+          </li>
+          <li>
+            <button class="dropdown-item" (click)="openLink(item.id)">
+              <i class="fa-regular fa-copy mx-3"></i>
+              Open Post
+            </button>
+          </li>
+        </ul>
       </div>
+    </div>
+    <p class="mx-3 text-dark-emphasis" *ngIf="item.emoji?.native">
+      feeling {{ item.emoji?.native }} today
+    </p>
+    <p class="content-text">{{ item.content }}</p>
+
+    <app-list-image
+      [imageList]="item.images"
+      [videoList]="item.video"
+      [editable]="editable"
+    ></app-list-image>
+
+    <div class="footer d-flex justify-content-end p-1">
+      <button
+        class="btn border-0 position-relative"
+        (click)="likePost(item.id)"
+      >
+        <i class="bi bi-hand-thumbs-up{{ item.liked ? '-fill' : '' }}"></i>
+        <span
+          *ngIf="item.like > 0"
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"
+        >
+          {{ item.like }}
+        </span>
+      </button>
+      <button
+        class="btn border-0 mx-2 position-relative"
+        (click)="openLink(item.id)"
+      >
+        <i class="bi bi-chat-right-quote"></i>
+        <span *ngIf="item.comment.length > 0" class="badge bg-secondary">
+          {{ item.comment }}
+          class="position-absolute top-0 start-100 translate-middle badge
+          rounded-pill bg-danger" > {{ item.comment.length }}
+        </span>
+      </button>
+      <button class="btn border-0" (click)="copyLink(item.id)">
+        <i class="bi bi-share"></i>
+      </button>
     </div>
   </div>
 </div>

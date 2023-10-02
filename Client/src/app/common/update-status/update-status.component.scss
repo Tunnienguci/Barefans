@@ -94,105 +94,46 @@
 
 .modal-content {
   .list-img {
-    .onePic {
-      width: 100%;
-      height: 30rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .img-item {
+      flex-grow: 1;
+      flex-basis: 25%;
+      max-height: 15rem;
+      position: relative;
+      padding: 0.25rem;
+      .btn {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+        background-color: #fff;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        i {
+          font-size: 1.5rem;
+          color: #f5533d;
+        }
+      }
+
       img {
         width: 100%;
         height: 100%;
         border-radius: 10px;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
-
-    .twoPic {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 10px;
+    :hover {
       img {
-        width: 100%;
-        border-radius: 10px;
-        height: 15rem;
-        object-fit: cover;
+        opacity: 0.5;
       }
-    }
-
-    .threePic {
-      display: grid;
-      grid-template-rows: auto auto;
-      grid-template-columns: 1fr;
-      grid-gap: 10px;
-      .fullwidth {
-        grid-row: 1;
-        grid-column: 1;
-        width: 100%;
-        height: 15rem;
-        border-radius: 10px;
-        object-fit: cover;
-      }
-      .halfwidth {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-        .item-half {
-          width: 100%;
-          height: 15rem;
-          border-radius: 10px;
-          object-fit: cover;
-        }
-      }
-    }
-
-    .fourPic {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 10px;
-      img {
-        width: 100%;
-        height: 15rem;
-        border-radius: 10px;
-        object-fit: cover;
-      }
-    }
-
-    .fivePic {
-      display: grid;
-      grid-template-rows: auto auto;
-      grid-template-columns: 1fr;
-      grid-gap: 10px;
-      .firstRow {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-        .item-half {
-          width: 100%;
-          height: 15rem;
-          border-radius: 10px;
-          object-fit: cover;
-        }
-      }
-      .secondRow {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 10px;
-        .item-half {
-          width: 100%;
-          height: 15rem;
-          border-radius: 10px;
-          object-fit: cover;
-        }
-      }
-    }
-
-    .morePic {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 10px;
-      img {
-        width: 100%;
-        height: 15rem;
-        border-radius: 10px;
-        object-fit: cover;
+      .btn {
+        display: block;
+        z-index: 1;
       }
     }
   }

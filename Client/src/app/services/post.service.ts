@@ -5,7 +5,24 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PostService {
-  listPosts: any[] = [];
+  post = {
+    id: 340211440328772350,
+    like: 0,
+    comment: [],
+    user: {
+      name: 'Cong Tuan',
+      avatar: 'https://i.pravatar.cc/150?img=1',
+    },
+    liked: false,
+    content: "I'm Cong Tuan",
+    images: [],
+    video: [],
+    time: new Date().toDateString() + ' ' + new Date().toLocaleTimeString(),
+    location: [],
+    emoji: '',
+  };
+
+  listPosts: any[] = [this.post];
   constructor() {}
 
   addPost(post: any) {

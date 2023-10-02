@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
@@ -8,29 +8,15 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent {
-  listPosts: any[] = [];
+  @Input() posts: any[] = [];
+  editable: boolean = false;
 
-  constructor(private postService: PostService, private router: Router) {
-    this.postService.getListPosts().subscribe((res) => {
-      this.listPosts = res;
-    });
-  }
-
-  ngOnInit() {
-    this.postService.getListPosts().subscribe((res) => {
-      this.listPosts = res;
-    });
-  }
-
-  ngOnChanges() {
-    this.postService.getListPosts().subscribe((res) => {
-      this.listPosts = res;
-    });
-  }
+  constructor(private postService: PostService, private router: Router) {}
 
   removePost(id: any) {
     this.postService.removePost(id).subscribe((res) => {
-      this.listPosts = res;
+      this.posts = res;
+      this.router.navigate(['/home']);
     });
   }
 
@@ -40,7 +26,7 @@ export class PostComponent {
 
   likePost(id: any) {
     this.postService.likePost(id).subscribe((res) => {
-      this.listPosts = res;
+      this.posts = res;
     });
   }
 

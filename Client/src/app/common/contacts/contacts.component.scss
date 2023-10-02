@@ -1,3 +1,31 @@
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  h2 {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    i {
+      font-size: 0.5rem;
+      color: #23be7e;
+      margin-left: 0.5rem;
+    }
+  }
+
+  .btn {
+    border: none;
+    outline: none;
+    i {
+      font-size: 1.5rem;
+      color: #aaa;
+    }
+  }
+}
+
 .contacts {
   background-color: #fff;
   border-radius: 10px;

@@ -1,155 +1,46 @@
-.newfeeds {
+.post {
   width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
   margin: 1rem 5px;
-  .post {
-    width: 100%;
-    background-color: #fff;
-    border-radius: 5px;
-    margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  .title-post {
+    display: flex;
+    align-items: center;
     padding: 0.5rem 1rem;
-    .title-post {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      .avatar {
-        img {
-          width: 3.5rem;
-          height: 3.5rem;
-          object-fit: cover;
-          border-radius: 50%;
-        }
-      }
-      .name {
-        a {
-          text-decoration: none;
-          font-weight: 600;
-          color: #333;
-        }
+    .avatar {
+      img {
+        width: 3.5rem;
+        height: 3.5rem;
+        object-fit: cover;
+        border-radius: 50%;
       }
     }
-
-    .content-text {
-      padding: 0.5rem 1rem;
-      word-break: break-all;
-      white-space: pre-wrap;
-    }
-
-    .list-img {
-      padding: 0.5rem 1rem;
-      .onePic {
-        width: 100%;
-        height: 30rem;
-        img {
-          width: 100%;
-          height: 100%;
-          border-radius: 10px;
-          object-fit: contain;
-        }
-      }
-
-      .twoPic {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-        img {
-          width: 100%;
-          border-radius: 10px;
-          height: 15rem;
-          object-fit: cover;
-        }
-      }
-
-      .threePic {
-        display: grid;
-        grid-template-rows: auto auto;
-        grid-template-columns: 1fr;
-        grid-gap: 10px;
-        .fullwidth {
-          grid-row: 1;
-          grid-column: 1;
-          width: 100%;
-          height: 15rem;
-          border-radius: 10px;
-          object-fit: cover;
-        }
-        .halfwidth {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-gap: 10px;
-          .item-half {
-            width: 100%;
-            height: 15rem;
-            border-radius: 10px;
-            object-fit: cover;
-          }
-        }
-      }
-
-      .fourPic {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-        img {
-          width: 100%;
-          height: 15rem;
-          border-radius: 10px;
-          object-fit: cover;
-        }
-      }
-
-      .fivePic {
-        display: grid;
-        grid-template-rows: auto auto;
-        grid-template-columns: 1fr;
-        grid-gap: 10px;
-        .firstRow {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-gap: 10px;
-          .item-half {
-            width: 100%;
-            height: 15rem;
-            border-radius: 10px;
-            object-fit: cover;
-          }
-        }
-        .secondRow {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          grid-gap: 10px;
-          .item-half {
-            width: 100%;
-            height: 15rem;
-            border-radius: 10px;
-            object-fit: cover;
-          }
-        }
-      }
-
-      .morePic {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 10px;
-        img {
-          width: 100%;
-          height: 15rem;
-          border-radius: 10px;
-          object-fit: cover;
-        }
+    .name {
+      a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #333;
       }
     }
+  }
 
-    .footer {
-      width: 100%;
+  .content-text {
+    padding: 0.5rem 1rem;
+    word-break: break-all;
+    white-space: pre-wrap;
+  }
+
+  .footer {
+    width: 100%;
+    i {
+      font-size: 1.5rem;
+      color: #aaa;
+    }
+    .btn:hover {
+      color: #0866ff;
       i {
-        font-size: 1.5rem;
-        color: #aaa;
-      }
-      .btn:hover {
         color: #0866ff;
-        i {
-          color: #0866ff;
-        }
       }
     }
   }

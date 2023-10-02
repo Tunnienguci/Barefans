@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { LocationService } from 'src/app/services/location.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -13,24 +12,24 @@ export class UpdateStatusComponent {
   time: string = new Date().toLocaleTimeString();
   imageList: any[] = [];
   videoList: any[] = [];
+  editable: boolean = true;
   searchInput: string = '';
   selectedEmoji: any;
 
-  constructor(
-    private postService: PostService,
-    private locationService: LocationService
-  ) {
+  constructor(private postService: PostService) {
     this.postForm = new FormGroup({
       content: new FormControl(''),
-      images: new FormControl(''),
-      video: new FormControl(''),
     });
   }
 
   ngOnInit() {}
 
   onFileChange(event: any) {
-    if (event.target.files && event.target.files.length > 0) {
+    if (
+      event.target.files &&
+      event.target.files.length > 0 &&
+      event.target.files.length < 7
+    ) {
       let filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         let reader = new FileReader();
@@ -65,12 +64,6 @@ export class UpdateStatusComponent {
 
   removeImg(index: any) {
     this.imageList.splice(index, 1);
-  }
-
-  searchLocation(e: any) {
-    this.locationService.searchLocation(e.target.value).subscribe((res) => {
-      this.searchInput = res.predictions[0].description;
-    });
   }
 
   onSubmit() {

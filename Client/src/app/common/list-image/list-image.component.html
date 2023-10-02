@@ -1,0 +1,19 @@
+<div class="preview" *ngIf="videoList.length > 0" [class.editable]="editable">
+  <button class="btn btn-danger" (click)="removeVideo(0)">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <video controls width="100%" src="{{ videoList[0] }}"></video>
+</div>
+
+<div class="list-img">
+  <div
+    class="img-item"
+    [class.editable]="editable"
+    *ngFor="let img of imageList | slice : 0 : 6; let idx = index"
+  >
+    <button class="btn btn-danger" (click)="removeImg(idx)">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <img src="{{ img }}" />
+  </div>
+</div>
