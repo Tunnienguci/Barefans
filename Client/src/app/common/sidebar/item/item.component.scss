@@ -1,0 +1,27 @@
+.item {
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    text-decoration: none;
+    color: #aaa;
+    i {
+      color: #aaa;
+      font-size: 1.5rem;
+    }
+    &:hover {
+      i {
+        color: #1877f2;
+      }
+    }
+  }
+
+  .active {
+    i {
+      color: #1877f2;
+    }
+  }
+}

@@ -1,0 +1,278 @@
+<div class="update-status">
+  <button
+    class="btn btn-status"
+    data-bs-toggle="modal"
+    data-bs-target="#update-status"
+  >
+    What's on you mind, Cong Tuan?
+  </button>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="update-status"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="update-statusLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <div class="profile">
+          <img src="https://picsum.photos/200/300" />
+          <div class="profile-info">
+            <h3 class="profile-info__name">Cong Tuan</h3>
+            <p class="profile-info__time">{{ time }}</p>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body border-0">
+        <form
+          class="form-group w-100"
+          [formGroup]="postForm"
+          (submit)="onSubmit()"
+        >
+          <p *ngIf="selectedEmoji?.native">
+            I'm feeling {{ selectedEmoji?.native }}
+          </p>
+          <textarea
+            class="form-control border-0"
+            rows="5"
+            placeholder="What's on you mind, Cong Tuan?"
+            formControlName="content"
+          ></textarea>
+          <div class="preview" *ngIf="videoList.length > 0">
+            <video width="100%" src="{{ videoList[0] }}"></video>
+          </div>
+          <div class="list-img">
+            <ng-container
+              *ngIf="
+                imageList.length === 1;
+                then oneImg;
+                else imageList.length === 2
+                  ? twoImg
+                  : imageList.length === 3
+                  ? threeImg
+                  : imageList.length === 4
+                  ? fourImg
+                  : imageList.length === 5
+                  ? fiveImg
+                  : more
+              "
+            >
+            </ng-container>
+
+            <ng-template #oneImg>
+              <div class="onePic">
+                <img src="{{ imageList[0] }}" alt="image" />
+              </div>
+            </ng-template>
+
+            <ng-template #twoImg>
+              <div class="twoPic">
+                <img src="{{ imageList[0] }}" alt="image" />
+                <img src="{{ imageList[1] }}" alt="image" />
+              </div>
+            </ng-template>
+
+            <ng-template #threeImg>
+              <div class="threePic">
+                <img class="fullwidth" src="{{ imageList[0] }}" />
+                <div class="halfwidth">
+                  <img class="item-half" src="{{ imageList[1] }}" />
+                  <img class="item-half" src="{{ imageList[2] }}" />
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #fourImg>
+              <div class="fourPic">
+                <img class="item-half" src="{{ imageList[0] }}" />
+                <img class="item-half" src="{{ imageList[1] }}" />
+                <img class="item-half" src="{{ imageList[2] }}" />
+                <img class="item-half" src="{{ imageList[3] }}" />
+              </div>
+            </ng-template>
+
+            <ng-template #fiveImg>
+              <div class="fivePic">
+                <div class="firstRow">
+                  <img class="item-half" src="{{ imageList[0] }}" />
+                  <img class="item-half" src="{{ imageList[1] }}" />
+                </div>
+                <div class="secondRow">
+                  <img class="item-half" src="{{ imageList[2] }}" />
+                  <img class="item-half" src="{{ imageList[3] }}" />
+                  <img class="item-half" src="{{ imageList[4] }}" />
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #more>
+              <div class="morePic">
+                <ng-container *ngFor="let img of imageList | slice : 0 : 6">
+                  <img src="{{ img }}" alt="image" />
+                </ng-container>
+              </div>
+            </ng-template>
+          </div>
+          <div id="preview"></div>
+          <div class="media-form">
+            <p>Add to your post</p>
+            <label for="removeImg" title="Remove all media">
+              <i class="fa-regular fa-xmark" style="color: #0866ff"></i>
+            </label>
+            <button
+              class="btn btn-close d-none"
+              (click)="removeImg($event)"
+              id="removeImg"
+            ></button>
+            <label for="images" title="Images"
+              ><i class="fa-regular fa-images" style="color: #45bd62"></i
+            ></label>
+            <input
+              type="file"
+              id="images"
+              name="images"
+              accept="image/png, image/jpeg"
+              class="d-none"
+              (change)="onFileChange($event)"
+              multiple
+            />
+            <label for="video" title="Video">
+              <i class="fa-solid fa-photo-film" style="color: #0866ff"></i>
+            </label>
+            <input
+              type="file"
+              id="video"
+              name="video"
+              accept="video/mp4"
+              class="d-none"
+              (change)="onVideoChange($event)"
+            />
+            <label
+              for="emoji"
+              title="Emoji"
+              data-bs-toggle="modal"
+              data-bs-target="#emojiList"
+            >
+              <i class="fa-regular fa-smile" style="color: #f7b928"></i>
+            </label>
+
+            <label
+              for="location"
+              title="Location"
+              data-bs-toggle="modal"
+              data-bs-target="#locationList"
+            >
+              <i
+                class="fa-regular fa-map-marker-alt"
+                style="color: #f5533d"
+              ></i>
+            </label>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              (submit)="onSubmit()"
+              data-bs-dismiss="modal"
+            >
+              Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Emoji-->
+<div class="modal fade" id="emojiList" data-bs-backdrop="static" tabindex="1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content emoji-dialog">
+      <emoji-mart
+        (emojiClick)="addEmoji($event)"
+        [set]="'facebook'"
+        [skin]="2"
+        [showPreview]="false"
+        [enableSearch]="false"
+      ></emoji-mart>
+      <p class="my-0 mx-2">Feeling/Activity {{ selectedEmoji?.native }}</p>
+      <div class="modal-footer border-0 mt-0">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#update-status"
+          (click)="removeEmoji()"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#update-status"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Location -->
+<div
+  class="modal fade"
+  id="locationList"
+  data-bs-backdrop="static"
+  tabindex="1"
+>
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <label for="location" class="p-2 fw-semibold">
+        <i class="fa-solid fa-map-marker-alt me-2" style="color: #f5533d"></i
+        >Check in</label
+      >
+      <input
+        type="text"
+        id="location"
+        name="location"
+        class="form-control mx-auto w-75"
+        placeholder="Search for places"
+        (keyup)="searchLocation($event)"
+      />
+      <!-- <p class="text-danger text-center my-1">
+        Feature under development, please try again later!
+      </p> -->
+      <div class="listLocation" id="listLocation"></div>
+      <div class="modal-footer border-0 mt-0">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#update-status"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

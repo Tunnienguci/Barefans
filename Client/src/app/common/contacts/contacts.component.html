@@ -1,0 +1,5 @@
+<div class="contacts">
+  <div class="friend-list" *ngFor="let item of friendList | slice : 0 : 6">
+    <app-friend [frAvatar]="item.frAvatar" [frName]="item.frName"></app-friend>
+  </div>
+</div>

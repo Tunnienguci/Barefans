@@ -1,0 +1,9 @@
+<div class="sidebar">
+  <!-- <img src="../../../assets/images/fb.webp" /> -->
+  <a [routerLink]="['/home']">
+    <i class="fa-brands fa-facebook" style="color: #0866ff"></i>
+  </a>
+  <div class="item__list" *ngFor="let item of ListMenu">
+    <app-item [icon]="item.icon" [link]="item.link"></app-item>
+  </div>
+</div>
