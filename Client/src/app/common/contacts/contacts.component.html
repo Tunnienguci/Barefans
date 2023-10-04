@@ -1,10 +1,29 @@
 <div class="title mt-5">
-  <h2>Online Contacts <i class="fa-solid fa-circle"></i></h2>
+  <h2>
+    Online Contacts
+    <i
+      class="fa-solid fa-circle"
+      [ngStyle]="{
+        color: friendList.length > 0 ? '#23be7e' : '#dc3545',
+      }"
+    ></i>
+  </h2>
   <button class="btn"><i class="fa-solid fa-ellipsis"></i></button>
 </div>
 
 <div class="contacts">
-  <div class="friend-list" *ngFor="let item of friendList | slice : 0 : 6">
-    <app-friend [frAvatar]="item.frAvatar" [frName]="item.frName"></app-friend>
-  </div>
+  <ng-container *ngIf="friendList.length > 0">
+    <div class="friend-list" *ngFor="let item of friendList | slice : 0 : 6">
+      <app-friend
+        [frAvatar]="item['frAvatar']"
+        [frName]="item['frName']"
+      ></app-friend>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="friendList.length <= 0">
+    <p class="text-center py-3 px-2 text-secondary fw-semibold">
+      <i class="mx-2 fa-solid fa-spinner fa-spin fa-spin-reverse"></i> No online
+      contacts found
+    </p>
+  </ng-container>
 </div>

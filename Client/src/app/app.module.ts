@@ -28,6 +28,17 @@ import { ClientComponent } from './pages/client/client.component';
 import { CommentComponent } from './common/comment/comment.component';
 import { CmtControlComponent } from './common/comment/cmt-control/cmt-control.component';
 import { CmtItemComponent } from './common/comment/cmt-item/cmt-item.component';
+import { ListTaskComponent } from './common/list-task/list-task.component';
+import { TaskComponent } from './common/list-task/task/task.component';
+import { ProfileComponent } from './pages/client/profile/profile.component';
+import { TimelineComponent } from './common/profile/timeline/timeline.component';
+import { AboutComponent } from './common/profile/about/about.component';
+import { PhotoComponent } from './common/profile/photo/photo.component';
+import { VideoComponent } from './common/profile/video/video.component';
+import { ReversePipe } from './pipes/reverse.pipe';
+import { AboutItemComponent } from './common/profile/timeline/about-item/about-item.component';
+import { BioComponent } from './common/profile/timeline/bio/bio.component';
+import { FormEditComponent } from './common/profile/timeline/form-edit/form-edit.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +65,17 @@ import { CmtItemComponent } from './common/comment/cmt-item/cmt-item.component';
     CommentComponent,
     CmtControlComponent,
     CmtItemComponent,
+    ListTaskComponent,
+    TaskComponent,
+    ProfileComponent,
+    TimelineComponent,
+    AboutComponent,
+    PhotoComponent,
+    VideoComponent,
+    ReversePipe,
+    AboutItemComponent,
+    BioComponent,
+    FormEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,29 @@
+<div class="timeline">
+  <div class="grid-item">
+    <div class="authentication">
+      <i class="fa-solid fa-fingerprint"></i>
+      <div class="text-mes">
+        <p>The account has been verified</p>
+        <a class="text-decoration-none">Read more</a>
+      </div>
+    </div>
+    <div class="introduction">
+      <h2>Introduction</h2>
+      <app-bio></app-bio>
+      <app-about-item></app-about-item>
+      <button
+        class="btn btn-secondary"
+        data-bs-toggle="modal"
+        data-bs-target="#editFormModal"
+      >
+        Edit Profile
+      </button>
+    </div>
+  </div>
+  <div class="grid-item">
+    <app-update-status></app-update-status>
+    <app-post [posts]="listPosts"></app-post>
+  </div>
+</div>
+
+<app-form-edit></app-form-edit>

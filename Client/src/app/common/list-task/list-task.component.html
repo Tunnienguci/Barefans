@@ -1,0 +1,15 @@
+<ng-container *ngIf="listTask.length > 0">
+  <div class="title mt-5">
+    <h2 class="position-relative">
+      Task Doing
+      <span
+        style="font-size: 0.8rem"
+        class="mx-1 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+        >{{ listTask.length }}</span
+      >
+    </h2>
+  </div>
+  <div class="list-task">
+    <app-task [tasks]="listTask"></app-task>
+  </div>
+</ng-container>

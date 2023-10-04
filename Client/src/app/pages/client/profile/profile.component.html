@@ -1,0 +1,83 @@
+<div class="profile">
+  <div class="main-info">
+    <div class="cover-img">
+      <img src="{{ coverImg }}" alt="cover image" />
+    </div>
+    <div class="infomation">
+      <div class="avatar">
+        <img src="{{ avatar }}" alt="avatar" />
+        <!-- <label for="avatar"><i class="fa-regular fa-image"></i></label>
+        <input type="file" class="d-none" id="avatar" /> -->
+        <div class="name mx-3">
+          <h2>{{ userInfo.fullName }}</h2>
+          <a class="mb-0 text-decoration-none"
+            >@{{ userInfo.account?.username }}</a
+          >
+        </div>
+      </div>
+      <div class="action">
+        <button class="btn btn-primary mx-3">
+          <i class="fa-regular fa-square-plus me-2"></i>Follow
+        </button>
+        <button class="btn btn-primary">
+          <i class="fa-regular fa-message me-2"></i>
+          Message
+        </button>
+      </div>
+    </div>
+    <div class="nav-menu">
+      <div class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/profile']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Timeline</a
+        >
+      </div>
+      <div class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/profile', 'about']"
+          [routerLinkActive]="['active']"
+          >About</a
+        >
+      </div>
+      <div class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/profile', 'friend']"
+          [routerLinkActive]="['active']"
+          >Friends</a
+        >
+      </div>
+      <div class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/profile', 'photo']"
+          [routerLinkActive]="['active']"
+          >Photos</a
+        >
+      </div>
+      <div class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/profile', 'video']"
+          [routerLinkActive]="['active']"
+          >Videos</a
+        >
+      </div>
+      <div class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/profile', 'more']"
+          [routerLinkActive]="['active']"
+          >More</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="body-info">
+    <router-outlet></router-outlet>
+  </div>
+</div>

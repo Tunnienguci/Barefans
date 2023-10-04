@@ -9,9 +9,14 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostComponent {
   @Input() posts: any[] = [];
+
   editable: boolean = false;
 
-  constructor(private postService: PostService, private router: Router) {}
+  constructor(private postService: PostService, private router: Router) {
+    this.postService.getListPosts().subscribe((data) => {
+      this.posts = data;
+    });
+  }
 
   removePost(id: any) {
     this.postService.removePost(id).subscribe((res) => {

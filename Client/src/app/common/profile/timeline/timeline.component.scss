@@ -1,0 +1,49 @@
+.timeline {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 1rem;
+  .introduction {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #fff;
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+  .authentication {
+    display: flex;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: space-around;
+    p {
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    i {
+      color: #0866ff;
+      font-size: 3rem;
+    }
+  }
+
+  .btn {
+    border: none;
+    outline: none;
+    padding: 0.5rem 1.5rem;
+    background-color: #e4e6eb;
+    color: #000;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<div class="bio">
+  <textarea
+    class="form-control"
+    rows="3"
+    [disabled]="!editBio"
+    [maxLength]="110"
+    [placeholder]="editBio ? 'Write something about yourself' : ''"
+    (input)="checkCharacter($event)"
+  ></textarea>
+  <small [hidden]="!editBio">{{ character }}/110</small>
+  <button class="btn my-2" (click)="editBioToggle()">
+    {{ editBio ? "Save" : "Edit bio" }}
+  </button>
+</div>

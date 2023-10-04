@@ -1,0 +1,119 @@
+<ng-container
+  *ngIf="user.work && user.work.position && user.work && user.work.company"
+>
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-briefcase"></i>
+    </div>
+    <div class="text">
+      <p>
+        {{ user.work.position }} at
+        <a
+          href="https://www.google.com/search?q={{ user.work.company }}"
+          target="_blank"
+          >{{ user.work.company }}</a
+        >
+      </p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.linkedin">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-brands fa-linkedin-in"></i>
+    </div>
+    <div class="text">
+      <a
+        class="fw-normal text-primary"
+        href="https://www.linkedin.com/in/{{ user.linkedin }}"
+        target="_blank"
+        >{{ user.linkedin }}</a
+      >
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.facebook">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-brands fa-facebook"></i>
+    </div>
+    <div class="text">
+      <a
+        class="fw-normal text-primary"
+        href="https://www.facebook.com/{{ user.facebook }}"
+        target="_blank"
+        >{{ user.facebook }}</a
+      >
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.instagram">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-brands fa-instagram"></i>
+    </div>
+    <div class="text">
+      <a
+        class="fw-normal text-primary"
+        href="https://www.instagram.com/{{ user.instagram }}"
+        target="_blank"
+        >{{ user.instagram }}</a
+      >
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.twitter">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-brands fa-x-twitter"></i>
+    </div>
+    <div class="text">
+      <a
+        class="fw-normal text-primary"
+        href="https://www.twitter.com/{{ user.twitter }}"
+        target="_blank"
+        >{{ user.twitter }}</a
+      >
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.hometown">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-house-chimney"></i>
+    </div>
+    <div class="text">
+      <p>
+        From
+        <a
+          href="https://www.google.com/search?q={{ user.hometown }}"
+          target="_blank"
+          >{{ user.hometown }}</a
+        >
+      </p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.live">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-location-dot"></i>
+    </div>
+    <div class="text">
+      <p>
+        Live in
+        <a
+          href="https://www.google.com/search?q={{ user.live }}"
+          target="_blank"
+          >{{ user.live }}</a
+        >
+      </p>
+    </div>
+  </div>
+</ng-container>

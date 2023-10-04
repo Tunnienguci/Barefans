@@ -1,5 +1,6 @@
-<div class="list-feed" *ngFor="let item of posts">
-  <div class="post">
+<div class="list-feed">
+  <!-- // Reverse list posts to show newest post first -->
+  <div class="post" *ngFor="let item of posts">
     <div class="title-post">
       <div class="avatar">
         <img src="{{ item.user.avatar }}" alt="avatar" />
@@ -59,7 +60,7 @@
         <i class="bi bi-hand-thumbs-up{{ item.liked ? '-fill' : '' }}"></i>
         <span
           *ngIf="item.like > 0"
-          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary my-2"
         >
           {{ item.like }}
         </span>

@@ -1,0 +1,195 @@
+<div
+  class="modal fade"
+  id="editFormModal"
+  tabindex="-1"
+  aria-labelledby="editFormModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header border-0 p-3">
+        <h5 class="text-uppercase fw-bold m-0 w-100 text-center">
+          Update Profile
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          class="form-group-profile"
+          [formGroup]="profileForm"
+          (submit)="onSubmit()"
+        >
+          <small>General</small>
+          <div class="general">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Full Name"
+              formControlName="fullName"
+              [ngStyle]="{
+                'border-color':
+                  profileForm.get('fullName')?.invalid &&
+                  profileForm.get('fullName')?.touched
+                    ? 'red'
+                    : ''
+              }"
+              [ngClass]="{
+                'is-invalid':
+                  profileForm.get('fullName')?.invalid &&
+                  profileForm.get('fullName')?.touched
+              }"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="@Username"
+              formControlName="username"
+              [disabled]="true"
+              [ngStyle]="{
+                'border-color':
+                  profileForm.get('username')?.invalid &&
+                  profileForm.get('username')?.touched
+                    ? 'red'
+                    : ''
+              }"
+              [ngClass]="{
+                'is-invalid':
+                  profileForm.get('username')?.invalid &&
+                  profileForm.get('username')?.touched
+              }"
+            />
+            <input
+              type="date"
+              class="form-control"
+              placeholder="Birthday"
+              formControlName="birthday"
+              [ngStyle]="{
+                'border-color':
+                  profileForm.get('birthday')?.invalid &&
+                  profileForm.get('birthday')?.touched
+                    ? 'red'
+                    : ''
+              }"
+              [ngClass]="{
+                'is-invalid':
+                  profileForm.get('birthday')?.invalid &&
+                  profileForm.get('birthday')?.touched
+              }"
+            />
+            <select class="form-select" formControlName-="relationship">
+              <option selected>Relationship</option>
+              <option value="single">Single</option>
+              <option value="in a relationship">In a relationship</option>
+              <option value="illusion">Illusion</option>
+              <option value="married">Married</option>
+              <option value="divorced">Divorced</option>
+              <option value="widowed">Widowed</option>
+            </select>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Hometown"
+              formControlName="hometown"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Live"
+              formControlName="live"
+            />
+          </div>
+          <small>Social Network</small>
+          <div class="social">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Facebook/Username"
+              formControlName="facebook"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Instagram/Username"
+              formControlName="instagram"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="LinkedIn/Username"
+              formControlName="linkedin"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Twitter/Username"
+              formControlName="twitter"
+            />
+          </div>
+          <small>Education</small>
+          <div class="edu">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Secondary School"
+              formControlName="secondarySchool"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="High School"
+              formControlName="highSchool"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="College/University"
+              formControlName="college"
+            />
+            <input
+              type="text"
+              class="form-control"
+              placeholder="College/University"
+              formControlName="university"
+            />
+          </div>
+          <small>Work</small>
+          <div class="work">
+            <div class="input-group" formGroupName="work">
+              <span class="input-group-text">Experience</span>
+              <input
+                type="text"
+                placeholder="Position"
+                class="form-control"
+                formControlName="position"
+              />
+              <input
+                type="text"
+                placeholder="Company"
+                class="form-control"
+                formControlName="company"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="onSubmit()"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
