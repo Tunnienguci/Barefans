@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,22 +10,31 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  coverImg =
-    'https://scontent.fhan14-3.fna.fbcdn.net/v/t1.6435-9/121063948_2794584217455057_3662184703383542093_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=19026a&_nc_ohc=MAh_VwSp49gAX_Lryh6&_nc_ht=scontent.fhan14-3.fna&oh=00_AfAjMFTJUvtPvmK9DfL5tY3WYQbXyKEncdD2wEVNs0mUJQ&oe=6543F321';
-  avatar =
-    'https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/375977329_3593526804227457_1894341850510545590_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=Qmt18iCMMrwAX_a3jo9&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBcSCvvNu9B8m5I5zi89-8cLKE4FytbVKxZXTvaU61g9g&oe=6520D370';
+  isAuth: User = {} as User;
+  currentUser: User = {} as User;
 
-  userInfo: User = {} as User;
+  constructor(
+    private loginService: LoginService,
+    private route: ActivatedRoute,
+    private userService: UserService
+  ) {
+    // Authenticated user
+    this.loginService.getUser().subscribe((data) => {
+      this.isAuth = data;
+    });
 
-  constructor(private userService: UserService) {
-    this.userService.getUser().subscribe((data) => {
-      this.userInfo = data;
+    // Get User by username
+    const id = String(this.route.snapshot.paramMap.get('id'));
+    this.userService.getUserByUsername(id).subscribe((res) => {
+      this.currentUser = res;
     });
   }
 
   ngDoCheck(): void {
-    this.userService.getUser().subscribe((data) => {
-      this.userInfo = data;
+    // Triggered when user changes
+    const id = String(this.route.snapshot.paramMap.get('id'));
+    this.userService.getUserByUsername(id).subscribe((res) => {
+      this.currentUser = res;
     });
   }
 }

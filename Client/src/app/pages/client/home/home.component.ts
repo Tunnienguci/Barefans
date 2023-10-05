@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -8,7 +9,15 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class HomeComponent {
   listPosts: any[] = [];
-  constructor(private postService: PostService) {
+  isAuth: any = {};
+  constructor(
+    private loginService: LoginService,
+    private postService: PostService
+  ) {
+    this.loginService.getUser().subscribe((data) => {
+      this.isAuth = data;
+    });
+
     this.postService.getListPosts().subscribe((res) => {
       this.listPosts = res;
     });

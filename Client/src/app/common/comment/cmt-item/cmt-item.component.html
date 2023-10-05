@@ -1,20 +1,37 @@
-<div class="cmt-item">
-  <div class="user">
-    <img
-      src="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/375977329_3593526804227457_1894341850510545590_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=Qmt18iCMMrwAX_a3jo9&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBcSCvvNu9B8m5I5zi89-8cLKE4FytbVKxZXTvaU61g9g&oe=6520D370"
-      class="user__avatar"
-    />
+<ng-container *ngFor="let item of commentList">
+  <div class="cmt-item my-2">
+    <div class="user">
+      <img src="{{ item.user.avatar }}" class="user__avatar" />
+    </div>
+    <div class="content-group">
+      <div class="content">
+        <p class="username">{{ item.user.fullName }}</p>
+        <p class="text">{{ item.content }}</p>
+      </div>
+      <small class="ms-4">{{ calculateTime(item.time) }}</small>
+    </div>
+    <div class="action ms-auto dropdown-center">
+      <button
+        class="btn dropdown-toggle border-0"
+        data-bs-toggle="dropdown"
+        aria-expanded="true"
+      >
+        <i class="fa-solid fa-ellipsis"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <button class="dropdown-item" (click)="removeComment(item.id)">
+            <i class="fa-regular fa-square-minus mx-3"></i>
+            Delete
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item">
+            <i class="fa-regular fa-edit mx-3"></i>
+            Edit
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="content">
-    <p class="username">Cong Tuan</p>
-    <p class="text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque veritatis
-      dolores delectus, fugiat quos adipisci tempora minima, facere minus itaque
-      saepe officiis deserunt quas velit provident perferendis suscipit tenetur
-      dignissimos.
-    </p>
-  </div>
-</div>
-<div class="footer text-end mx-3">
-  <small>12 minutes ago</small>
-</div>
+</ng-container>

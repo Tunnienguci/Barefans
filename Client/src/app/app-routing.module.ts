@@ -12,18 +12,22 @@ import { AboutComponent } from './common/profile/about/about.component';
 import { FriendComponent } from './common/profile/friend/friend.component';
 import { PhotoComponent } from './common/profile/photo/photo.component';
 import { VideoComponent } from './common/profile/video/video.component';
+import { authGuard } from './helpers/auth.guard';
+import { FormEditComponent } from './common/profile/timeline/form-edit/form-edit.component';
+import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ClientComponent,
+    canActivate: [authGuard],
     children: [
       {
-        path: 'home',
+        path: '',
         component: HomeComponent,
       },
       {
-        path: 'post',
+        path: 'post/:id',
         component: PostDetailComponent,
       },
       {
@@ -35,7 +39,7 @@ const routes: Routes = [
         component: WatchComponent,
       },
       {
-        path: 'profile',
+        path: 'profile/:id',
         component: ProfileComponent,
         children: [
           {
@@ -47,16 +51,21 @@ const routes: Routes = [
             component: AboutComponent,
           },
           {
-            path: 'friend',
+            path: 'friends',
             component: FriendComponent,
           },
           {
-            path: 'photo',
+            path: 'photos',
             component: PhotoComponent,
           },
           {
-            path: 'video',
+            path: 'videos',
             component: VideoComponent,
+          },
+          {
+            path: '**',
+            redirectTo: '',
+            pathMatch: 'full',
           },
         ],
       },
@@ -65,6 +74,15 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'update-profile',
+    component: UpdateProfileComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
   },
 ];
 

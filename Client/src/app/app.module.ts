@@ -35,10 +35,10 @@ import { TimelineComponent } from './common/profile/timeline/timeline.component'
 import { AboutComponent } from './common/profile/about/about.component';
 import { PhotoComponent } from './common/profile/photo/photo.component';
 import { VideoComponent } from './common/profile/video/video.component';
-import { ReversePipe } from './pipes/reverse.pipe';
 import { AboutItemComponent } from './common/profile/timeline/about-item/about-item.component';
 import { BioComponent } from './common/profile/timeline/bio/bio.component';
 import { FormEditComponent } from './common/profile/timeline/form-edit/form-edit.component';
+import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 
 @NgModule({
   declarations: [
@@ -72,10 +72,10 @@ import { FormEditComponent } from './common/profile/timeline/form-edit/form-edit
     AboutComponent,
     PhotoComponent,
     VideoComponent,
-    ReversePipe,
     AboutItemComponent,
     BioComponent,
     FormEditComponent,
+    UpdateProfileComponent,
   ],
   imports: [
     BrowserModule,

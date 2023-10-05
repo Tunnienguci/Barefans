@@ -9,14 +9,11 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostComponent {
   @Input() posts: any[] = [];
+  @Input() isAuth: any = {};
 
   editable: boolean = false;
 
-  constructor(private postService: PostService, private router: Router) {
-    this.postService.getListPosts().subscribe((data) => {
-      this.posts = data;
-    });
-  }
+  constructor(private postService: PostService, private router: Router) {}
 
   removePost(id: any) {
     this.postService.removePost(id).subscribe((res) => {
@@ -26,7 +23,7 @@ export class PostComponent {
   }
 
   openLink(link: any) {
-    this.router.navigate(['/post'], { queryParams: { id: link } });
+    this.router.navigate(['/post', link]);
   }
 
   likePost(id: any) {
@@ -45,7 +42,7 @@ export class PostComponent {
     const month = day * 30;
 
     if (timeAgo < minute) {
-      return `${Math.floor(timeAgo / 1000)} seconds ago`;
+      return `${Math.floor(timeAgo / 1000) + 1} seconds ago`;
     } else if (timeAgo < hour) {
       const minutes = Math.floor(timeAgo / minute);
       return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
@@ -62,12 +59,6 @@ export class PostComponent {
   }
 
   copyLink(link: any) {
-    navigator.clipboard.writeText('http://localhost:4200/post?id=' + link);
-  }
-
-  ngOnDestroy() {
-    //Unsubscribe to prevent memory leak
-    this.postService.getListPosts().subscribe().unsubscribe();
-    this.postService.removePost('').subscribe().unsubscribe();
+    this.router.navigate(['/post', link]);
   }
 }

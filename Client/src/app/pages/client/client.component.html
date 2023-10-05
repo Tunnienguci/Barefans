@@ -2,7 +2,7 @@
 <div class="container-group">
   <app-sidebar></app-sidebar>
   <div class="content">
-    <app-header></app-header>
+    <app-header [isAuth]="user"></app-header>
     <div class="page">
       <router-outlet></router-outlet>
     </div>

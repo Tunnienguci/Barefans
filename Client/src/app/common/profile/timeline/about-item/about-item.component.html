@@ -18,6 +18,102 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="user.secondarySchool">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-school-flag"></i>
+    </div>
+    <div class="text">
+      <p>
+        Studied at
+        <a
+          href="https://www.google.com/search?q={{
+            user.secondarySchool
+          }}secondary school"
+          target="_blank"
+          >{{ user.secondarySchool }}</a
+        >
+        secondary school
+      </p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.highSchool">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-school"></i>
+    </div>
+    <div class="text">
+      <p>
+        Studied at
+        <a
+          href="https://www.google.com/search?q={{
+            user.highSchool
+          }}high school"
+          target="_blank"
+          >{{ user.highSchool }}</a
+        >
+        high school
+      </p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.college">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-graduation-cap"></i>
+    </div>
+    <div class="text">
+      <p>
+        Studied at
+        <a
+          href="https://www.google.com/search?q={{ user.college }} college"
+          target="_blank"
+          >{{ user.college }}</a
+        >
+        college
+      </p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.university">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-building-columns"></i>
+    </div>
+    <div class="text">
+      <p>
+        Studied at
+        <a
+          href="https://www.google.com/search?q={{
+            user.university
+          }} university"
+          target="_blank"
+          >{{ user.university }}</a
+        >
+        university
+      </p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.birthday">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-cake-candles"></i>
+    </div>
+    <div class="text">
+      <p>
+        Born on
+        {{ user.birthday | date }}
+      </p>
+    </div>
+  </div>
+</ng-container>
+
 <ng-container *ngIf="user.linkedin">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
@@ -113,6 +209,19 @@
           target="_blank"
           >{{ user.live }}</a
         >
+      </p>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="user.relationship">
+  <div class="about">
+    <div class="icon d-flex align-items-center justify-content-center">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+    <div class="text">
+      <p>
+        {{ user.relationship }}
       </p>
     </div>
   </div>

@@ -1,17 +1,15 @@
 <div class="profile">
   <div class="main-info">
     <div class="cover-img">
-      <img src="{{ coverImg }}" alt="cover image" />
+      <img src="../../../../assets/images/bg.webp" alt="cover image" />
     </div>
     <div class="infomation">
       <div class="avatar">
-        <img src="{{ avatar }}" alt="avatar" />
-        <!-- <label for="avatar"><i class="fa-regular fa-image"></i></label>
-        <input type="file" class="d-none" id="avatar" /> -->
+        <img src="{{ currentUser.avatar }}" alt="avatar" />
         <div class="name mx-3">
-          <h2>{{ userInfo.fullName }}</h2>
+          <h2>{{ currentUser.fullName }}</h2>
           <a class="mb-0 text-decoration-none"
-            >@{{ userInfo.account?.username }}</a
+            >@{{ currentUser.account.username }}</a
           >
         </div>
       </div>
@@ -29,7 +27,7 @@
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile']"
+          [routerLink]="['/profile', isAuth.account.username]"
           [routerLinkActive]="['active']"
           [routerLinkActiveOptions]="{ exact: true }"
           >Timeline</a
@@ -38,7 +36,7 @@
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile', 'about']"
+          [routerLink]="['about']"
           [routerLinkActive]="['active']"
           >About</a
         >
@@ -46,7 +44,7 @@
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile', 'friend']"
+          [routerLink]="['friends']"
           [routerLinkActive]="['active']"
           >Friends</a
         >
@@ -54,7 +52,7 @@
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile', 'photo']"
+          [routerLink]="['photos']"
           [routerLinkActive]="['active']"
           >Photos</a
         >
@@ -62,7 +60,7 @@
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile', 'video']"
+          [routerLink]="['videos']"
           [routerLinkActive]="['active']"
           >Videos</a
         >
@@ -70,7 +68,7 @@
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile', 'more']"
+          [routerLink]="['more']"
           [routerLinkActive]="['active']"
           >More</a
         >

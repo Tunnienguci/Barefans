@@ -1,29 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import posts from '../data/post.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  post = {
-    id: 340211440328772350,
-    like: 0,
-    comment: [],
-    user: {
-      name: 'Cong Tuan',
-      avatar:
-        'https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/375977329_3593526804227457_1894341850510545590_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=Qmt18iCMMrwAX_a3jo9&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBcSCvvNu9B8m5I5zi89-8cLKE4FytbVKxZXTvaU61g9g&oe=6520D370',
-    },
-    liked: false,
-    content: "I'm Cong Tuan",
-    images: [],
-    video: [],
-    time: new Date().toDateString() + ' ' + new Date().toLocaleTimeString(),
-    location: [],
-    emoji: '',
-  };
+  listPosts: any[] = [...posts];
 
-  listPosts: any[] = [this.post];
   constructor() {}
 
   addPost(post: any) {
@@ -39,7 +23,7 @@ export class PostService {
   getPostByUser(id: any): Observable<any> {
     return new Observable((observer) => {
       const filteredPosts = this.listPosts.filter(
-        (post) => post.user.id === id
+        (post) => post.user.account.username === id
       );
       observer.next(filteredPosts);
       observer.complete();
@@ -54,7 +38,7 @@ export class PostService {
   }
 
   likePost(id: any): Observable<any> {
-    return new Observable((observer) => {
+    return new Observable(() => {
       this.listPosts = this.listPosts.map((post) => {
         if (post.id === id) {
           post.liked = !post.liked;
@@ -62,15 +46,48 @@ export class PostService {
         }
         return post;
       });
-      observer.next(this.listPosts);
     });
   }
 
-  postDetail(id: any): Observable<any> {
+  getPostById(id: any): Observable<any> {
     return new Observable((observer) => {
       const filteredPosts = this.listPosts.filter((post) => post.id === id);
       observer.next(filteredPosts);
       observer.complete();
+    });
+  }
+
+  getListComments(id: any): Observable<any> {
+    return new Observable((observer) => {
+      const filteredPosts = this.listPosts.filter((post) => post.id === id);
+      observer.next(filteredPosts[0].comment);
+      observer.complete();
+    });
+  }
+
+  addComment(id: any, comment: any): Observable<any> {
+    return new Observable((observer) => {
+      this.listPosts = this.listPosts.map((post) => {
+        if (post.id === id) {
+          post.comment.push(comment);
+        }
+        return post;
+      });
+      observer.next(this.listPosts);
+    });
+  }
+
+  removeComment(postId: any, commentId: any): Observable<any> {
+    return new Observable((observer) => {
+      this.listPosts = this.listPosts.map((post) => {
+        if (post.id === postId) {
+          post.comment = post.comment.filter(
+            (comment: any) => comment.id !== commentId
+          );
+        }
+        return post;
+      });
+      observer.next(this.listPosts);
     });
   }
 }

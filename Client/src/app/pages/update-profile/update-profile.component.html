@@ -1,0 +1,161 @@
+<div class="modal-dialog modal-dialog-centered modal-xl">
+  <div class="modal-content">
+    <div class="modal-header border-0 p-3">
+      <h3 class="text-uppercase fw-bold m-0 w-100 text-center">
+        Welcome to <span class="text-primary">Social</span> Network
+      </h3>
+    </div>
+    <form [formGroup]="profileForm" (submit)="onSubmit()">
+      <div class="modal-body">
+        <div class="grid-item">
+          <div class="avatar">
+            <img src="{{ avatarImg }}" />
+            <label for="avatar"><i class="fa-regular fa-image"></i></label>
+            <input
+              type="file"
+              class="d-none"
+              id="avatar"
+              (click)="onFileChange($event)"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="Facebook" class="mb-1">Facebook</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Facebook"
+              formControlName="facebook"
+              placeholder="Enter your Facebook"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="Instagram" class="mb-1">Instagram</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Instagram"
+              formControlName="instagram"
+              placeholder="Enter your Instagram"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="SecondarySchool" class="mb-1">Secondary School</label>
+            <input
+              type="text"
+              class="form-control"
+              id="SecondarySchool"
+              formControlName="secondarySchool"
+              placeholder="Enter your Secondary School"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="HighSchool" class="mb-1">High School</label>
+            <input
+              type="text"
+              class="form-control"
+              id="HighSchool"
+              formControlName="highSchool"
+              placeholder="Enter your High School"
+            />
+          </div>
+          <div class="input-group" formGroupName="work">
+            <span class="input-group-text">Experience</span>
+            <input
+              type="text"
+              placeholder="Position"
+              class="form-control"
+              formControlName="position"
+            />
+            <input
+              type="text"
+              placeholder="Company"
+              class="form-control"
+              formControlName="company"
+            />
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="form-group">
+            <label for="fullname" class="mb-1">Fullname</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullname"
+              formControlName="fullName"
+              placeholder="Enter your fullname"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="birthday" class="mb-1">Birthday</label>
+            <input
+              type="date"
+              class="form-control"
+              id="birthday"
+              formControlName="birthday"
+              placeholder="Enter your Birthday"
+            />
+          </div>
+          <div class="form-group">
+            <label for="Relationship" class="mb-1">Relationship</label>
+            <select
+              id="Relationship"
+              class="form-select"
+              formControlName="relationship"
+            >
+              <option value="">Select Relationship</option>
+              <option value="Single">Single</option>
+              <option value="In a relationship">In a relationship</option>
+              <option value="Illusion">Illusion</option>
+              <option value="Married">Married</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widowed">Widowed</option>
+            </select>
+          </div>
+          <div class="form-group my-3">
+            <label for="LinkedIn" class="mb-1">LinkedIn</label>
+            <input
+              type="text"
+              class="form-control"
+              id="LinkedIn"
+              formControlName="linkedin"
+              placeholder="Enter your LinkedIn"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="Twitter" class="mb-1">Twitter</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Twitter"
+              formControlName="twitter"
+              placeholder="Enter your Twitter"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="College" class="mb-1">College</label>
+            <input
+              type="text"
+              class="form-control"
+              id="College"
+              placeholder="Enter your College"
+              formControlName="college"
+            />
+          </div>
+          <div class="form-group my-4">
+            <label for="University" class="mb-1">University</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="university"
+              id="University"
+              placeholder="Enter your University"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+            Update changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

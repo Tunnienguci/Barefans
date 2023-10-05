@@ -4,7 +4,8 @@
     data-bs-toggle="modal"
     data-bs-target="#update-status"
   >
-    What's on you mind, Cong Tuan?
+    What's on you mind,
+    {{ isAuth && isAuth.fullName ? isAuth.fullName : "Unknown" }}?
   </button>
 </div>
 
@@ -22,11 +23,11 @@
     <div class="modal-content">
       <div class="modal-header border-0">
         <div class="profile">
-          <img
-            src="https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/375977329_3593526804227457_1894341850510545590_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=Qmt18iCMMrwAX_a3jo9&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBcSCvvNu9B8m5I5zi89-8cLKE4FytbVKxZXTvaU61g9g&oe=6520D370"
-          />
+          <img src="{{ isAuth && isAuth.avatar ? isAuth.avatar : ava }}" />
           <div class="profile-info">
-            <h3 class="profile-info__name">Cong Tuan</h3>
+            <h3 class="profile-info__name">
+              {{ isAuth && isAuth.fullName ? isAuth.fullName : "Unknown" }}
+            </h3>
             <p class="profile-info__time">{{ time }}</p>
           </div>
         </div>
@@ -49,7 +50,9 @@
           <textarea
             class="form-control border-0"
             rows="5"
-            placeholder="What's on you mind, Cong Tuan?"
+            placeholder="What's on you mind, {{
+              isAuth && isAuth.fullName ? isAuth.fullName : 'Unknown'
+            }}?"
             formControlName="content"
           ></textarea>
 

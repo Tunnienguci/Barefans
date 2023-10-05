@@ -7,7 +7,9 @@
       </div>
       <div class="info mx-3">
         <div class="name d-flex flex-column">
-          <a href="">{{ item.user.name }}</a>
+          <a [routerLink]="['/profile', item.user.account.username]">{{
+            item.user.fullName
+          }}</a>
           <small>{{ calculateTime(item.time) }}</small>
         </div>
       </div>
@@ -20,18 +22,22 @@
           <i class="fa-solid fa-ellipsis"></i>
         </button>
         <ul class="dropdown-menu">
-          <li>
-            <button class="dropdown-item" (click)="removePost(item.id)">
-              <i class="fa-regular fa-square-minus mx-3"></i>
-              Delete
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item">
-              <i class="fa-regular fa-edit mx-3"></i>
-              Edit
-            </button>
-          </li>
+          <!-- <ng-container
+            *ngIf="item.user.account.username == isAuth.account.username"
+          >
+            <li>
+              <button class="dropdown-item" (click)="removePost(item.id)">
+                <i class="fa-regular fa-square-minus mx-3"></i>
+                Delete
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                <i class="fa-regular fa-edit mx-3"></i>
+                Edit
+              </button>
+            </li>
+          </ng-container> -->
           <li>
             <button class="dropdown-item" (click)="openLink(item.id)">
               <i class="fa-regular fa-copy mx-3"></i>
@@ -52,7 +58,7 @@
       [editable]="editable"
     ></app-list-image>
 
-    <div class="footer d-flex justify-content-end p-1">
+    <div class="footer d-flex justify-content-end p-1 my-2">
       <button
         class="btn border-0 position-relative"
         (click)="likePost(item.id)"
@@ -66,19 +72,24 @@
         </span>
       </button>
       <button
+        data-bs-toggle="collapse"
+        [attr.data-bs-target]="'#collapseComment' + item.id"
+        aria-expanded="false"
+        [attr.aria-controls]="'collapseComment' + item.id"
         class="btn border-0 mx-2 position-relative"
-        (click)="openLink(item.id)"
       >
         <i class="bi bi-chat-right-quote"></i>
-        <span *ngIf="item.comment.length > 0" class="badge bg-secondary">
-          {{ item.comment }}
-          class="position-absolute top-0 start-100 translate-middle badge
-          rounded-pill bg-danger" > {{ item.comment.length }}
+        <span
+          *ngIf="item.comment.length > 0"
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary my-2"
+        >
+          {{ item.comment.length }}
         </span>
       </button>
       <button class="btn border-0" (click)="copyLink(item.id)">
         <i class="bi bi-share"></i>
       </button>
     </div>
+    <app-comment [id]="item.id"></app-comment>
   </div>
 </div>

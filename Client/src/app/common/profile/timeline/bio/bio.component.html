@@ -6,9 +6,15 @@
     [maxLength]="110"
     [placeholder]="editBio ? 'Write something about yourself' : ''"
     (input)="checkCharacter($event)"
+    [value]="bio"
+    [style.display]="bio.length == 0 && !editBio ? 'none' : 'block'"
   ></textarea>
   <small [hidden]="!editBio">{{ character }}/110</small>
-  <button class="btn my-2" (click)="editBioToggle()">
+  <button
+    class="btn my-2"
+    (click)="editBioToggle()"
+    [ngClass]="{ 'd-none': !permission }"
+  >
     {{ editBio ? "Save" : "Edit bio" }}
   </button>
 </div>

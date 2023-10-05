@@ -46,13 +46,16 @@
         cursor: pointer;
       }
       .btn {
-        background: transparent;
-        border: none;
+        background: #1877f2;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.8rem;
         i {
-          color: #aaa;
+          color: #fff;
         }
         &:hover {
-          background: transparent;
+          background: rgba(21, 106, 224, 0.404);
+          color: #1877f2;
           i {
             color: #1877f2;
           }

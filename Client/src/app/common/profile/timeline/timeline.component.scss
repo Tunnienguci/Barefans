@@ -18,16 +18,16 @@
     padding: 1rem;
     border-radius: 0.5rem;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     p {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 700;
-      text-transform: uppercase;
+      text-transform: capitalize;
       margin: 0;
     }
     i {
-      color: #0866ff;
       font-size: 3rem;
+      margin-right: 1rem;
     }
   }
 

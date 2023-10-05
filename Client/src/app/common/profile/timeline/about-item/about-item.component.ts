@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -10,14 +11,18 @@ import { UserService } from 'src/app/services/user.service';
 export class AboutItemComponent {
   user: User = {} as User;
 
-  constructor(private userService: UserService) {
-    this.userService.getUser().subscribe((data) => {
+  constructor(private userService: UserService, private route: ActivatedRoute) {
+    const id = String(this.route.snapshot.paramMap.get('id'));
+
+    this.userService.getUserByUsername(id).subscribe((data) => {
       this.user = data;
     });
   }
 
   ngDoCheck(): void {
-    this.userService.getUser().subscribe((data) => {
+    const id = String(this.route.snapshot.paramMap.get('id'));
+
+    this.userService.getUserByUsername(id).subscribe((data) => {
       this.user = data;
     });
   }

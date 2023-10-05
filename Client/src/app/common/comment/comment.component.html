@@ -1,6 +1,11 @@
-<div class="comment">
-  <div class="cmt__list">
-    <app-cmt-item></app-cmt-item>
+<div class="collapse" id="collapseComment{{ id }}">
+  <div class="comment">
+    <div class="cmt__list">
+      <app-cmt-item
+        (removeCmt)="removeComment($event)"
+        [commentList]="commentList"
+      ></app-cmt-item>
+    </div>
+    <app-cmt-control [postId]="id"></app-cmt-control>
   </div>
-  <app-cmt-control></app-cmt-control>
 </div>

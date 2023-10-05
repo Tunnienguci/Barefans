@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -9,9 +9,11 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./form-edit.component.scss'],
 })
 export class FormEditComponent {
+  @Input() userInfo: User = {} as User;
+
   profileForm = this.fb.group({
     fullName: ['', [Validators.required]],
-    username: [''],
+    username: ['', [Validators.required]],
     birthday: [''],
     hometown: [''],
     live: [''],
@@ -30,19 +32,59 @@ export class FormEditComponent {
     }),
   });
 
-  userInfo: User = {} as User;
-
-  constructor(public fb: FormBuilder, private userService: UserService) {
-    this.userService.getUser().subscribe((data) => {
-      this.userInfo = data;
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.profileForm.patchValue({
+      fullName: this.userInfo.fullName,
+      birthday: this.userInfo.birthday?.split('/').reverse().join('-'),
+      hometown: this.userInfo.hometown,
+      live: this.userInfo.live,
+      relationship: this.userInfo.relationship,
+      facebook: this.userInfo.facebook,
+      twitter: this.userInfo.twitter,
+      instagram: this.userInfo.instagram,
+      linkedin: this.userInfo.linkedin,
+      secondarySchool: this.userInfo.secondarySchool,
+      highSchool: this.userInfo.highSchool,
+      college: this.userInfo.college,
+      university: this.userInfo.university,
+      work: {
+        company: this.userInfo.work?.company,
+        position: this.userInfo.work?.position,
+      },
+      username: this.userInfo.account?.username,
     });
+  }
 
-    this.profileForm.patchValue(this.userInfo);
+  ngOnInit(): void {
+    this.profileForm.patchValue({
+      fullName: this.userInfo.fullName,
+      birthday: this.userInfo.birthday?.split('/').reverse().join('-'),
+      hometown: this.userInfo.hometown,
+      live: this.userInfo.live,
+      relationship: this.userInfo.relationship,
+      facebook: this.userInfo.facebook,
+      twitter: this.userInfo.twitter,
+      instagram: this.userInfo.instagram,
+      linkedin: this.userInfo.linkedin,
+      secondarySchool: this.userInfo.secondarySchool,
+      highSchool: this.userInfo.highSchool,
+      college: this.userInfo.college,
+      university: this.userInfo.university,
+      work: {
+        company: this.userInfo.work?.company,
+        position: this.userInfo.work?.position,
+      },
+      username: this.userInfo.account?.username,
+    });
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      this.userService.updateUser(this.profileForm.value as any).subscribe();
+      const data = {
+        ...this.userInfo,
+        ...this.profileForm.value,
+      };
+      this.userService.updateUser(data as any).subscribe();
     }
   }
 }
