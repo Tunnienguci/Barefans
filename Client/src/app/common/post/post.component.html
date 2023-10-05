@@ -22,7 +22,7 @@
           <i class="fa-solid fa-ellipsis"></i>
         </button>
         <ul class="dropdown-menu">
-          <!-- <ng-container
+          <ng-container
             *ngIf="item.user.account.username == isAuth.account.username"
           >
             <li>
@@ -31,13 +31,13 @@
                 Delete
               </button>
             </li>
-            <li>
+            <!-- <li>
               <button class="dropdown-item">
                 <i class="fa-regular fa-edit mx-3"></i>
                 Edit
               </button>
-            </li>
-          </ng-container> -->
+            </li> -->
+          </ng-container>
           <li>
             <button class="dropdown-item" (click)="openLink(item.id)">
               <i class="fa-regular fa-copy mx-3"></i>
