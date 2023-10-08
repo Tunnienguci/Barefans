@@ -19,6 +19,10 @@
     .username {
       font-weight: 600;
       margin-bottom: 0;
+      cursor: pointer;
+      &:hover {
+        color: #0866ff;
+      }
     }
     .text {
       margin: 0;

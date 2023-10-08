@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-contacts',
@@ -6,11 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./contacts.component.scss'],
 })
 export class ContactsComponent {
-  friendList: any[] = [
-    // {
-    //   frName: 'Nguyễn Văn A',
-    //   frAvatar: 'https://picsum.photos/200/300',
-    // },
-  ];
+  @Input() friends: any[] = [];
+
   constructor() {}
 }

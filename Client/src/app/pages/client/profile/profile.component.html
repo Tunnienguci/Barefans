@@ -1,80 +1,95 @@
-<app-loading [isLoading]="isLoading"></app-loading>
-<div class="profile">
-  <div class="main-info">
-    <div class="cover-img">
-      <img src="../../../../assets/images/bg.webp" alt="cover image" />
-    </div>
-    <div class="infomation">
-      <div class="avatar">
-        <img src="{{ currentUser.avatar }}" alt="avatar" />
-        <div class="name mx-3">
-          <h2>{{ currentUser.fullName }}</h2>
-          <a class="mb-0 text-decoration-none">@{{ currentUser.username }}</a>
+<ng-container *ngIf="currentUser">
+  <app-loading [isLoading]="isLoading"></app-loading>
+  <div class="profile">
+    <div class="main-info">
+      <div class="cover-img">
+        <img src="../../../../assets/images/bg.webp" alt="cover image" />
+      </div>
+      <div class="infomation">
+        <div class="avatar">
+          <ng-container *ngIf="currentUser">
+            <img [src]="currentUser.avatar" alt="avatar" />
+          </ng-container>
+          <div class="name mx-3">
+            <h2>{{ currentUser.fullName }}</h2>
+            <a class="mb-0 text-decoration-none">@{{ currentUser.username }}</a>
+          </div>
+        </div>
+        <div class="action" *ngIf="myUser.username !== currentUser.username">
+          <ng-container *ngIf="findRequest()">
+            <button class="btn btn-secondary mx-3">
+              <i class="fa-regular fa-square-plus me-2"></i>
+              Requested
+            </button>
+          </ng-container>
+          <ng-container *ngIf="!findRequest()">
+            <button class="btn btn-primary mx-3" (click)="followUser()">
+              <i class="fa-regular fa-square-plus me-2"></i>
+              Follow
+            </button>
+          </ng-container>
+
+          <button class="btn btn-primary">
+            <i class="fa-regular fa-message me-2"></i>
+            Message
+          </button>
         </div>
       </div>
-      <div class="action">
-        <button class="btn btn-primary mx-3">
-          <i class="fa-regular fa-square-plus me-2"></i>Follow
-        </button>
-        <button class="btn btn-primary">
-          <i class="fa-regular fa-message me-2"></i>
-          Message
-        </button>
+
+      <div class="nav-menu">
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/profile', currentUser.username]"
+            [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Timeline</a
+          >
+        </div>
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['about']"
+            [routerLinkActive]="['active']"
+            >About</a
+          >
+        </div>
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['friends']"
+            [routerLinkActive]="['active']"
+            >Friends</a
+          >
+        </div>
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['photos']"
+            [routerLinkActive]="['active']"
+            >Photos</a
+          >
+        </div>
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['videos']"
+            [routerLinkActive]="['active']"
+            >Videos</a
+          >
+        </div>
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['more']"
+            [routerLinkActive]="['active']"
+            >More</a
+          >
+        </div>
       </div>
     </div>
-    <div class="nav-menu">
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/profile', currentUser.username]"
-          [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Timeline</a
-        >
-      </div>
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['about']"
-          [routerLinkActive]="['active']"
-          >About</a
-        >
-      </div>
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['friends']"
-          [routerLinkActive]="['active']"
-          >Friends</a
-        >
-      </div>
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['photos']"
-          [routerLinkActive]="['active']"
-          >Photos</a
-        >
-      </div>
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['videos']"
-          [routerLinkActive]="['active']"
-          >Videos</a
-        >
-      </div>
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['more']"
-          [routerLinkActive]="['active']"
-          >More</a
-        >
-      </div>
+    <div class="body-info">
+      <router-outlet></router-outlet>
     </div>
   </div>
-  <div class="body-info">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+</ng-container>

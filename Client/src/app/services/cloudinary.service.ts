@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Cloudinary } from '@cloudinary/url-gen';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

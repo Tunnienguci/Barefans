@@ -69,12 +69,9 @@ const userSchema = new Schema({
 			ref: "Post",
 		},
 	],
-	albums: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: "Album",
-		},
-	],
+	albums: {
+		type: Array,
+	},
 	friends: [
 		{
 			type: Schema.Types.ObjectId,
@@ -83,18 +80,14 @@ const userSchema = new Schema({
 	],
 	requests: [
 		{
-			sendRequest: [
-				{
-					type: Schema.Types.ObjectId,
-					ref: "User",
-				},
-			],
-			receiveRequest: [
-				{
-					type: Schema.Types.ObjectId,
-					ref: "User",
-				},
-			],
+			sendRequest: {
+				type: Schema.Types.ObjectId,
+				ref: "User",
+			},
+			receiveRequest: {
+				type: Schema.Types.ObjectId,
+				ref: "User",
+			},
 			status: {
 				type: Boolean,
 				default: false,

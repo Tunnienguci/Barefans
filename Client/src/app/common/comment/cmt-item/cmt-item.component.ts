@@ -7,7 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class CmtItemComponent {
   @Input() postId: any;
-  @Input() commentList: any[] = [];
+  @Input() commentList: any;
+  @Input() myUser: any;
   @Output() removeCmt = new EventEmitter<any>();
 
   calculateTime(time: any) {

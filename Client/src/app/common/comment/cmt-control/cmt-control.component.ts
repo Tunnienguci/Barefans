@@ -22,11 +22,12 @@ export class CmtControlComponent {
   onSubmit() {
     if (this.formComment.valid) {
       const comment = {
-        id: Date.now(),
+        id: this.postId,
         user: this.myUser,
         content: this.formComment.value.comment,
-        time: new Date().toDateString() + ' ' + new Date().toLocaleTimeString(),
       };
+      this.postService.commentPost(comment);
+      this.formComment.reset();
     }
   }
 }

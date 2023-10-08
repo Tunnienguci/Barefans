@@ -53,11 +53,13 @@
         ></i>
         Logout
       </button>
-      <img
-        src="{{ myUser.avatar }}"
-        class="img-avatar"
-        [routerLink]="['profile/', myUser.username]"
-      />
+      <ng-container *ngIf="myUser">
+        <img
+          [src]="myUser.avatar"
+          class="img-avatar"
+          [routerLink]="['profile/', myUser.username]"
+        />
+      </ng-container>
     </div>
   </div>
 </div>

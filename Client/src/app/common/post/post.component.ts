@@ -17,8 +17,16 @@ export class PostComponent {
 
   constructor(private postService: PostService) {}
 
+  checkStatusLike(arr: any) {
+    const index = arr.findIndex((item: any) => item === this.myUser._id);
+    if (index > -1) {
+      return true;
+    }
+    return false;
+  }
+
   removePost(id: any) {
-    this.postService.removePost(id);
+    this.postService.removePost(id, this.myUser.username);
   }
 
   openLink(link: any) {
@@ -26,7 +34,7 @@ export class PostComponent {
   }
 
   likePost(id: any) {
-    this.postService.likePost(id, this.userName);
+    this.postService.likePost(id, this.myUser._id, this.myUser.username);
   }
 
   calculateTime(time: any) {

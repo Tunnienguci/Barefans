@@ -5,12 +5,17 @@
     </div>
     <div class="content-group">
       <div class="content">
-        <p class="username">{{ item.user.fullName }}</p>
+        <p class="username" [routerLink]="['/profile', item.user.username]">
+          {{ item.user.fullName }}
+        </p>
         <p class="text">{{ item.content }}</p>
       </div>
       <small class="ms-4">{{ calculateTime(item.time) }}</small>
     </div>
-    <div class="action ms-auto dropdown-center">
+    <div
+      class="action ms-auto dropdown-center"
+      *ngIf="item.user.username === myUser.username"
+    >
       <button
         class="btn dropdown-toggle border-0"
         data-bs-toggle="dropdown"
@@ -23,12 +28,6 @@
           <button class="dropdown-item" (click)="removeComment(item.id)">
             <i class="fa-regular fa-square-minus mx-3"></i>
             Delete
-          </button>
-        </li>
-        <li>
-          <button class="dropdown-item">
-            <i class="fa-regular fa-edit mx-3"></i>
-            Edit
           </button>
         </li>
       </ul>

@@ -61,12 +61,16 @@
         class="btn border-0 position-relative"
         (click)="likePost(item._id)"
       >
-        <i class="bi bi-hand-thumbs-up{{ item.liked ? '-fill' : '' }}"></i>
+        <i
+          class="bi bi-hand-thumbs-up{{
+            checkStatusLike(item.like) ? '-fill' : ''
+          }}"
+        ></i>
         <span
-          *ngIf="item.like > 0"
+          *ngIf="item.like.length > 0"
           class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary my-2"
         >
-          {{ item.like }}
+          {{ item.like.length }}
         </span>
       </button>
       <button
@@ -88,6 +92,10 @@
         <i class="bi bi-share"></i>
       </button>
     </div>
-    <app-comment [id]="item._id" [myUser]="myUser"></app-comment>
+    <app-comment
+      [id]="item._id"
+      [myUser]="myUser"
+      [commentList]="item.comment"
+    ></app-comment>
   </div>
 </div>

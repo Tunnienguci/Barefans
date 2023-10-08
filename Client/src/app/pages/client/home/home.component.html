@@ -1,8 +1,8 @@
 <app-loading [isLoading]="isLoading"></app-loading>
 <div class="homepage">
   <div class="start-column">
-    <app-alert></app-alert>
-    <app-contacts></app-contacts>
+    <app-alert [myUser]="myUser" [receivedUser]="receivedUser"></app-alert>
+    <app-contacts [friends]="friends"></app-contacts>
   </div>
   <div class="center-column">
     <app-update-status [isAuth]="myUser"></app-update-status>

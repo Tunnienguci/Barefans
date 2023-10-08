@@ -1,16 +1,31 @@
-<div class="alert">
+<app-loading [isLoading]="isLoading"></app-loading>
+
+<div
+  class="alert mb-5"
+  *ngFor="let item of receivedUser | slice : 0 : 1; let i = index"
+>
   <div class="img-contact">
-    <img src="https://picsum.photos/200/300" />
-    <img src="https://picsum.photos/200/300" />
+    <img [src]="myUser.avatar" />
+    <img [src]="item.avatar" />
   </div>
   <div class="alert-messages text-center">
-    <h3 class="alert-messages__title">Grinding Engular</h3>
+    <h3 class="alert-messages__title">{{ item.fullName }}</h3>
     <p class="alert-messages__content">
-      You have been invited to join this group
+      You have received an invitation to follow your profile
     </p>
   </div>
   <div class="alert-action">
-    <button class="btn btn-primary">Join Group</button>
-    <button class="btn btn-outline-primary">Cancel</button>
+    <button
+      class="btn btn-primary"
+      (click)="acceptFollowRequest(item.username)"
+    >
+      Accept
+    </button>
+    <button
+      class="btn btn-outline-primary"
+      (click)="recjectFollowRequest(item.username)"
+    >
+      Cancel
+    </button>
   </div>
 </div>

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,7 @@ export class PostService {
 
   isLoading: boolean = true;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
     this.getListPosts().subscribe((res: any) => {
       this.listPostsSubject.next(res.posts);
       this.isLoading = false;
@@ -23,7 +25,7 @@ export class PostService {
 
   createPost(data: any): void {
     this.http
-      .post('http://localhost:5000/api/post/create', data)
+      .post(environment.apiUrl + '/post/create', data)
       .subscribe((res: any) => {
         if (res) {
           this.getListPosts().subscribe((res: any) => {
@@ -34,40 +36,79 @@ export class PostService {
   }
 
   getListPosts(): Observable<any> {
-    return this.http.get('http://localhost:5000/api/post');
+    return this.http.get(environment.apiUrl + '/post');
   }
 
   getPostByUser(id: any): Observable<any> {
     return this.http
-      .get(`http://localhost:5000/api/post/userpost?username=${id}`)
+      .get(`${environment.apiUrl}/post/userpost?username=${id}`)
       .pipe(
         tap((res: any) => {
-          const userPosts = res.posts;
-          this.userPostsSubject.next(userPosts);
+          this.userPostsSubject.next(res.posts);
         })
       );
   }
 
-  removePost(id: any): void {
-    this.http
-      .delete(`http://localhost:5000/api/post/delete?id=${id}`)
-      .subscribe(
-        (res: any) => {
-          if (res) {
-            this.getListPosts().subscribe((res: any) => {
-              this.listPostsSubject.next(res.posts);
-            });
-          }
-        },
-        (error) => {
-          console.log(error);
+  removePost(id: any, username: string): void {
+    this.http.delete(`${environment.apiUrl}/post/delete?id=${id}`).subscribe(
+      (res: any) => {
+        if (res) {
+          this.getListPosts().subscribe((res: any) => {
+            this.listPostsSubject.next(res.posts);
+          });
+
+          this.getPostByUser(username).subscribe((res: any) => {
+            this.userPostsSubject.next(res.posts);
+          });
         }
-      );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  likePost(id: any, user: any): void {
+  likePost(id: any, user: any, userName: string): void {
     this.http
-      .post(`http://localhost:5000/api/post/like?id=${id}&username=${user}`, {})
+      .post(`${environment.apiUrl}/post/like`, {
+        id,
+        user,
+      })
+      .subscribe((res: any) => {
+        if (res) {
+          this.getListPosts().subscribe((res: any) => {
+            this.listPostsSubject.next(res.posts);
+          });
+
+          this.getPostByUser(userName).subscribe((res: any) => {
+            this.userPostsSubject.next(res.posts);
+          });
+        }
+      });
+  }
+
+  commentPost(comment: any): void {
+    this.http
+      .post(`${environment.apiUrl}/post/comment`, comment)
+      .subscribe((res: any) => {
+        if (res) {
+          this.getListPosts().subscribe((res: any) => {
+            this.listPostsSubject.next(res.posts);
+          });
+
+          this.getPostByUser(comment.user.username).subscribe((res: any) => {
+            this.userPostsSubject.next(res.posts);
+          });
+        }
+      });
+  }
+
+  removeCommentById(id: any, commentId: any): void {
+    this.http
+      .post(
+        `${environment.apiUrl}/post/removeCommentById?id=${id}&commentId=${commentId}`,
+        {}
+      )
       .subscribe((res: any) => {
         if (res) {
           this.getListPosts().subscribe((res: any) => {

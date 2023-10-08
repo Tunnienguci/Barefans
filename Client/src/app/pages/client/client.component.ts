@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -8,14 +10,27 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class ClientComponent {
   myUser: any;
-  isLoading: boolean = true;
+
+  // Subscription
+  private myUserSubscription: Subscription;
+
   constructor(private loginService: LoginService) {
-    this.loginService.getUser().subscribe((res: any) => {
-      if (res) {
-        this.loginService.userData = res.user;
-        this.myUser = this.loginService.userData;
-        this.isLoading = false;
+    this.myUserSubscription = this.loginService.userData$.subscribe(
+      (res: any) => {
+        if (res) {
+          this.myUser = res;
+        }
       }
+    );
+  }
+
+  ngOnInit(): void {
+    this.loginService.getUser().subscribe((res) => {
+      this.myUser = res;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.myUserSubscription.unsubscribe();
   }
 }

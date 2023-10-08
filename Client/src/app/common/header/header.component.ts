@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +8,8 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class HeaderComponent {
   @Input() myUser: any;
-  constructor(private router: Router, private loginService: LoginService) {
-    // this.myUser = this.loginService.getUser();
-    // console.log(this.myUser);
-  }
+
+  constructor(private router: Router) {}
 
   isHovered = false;
 

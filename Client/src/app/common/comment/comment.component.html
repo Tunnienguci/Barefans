@@ -4,6 +4,7 @@
       <app-cmt-item
         (removeCmt)="removeComment($event)"
         [commentList]="commentList"
+        [myUser]="myUser"
       ></app-cmt-item>
     </div>
     <app-cmt-control [postId]="id" [myUser]="myUser"></app-cmt-control>

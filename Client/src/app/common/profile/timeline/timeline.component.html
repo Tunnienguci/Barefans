@@ -1,53 +1,55 @@
-<app-loading [isLoading]="isLoading"></app-loading>
-<div class="timeline">
-  <div class="grid-item">
-    <div class="authentication">
-      <i
-        class="fa-solid fa-fingerprint"
-        [ngStyle]="{ color: this.currentUser.verify ? '#0866ff' : '#999' }"
-      ></i>
-      <div class="text-mes">
-        <p>
-          The account
-          {{
-            this.currentUser.verify ? "has been verified" : "is not verified"
-          }}
-        </p>
-        <a class="text-decoration-none">Read more</a>
+<ng-container *ngIf="currentUser">
+  <app-loading [isLoading]="isLoading"></app-loading>
+  <div class="timeline">
+    <div class="grid-item">
+      <div class="authentication">
+        <i
+          class="fa-solid fa-fingerprint"
+          [ngStyle]="{ color: this.currentUser.verify ? '#0866ff' : '#999' }"
+        ></i>
+        <div class="text-mes">
+          <p>
+            The account
+            {{
+              this.currentUser.verify ? "has been verified" : "is not verified"
+            }}
+          </p>
+          <a class="text-decoration-none">Read more</a>
+        </div>
+      </div>
+      <div class="introduction">
+        <h2>Introduction</h2>
+        <app-bio
+          [permission]="permission"
+          [myUser]="myUser"
+          [currentUser]="currentUser"
+        ></app-bio>
+        <app-about-item
+          [myUser]="myUser"
+          [currentUser]="currentUser"
+        ></app-about-item>
+        <button
+          class="btn btn-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#editFormModal"
+          [ngClass]="{ 'd-none': !permission }"
+        >
+          Edit Profile
+        </button>
       </div>
     </div>
-    <div class="introduction">
-      <h2>Introduction</h2>
-      <app-bio
-        [permission]="permission"
-        [myUser]="myUser"
-        [currentUser]="currentUser"
-      ></app-bio>
-      <app-about-item
-        [myUser]="myUser"
-        [currentUser]="currentUser"
-      ></app-about-item>
-      <button
-        class="btn btn-secondary"
-        data-bs-toggle="modal"
-        data-bs-target="#editFormModal"
+    <div class="grid-item">
+      <app-update-status
+        [isAuth]="myUser"
         [ngClass]="{ 'd-none': !permission }"
-      >
-        Edit Profile
-      </button>
+      ></app-update-status>
+      <app-post
+        [posts]="posts"
+        [currentUser]="currentUser"
+        [myUser]="myUser"
+      ></app-post>
     </div>
   </div>
-  <div class="grid-item">
-    <app-update-status
-      [isAuth]="myUser"
-      [ngClass]="{ 'd-none': !permission }"
-    ></app-update-status>
-    <app-post
-      [posts]="posts"
-      [currentUser]="currentUser"
-      [myUser]="myUser"
-    ></app-post>
-  </div>
-</div>
 
-<app-form-edit [userInfo]="myUser"></app-form-edit>
+  <app-form-edit [userInfo]="myUser"></app-form-edit>
+</ng-container>

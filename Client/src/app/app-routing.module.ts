@@ -69,11 +69,6 @@ const routes: Routes = [
             path: 'videos',
             component: VideoComponent,
           },
-          {
-            path: '**',
-            redirectTo: '',
-            pathMatch: 'full',
-          },
         ],
       },
     ],

@@ -7,12 +7,16 @@ const {
 	getPostFromUser,
 	removePost,
 	likePost,
+	commentPost,
+	removeCommentById,
 } = require("../Controllers/postController");
 
 router.post("/create", createPost);
 router.get("/", getAllPost);
 router.get("/userpost", getPostFromUser);
 router.delete("/delete", removePost);
-router.put("/like", likePost);
+router.post("/like", likePost);
+router.post("/comment", commentPost);
+router.post("/removeCommentById", removeCommentById);
 
 module.exports = router;

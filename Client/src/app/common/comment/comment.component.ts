@@ -9,10 +9,11 @@ import { PostService } from 'src/app/services/post.service';
 export class CommentComponent {
   @Input() id: any;
   @Input() myUser: any;
-
-  commentList: any[] = [];
+  @Input() commentList: any;
 
   constructor(private postService: PostService) {}
 
-  removeComment(idCmt: any) {}
+  removeComment(idCmt: any) {
+    this.postService.removeCommentById(this.id, idCmt);
+  }
 }

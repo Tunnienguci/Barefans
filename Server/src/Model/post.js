@@ -23,19 +23,13 @@ const postSchema = new Schema({
 	like: {
 		type: Array,
 	},
-	liked: {
-		type: Boolean,
-		default: false,
+	comment: {
+		type: Array,
 	},
-	comment: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: "Comment",
-		},
-	],
 	time: {
 		type: String,
 	},
 });
 
-module.exports = mongoose.model("Post", postSchema);
+const Post = mongoose.model("Post", postSchema);
+module.exports = Post;

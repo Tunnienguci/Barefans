@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import jwt from 'jwt-decode';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,8 @@ export class LoginService {
   private TOKEN_KEY = '_saBareFans';
   user: any;
   isLoading: boolean = false;
-  userData: any = {};
+  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public userData$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
     let token = localStorage.getItem(this.TOKEN_KEY);
@@ -23,7 +25,7 @@ export class LoginService {
       let userObj: any = jwt(token);
       this.user = userObj.username;
       if (username == this.user) {
-        this.router.navigate(['/']);
+        this.router.navigate(['']);
       } else {
         localStorage.removeItem('_saBareFans');
         localStorage.removeItem('_saBareUser');
@@ -41,7 +43,7 @@ export class LoginService {
         if (res) {
           this.user = res.username;
           this.saveToken(res.token);
-          this.router.navigate(['/']);
+          this.router.navigate(['']);
         }
       });
   }
@@ -62,7 +64,15 @@ export class LoginService {
 
   getUser(): Observable<any> {
     let username = localStorage.getItem('_saBareUser');
-    return this.http.get(`${this.baseAPI}/auth/user?username=${username}`);
+    this.http.get(`${this.baseAPI}/auth/user?username=${username}`).subscribe(
+      (user) => {
+        this.userSubject.next(user);
+      },
+      (error) => {
+        this.userSubject.error(error);
+      }
+    );
+    return this.userSubject.asObservable();
   }
 
   saveToken(token: string) {

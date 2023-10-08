@@ -1,7 +1,7 @@
 import { Post } from './post';
 
 export interface User {
-  id: number;
+  id?: number;
   fullName: string;
   birthday?: string;
   avatar: string;
@@ -26,8 +26,8 @@ export interface User {
   albums?: string[];
   friends?: User[];
   requests?: friendRequest[];
-  account: Account;
-  verify: boolean;
+  account?: Account;
+  verify?: boolean;
   username?: string;
 }
 

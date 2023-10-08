@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class BioComponent {
   editBio = false;
   character: number = 0;
-  bio: string = '';
+  @Input() bio: string = '';
   @Input() permission: boolean = false;
   @Input() myUser: any;
   @Input() currentUser: any;

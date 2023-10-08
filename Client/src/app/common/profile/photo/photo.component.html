@@ -1,1 +1,9 @@
-<p>photo works!</p>
+<div class="title">
+  <h2>Albums</h2>
+  <button class="btn"><i class="fa-solid fa-ellipsis"></i></button>
+</div>
+<div class="album-list">
+  <div class="img-item" *ngFor="let item of albums">
+    <img src="{{ item }}" />
+  </div>
+</div>
