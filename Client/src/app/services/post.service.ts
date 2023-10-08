@@ -87,7 +87,7 @@ export class PostService {
       });
   }
 
-  commentPost(comment: any): void {
+  commentPost(comment: any, usernamePage: string): void {
     this.http
       .post(`${environment.apiUrl}/post/comment`, comment)
       .subscribe((res: any) => {
@@ -96,7 +96,7 @@ export class PostService {
             this.listPostsSubject.next(res.posts);
           });
 
-          this.getPostByUser(comment.user.username).subscribe((res: any) => {
+          this.getPostByUser(usernamePage).subscribe((res: any) => {
             this.userPostsSubject.next(res.posts);
           });
         }

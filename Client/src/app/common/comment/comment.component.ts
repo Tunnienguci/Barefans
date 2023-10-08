@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -10,7 +11,6 @@ export class CommentComponent {
   @Input() id: any;
   @Input() myUser: any;
   @Input() commentList: any;
-
   constructor(private postService: PostService) {}
 
   removeComment(idCmt: any) {

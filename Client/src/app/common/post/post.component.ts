@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -11,11 +12,17 @@ export class PostComponent {
   @Input() currentUser: any;
   @Input() myUser: any;
 
+  currentPage: string = '';
+
   userName = localStorage.getItem('_saBareUser');
 
   editable: boolean = false;
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private route: ActivatedRoute) {
+    this.route.params.subscribe((params: any) => {
+      this.currentPage = params.id;
+    });
+  }
 
   checkStatusLike(arr: any) {
     const index = arr.findIndex((item: any) => item === this.myUser._id);
@@ -26,7 +33,7 @@ export class PostComponent {
   }
 
   removePost(id: any) {
-    this.postService.removePost(id, this.myUser.username);
+    this.postService.removePost(id, this.currentPage);
   }
 
   openLink(link: any) {
@@ -34,7 +41,7 @@ export class PostComponent {
   }
 
   likePost(id: any) {
-    this.postService.likePost(id, this.myUser._id, this.myUser.username);
+    this.postService.likePost(id, this.myUser._id, this.currentPage);
   }
 
   calculateTime(time: any) {

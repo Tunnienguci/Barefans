@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/services/login.service';
+import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -17,7 +17,13 @@ export class CmtControlComponent {
     comment: new FormControl('', [Validators.required]),
   });
 
-  constructor(private postService: PostService) {}
+  currentPage: string = '';
+
+  constructor(private postService: PostService, private route: ActivatedRoute) {
+    this.route.params.subscribe((params: any) => {
+      this.currentPage = params.id;
+    });
+  }
 
   onSubmit() {
     if (this.formComment.valid) {
@@ -26,7 +32,7 @@ export class CmtControlComponent {
         user: this.myUser,
         content: this.formComment.value.comment,
       };
-      this.postService.commentPost(comment);
+      this.postService.commentPost(comment, this.currentPage);
       this.formComment.reset();
     }
   }

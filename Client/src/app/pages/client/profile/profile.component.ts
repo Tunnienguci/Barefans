@@ -70,7 +70,6 @@ export class ProfileComponent {
       this.userService.getUserByUsername(params.id).subscribe();
       this.postService.getPostByUser(params.id).subscribe();
     });
-    this.loginService.getUser();
   }
 
   followUser() {
