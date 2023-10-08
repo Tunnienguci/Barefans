@@ -84,7 +84,6 @@ export class FormEditComponent {
         ...this.userInfo,
         ...this.profileForm.value,
       };
-      this.userService.updateUser(data as any).subscribe();
     }
   }
 }

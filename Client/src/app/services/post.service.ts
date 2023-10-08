@@ -38,27 +38,42 @@ export class PostService {
   }
 
   getPostByUser(id: any): Observable<any> {
-    return this.http.get(`http://localhost:5000/api/post/user`, id).pipe(
-      tap((res: any) => {
-        const userPosts = res.posts;
-        this.userPostsSubject.next(userPosts);
-      })
-    );
+    return this.http
+      .get(`http://localhost:5000/api/post/userpost?username=${id}`)
+      .pipe(
+        tap((res: any) => {
+          const userPosts = res.posts;
+          this.userPostsSubject.next(userPosts);
+        })
+      );
   }
 
   removePost(id: any): void {
-    const data: any = { _id: id };
-    this.http.delete(`http://localhost:5000/api/post/delete`, data).subscribe(
-      (res: any) => {
+    this.http
+      .delete(`http://localhost:5000/api/post/delete?id=${id}`)
+      .subscribe(
+        (res: any) => {
+          if (res) {
+            this.getListPosts().subscribe((res: any) => {
+              this.listPostsSubject.next(res.posts);
+            });
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  likePost(id: any, user: any): void {
+    this.http
+      .post(`http://localhost:5000/api/post/like?id=${id}&username=${user}`, {})
+      .subscribe((res: any) => {
         if (res) {
           this.getListPosts().subscribe((res: any) => {
             this.listPostsSubject.next(res.posts);
           });
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      });
   }
 }

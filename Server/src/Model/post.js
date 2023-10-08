@@ -21,8 +21,7 @@ const postSchema = new Schema({
 		type: String,
 	},
 	like: {
-		type: Number,
-		default: 0,
+		type: Array,
 	},
 	liked: {
 		type: Boolean,

@@ -42,7 +42,11 @@
       [isAuth]="myUser"
       [ngClass]="{ 'd-none': !permission }"
     ></app-update-status>
-    <app-post [posts]="posts" [currentUser]="currentUser"></app-post>
+    <app-post
+      [posts]="posts"
+      [currentUser]="currentUser"
+      [myUser]="myUser"
+    ></app-post>
   </div>
 </div>
 

@@ -13,8 +13,8 @@ export class LoginService {
   private baseAPI: string = environment.apiUrl;
   private TOKEN_KEY = '_saBareFans';
   user: any;
-  userData: any = {};
   isLoading: boolean = false;
+  userData: any = {};
 
   constructor(private http: HttpClient, private router: Router) {
     let token = localStorage.getItem(this.TOKEN_KEY);

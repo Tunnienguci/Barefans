@@ -59,7 +59,7 @@
     <div class="footer d-flex justify-content-end p-1 my-2">
       <button
         class="btn border-0 position-relative"
-        (click)="likePost(item.id)"
+        (click)="likePost(item._id)"
       >
         <i class="bi bi-hand-thumbs-up{{ item.liked ? '-fill' : '' }}"></i>
         <span
@@ -71,9 +71,9 @@
       </button>
       <button
         data-bs-toggle="collapse"
-        [attr.data-bs-target]="'#collapseComment' + item.id"
+        [attr.data-bs-target]="'#collapseComment' + item._id"
         aria-expanded="false"
-        [attr.aria-controls]="'collapseComment' + item.id"
+        [attr.aria-controls]="'collapseComment' + item._id"
         class="btn border-0 mx-2 position-relative"
       >
         <i class="bi bi-chat-right-quote"></i>
@@ -88,6 +88,6 @@
         <i class="bi bi-share"></i>
       </button>
     </div>
-    <app-comment [id]="item.id" [myUser]="myUser"></app-comment>
+    <app-comment [id]="item._id" [myUser]="myUser"></app-comment>
   </div>
 </div>

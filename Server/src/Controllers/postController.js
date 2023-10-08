@@ -15,7 +15,7 @@ exports.createPost = async (req, res) => {
 
 	const newPost = new Post({
 		user: user,
-		like: 0,
+		like: [],
 		liked: false,
 		content: content,
 		images: images,
@@ -128,9 +128,8 @@ exports.getPostFromUser = async (req, res) => {
 	const { username } = req.query;
 
 	try {
-		const posts = await Post.find({
-			"user.account.username": username,
-		}).populate("user");
+		const user = await User.findOne({ "account.username": username });
+		const posts = await Post.find({ user: user._id }).populate("user");
 		return res.status(200).json({
 			posts: posts.map((post) => ({
 				_id: post._id,
@@ -176,12 +175,50 @@ exports.getPostFromUser = async (req, res) => {
 };
 
 exports.removePost = async (req, res) => {
-	const { id } = req.body;
+	const { id } = req.query;
 	try {
-		const result = await Post.deleteOne(id);
+		const result = await Post.findByIdAndDelete(id);
+		console.log(result);
 		return res.status(200).json({
 			message: "Xóa bài viết thành công",
+			result: result,
 		});
+	} catch (error) {
+		console.error("Lỗi server:", error);
+		return res.status(500).json({
+			message: "Lỗi server",
+		});
+	}
+};
+
+exports.likePost = async (req, res) => {
+	const { id, user } = req.query;
+
+	try {
+		const post = await Post.findById(id);
+		const username = await User.findOne({ "account.username": user });
+
+		if (post.like.includes(username._id)) {
+			await Post.findByIdAndUpdate(id, {
+				$pull: { like: username._id },
+				liked: false,
+			});
+
+			return res.status(200).json({
+				message: "Unlike thành công",
+				liked: false,
+			});
+		} else {
+			await Post.findByIdAndUpdate(id, {
+				$push: { like: username._id },
+				liked: true,
+			});
+
+			return res.status(200).json({
+				message: "Like thành công",
+				liked: true,
+			});
+		}
 	} catch (error) {
 		console.error("Lỗi server:", error);
 		return res.status(500).json({

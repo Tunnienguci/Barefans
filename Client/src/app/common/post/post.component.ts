@@ -26,9 +26,7 @@ export class PostComponent {
   }
 
   likePost(id: any) {
-    // this.postService.likePost(id).subscribe((res) => {
-    //   this.posts = res;
-    // });
+    this.postService.likePost(id, this.userName);
   }
 
   calculateTime(time: any) {

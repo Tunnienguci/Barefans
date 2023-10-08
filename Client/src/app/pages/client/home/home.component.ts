@@ -21,7 +21,7 @@ export class HomeComponent {
     });
 
     this.postService.listPosts$.subscribe((listPosts: any[]) => {
-      this.listPosts = listPosts;
+      this.listPosts = listPosts.reverse();
       this.isLoading = false;
     });
   }
