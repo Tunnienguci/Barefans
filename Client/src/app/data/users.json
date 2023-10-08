@@ -1,69 +1,39 @@
 [
-    {
-        "id": 340211440328772350,
-        "fullName": "Cong Tuan",
-        "birthday": "12/07/2001",
-        "avatar":
-          "https://scontent.fhan14-3.fna.fbcdn.net/v/t39.30808-6/375977329_3593526804227457_1894341850510545590_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=Qmt18iCMMrwAX_a3jo9&_nc_ht=scontent.fhan14-3.fna&oh=00_AfBcSCvvNu9B8m5I5zi89-8cLKE4FytbVKxZXTvaU61g9g&oe=6520D370",
-        "bio": "I am Cong Tuan, you can call me Tunnienguci",
-        "hometown": "Hà Nội",
-        "live": "Hà Nội",
-        "relationship": "Single",
-        "facebook": "FSTunnie",
-        "twitter": "",
-        "instagram": "tunnienguci",
-        "linkedin": "qcongtuan",
-        "secondarySchool": "",
-        "highSchool": "",
-        "college": "BTEC FPT",
-        "university": "",
-        "work": {
-          "company": "FPT Software",
-          "position": "Software Engineer"
-        },
-        "posts": [],
-        "albums": [],
-        "friends": [],
-        "requests": [],
-        "account": {
-          "username": "tuanqc",
-          "password": "tuanqc",
-          "permission": "user",
-          "token": "tuanqc"
-        },
-        "verify": true
+  {
+    "_id": {
+      "$oid": "65203f575514a20b0edd71bb"
     },
-      {
-        "id": 340211440328772123,
-        "fullName": "Kim Ji-soo",
-        "birthday": "03/01/1995",
-        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Jisoo_for_Marie_Claire_Korea_on_130123_%281%29.png/250px-Jisoo_for_Marie_Claire_Korea_on_130123_%281%29.png",
-        "bio": "I am Kim Ji-soo, you can call me Jisoo",
-        "hometown": "Gyeonggi-do, South Korea",
-        "live": "Gyeonggi-do, South Korea",
-        "relationship": "In a relationship",
-        "facebook": "Jisoo",
-        "twitter": "",
-        "instagram": "sooyaaa__",
-        "linkedin": "",
-        "secondarySchool": "",
-        "highSchool": "",
-        "college": "",
-        "university": "",
-        "work": {
-          "company": "YG Entertainment",
-          "position": "Singer"
-        },
-        "posts": [],
-        "albums": [],
-        "friends": [],
-        "requests": [],
-        "account": {
-          "username": "jisoo",
-          "password": "jisoo",
-          "permission": "user",
-          "token": "jisoo"
-        },
-        "verify": false
-    }
+    "fullName": "Cong Tuan",
+    "birthday": "12/07/2001",
+    "avatar": "https://cn.i.cdn.ti-platform.com/cnapac/content/701/showpage/we-bare-bears/sa/showicon.png",
+    "bio": "I am Cong Tuan, you can call me Tunnienguci",
+    "hometown": "Hà Nội",
+    "live": "Hà Nội",
+    "relationship": "Single",
+    "facebook": "FSTunnie",
+    "twitter": "",
+    "instagram": "tunnienguci",
+    "linkedin": "qcongtuan",
+    "secondarySchool": "",
+    "highSchool": "",
+    "college": "BTEC FPT",
+    "university": "",
+    "work": {
+      "company": "FPT Software",
+      "position": "Software Engineer"
+    },
+    "posts": [],
+    "albums": [],
+    "friends": [],
+    "requests": [],
+    "account": {
+      "username": "tuanqc",
+      "password": "$2b$12$IG4UqeKeKjiElrwdKuL9VeCuVXA3R4S0CyPHjOiKYJgGMBjRMHh1O",
+      "permission": "user",
+      "token": "tuanqc"
+    },
+    "verify": true
+  },
+  
+  {"_id":{"$oid":"6521eb82555d0e16294b9f38"},"fullName":"Kim Ji-soo","birthday":"03/01/1995","avatar":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Jisoo_for_Marie_Claire_Korea_on_130123_%281%29.png/250px-Jisoo_for_Marie_Claire_Korea_on_130123_%281%29.png","bio":"I am Kim Ji-soo, you can call me Jisoo","hometown":"Gyeonggi-do, South Korea","live":"Gyeonggi-do, South Korea","relationship":"In a relationship","facebook":"Jisoo","twitter":"","instagram":"sooyaaa__","linkedin":"","secondarySchool":"","highSchool":"","college":"","university":"","work":{"company":"YG Entertainment","position":"Singer"},"posts":[],"albums":[],"friends":[],"requests":[],"account":{"username":"jisoo","password":"jisoo","permission":"user","token":"jisoo"},"verify":false}
 ]

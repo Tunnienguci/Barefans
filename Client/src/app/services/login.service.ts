@@ -1,49 +1,74 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import user from '../data/users.json';
-import { User } from '../models/user';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import jwt from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  users: User[] = user;
-  secretKey: string = 'facebook.com';
+  // DataStore
+  private baseAPI: string = environment.apiUrl;
+  private TOKEN_KEY = '_saBareFans';
+  user: any;
+  userData: any = {};
+  isLoading: boolean = false;
 
-  constructor(private router: Router) {}
-
-  register(user: any) {
-    this.users.push(user);
-    localStorage.setItem('_sa-user', user.account.username);
-    this.router.navigate(['/update-profile']);
-  }
-
-  login(data: any) {
-    this.users.filter((user) => {
-      if (
-        user.account.username === data.username &&
-        user.account.password === data.password
-      ) {
-        this.encodeToken(user);
+  constructor(private http: HttpClient, private router: Router) {
+    let token = localStorage.getItem(this.TOKEN_KEY);
+    let username = localStorage.getItem('_saBareUser');
+    if (token) {
+      let userObj: any = jwt(token);
+      this.user = userObj.username;
+      if (username == this.user) {
         this.router.navigate(['/']);
+      } else {
+        localStorage.removeItem('_saBareFans');
+        localStorage.removeItem('_saBareUser');
+        alert('Please login again');
+        this.router.navigate(['/login']);
       }
-    });
+    }
   }
 
-  getUser(): Observable<User> {
-    return new Observable((observer) => {
-      const token = localStorage.getItem('_sa');
-      const user = this.users.find(
-        (user) => btoa(user.account.token) === token?.replace('_sa', '')
-      );
-      console.log(user);
-      observer.next(user);
-      observer.complete();
-    });
+  // [POST] /auth/login
+  login(data: any) {
+    return this.http
+      .post(`${this.baseAPI}/auth/login`, data)
+      .subscribe((res: any) => {
+        if (res) {
+          this.user = res.username;
+          this.saveToken(res.token);
+          this.router.navigate(['/']);
+        }
+      });
   }
 
-  encodeToken(data: any) {
-    const token = btoa(data.account.token);
-    localStorage.setItem('_sa', token);
+  // [POST] /auth/register
+  register(data: any) {
+    console.log(data);
+    return this.http.post(`${this.baseAPI}/auth/register`, data);
+  }
+
+  // [POST] /auth/register/update-profile
+  updateProfile(data: any, username: string) {
+    return this.http.post(
+      `${this.baseAPI}/auth/register/update-profile?username=${username}`,
+      data
+    );
+  }
+
+  getUser(): Observable<any> {
+    let username = localStorage.getItem('_saBareUser');
+    return this.http.get(`${this.baseAPI}/auth/user?username=${username}`);
+  }
+
+  saveToken(token: string) {
+    let userObj: any = jwt(token);
+    this.user = userObj.username;
+    localStorage.setItem(this.TOKEN_KEY, token);
+    localStorage.setItem('_saBareUser', this.user);
   }
 }

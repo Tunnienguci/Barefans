@@ -7,17 +7,15 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent {
-  user: any = {};
+  myUser: any;
+  isLoading: boolean = true;
   constructor(private loginService: LoginService) {
-    this.loginService.getUser().subscribe((data) => {
-      this.user = data;
-    });
-  }
-
-  ngOnInit() {
-    this.loginService.getUser().subscribe((data) => {
-      this.user = data;
-      console.log(this.user);
+    this.loginService.getUser().subscribe((res: any) => {
+      if (res) {
+        this.loginService.userData = res.user;
+        this.myUser = this.loginService.userData;
+        this.isLoading = false;
+      }
     });
   }
 }

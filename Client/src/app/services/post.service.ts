@@ -1,93 +1,64 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import posts from '../data/post.json';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  listPosts: any[] = [...posts];
+  private listPostsSubject = new BehaviorSubject<any[]>([]);
+  public listPosts$ = this.listPostsSubject.asObservable();
 
-  constructor() {}
+  private userPostsSubject = new BehaviorSubject<any[]>([]);
+  public userPosts$ = this.userPostsSubject.asObservable();
 
-  addPost(post: any) {
-    this.listPosts.unshift(post);
+  isLoading: boolean = true;
+
+  constructor(private http: HttpClient) {
+    this.getListPosts().subscribe((res: any) => {
+      this.listPostsSubject.next(res.posts);
+      this.isLoading = false;
+    });
+  }
+
+  createPost(data: any): void {
+    this.http
+      .post('http://localhost:5000/api/post/create', data)
+      .subscribe((res: any) => {
+        if (res) {
+          this.getListPosts().subscribe((res: any) => {
+            this.listPostsSubject.next(res.posts);
+          });
+        }
+      });
   }
 
   getListPosts(): Observable<any> {
-    return new Observable((observer) => {
-      observer.next(this.listPosts);
-    });
+    return this.http.get('http://localhost:5000/api/post');
   }
 
   getPostByUser(id: any): Observable<any> {
-    return new Observable((observer) => {
-      const filteredPosts = this.listPosts.filter(
-        (post) => post.user.account.username === id
-      );
-      observer.next(filteredPosts);
-      observer.complete();
-    });
+    return this.http.get(`http://localhost:5000/api/post/user`, id).pipe(
+      tap((res: any) => {
+        const userPosts = res.posts;
+        this.userPostsSubject.next(userPosts);
+      })
+    );
   }
 
-  removePost(id: any): Observable<any> {
-    return new Observable((observer) => {
-      this.listPosts = this.listPosts.filter((post) => post.id !== id);
-      observer.next(this.listPosts);
-    });
-  }
-
-  likePost(id: any): Observable<any> {
-    return new Observable(() => {
-      this.listPosts = this.listPosts.map((post) => {
-        if (post.id === id) {
-          post.liked = !post.liked;
-          post.like = post.liked ? post.like + 1 : post.like - 1;
+  removePost(id: any): void {
+    const data: any = { _id: id };
+    this.http.delete(`http://localhost:5000/api/post/delete`, data).subscribe(
+      (res: any) => {
+        if (res) {
+          this.getListPosts().subscribe((res: any) => {
+            this.listPostsSubject.next(res.posts);
+          });
         }
-        return post;
-      });
-    });
-  }
-
-  getPostById(id: any): Observable<any> {
-    return new Observable((observer) => {
-      const filteredPosts = this.listPosts.filter((post) => post.id === id);
-      observer.next(filteredPosts);
-      observer.complete();
-    });
-  }
-
-  getListComments(id: any): Observable<any> {
-    return new Observable((observer) => {
-      const filteredPosts = this.listPosts.filter((post) => post.id === id);
-      observer.next(filteredPosts[0].comment);
-      observer.complete();
-    });
-  }
-
-  addComment(id: any, comment: any): Observable<any> {
-    return new Observable((observer) => {
-      this.listPosts = this.listPosts.map((post) => {
-        if (post.id === id) {
-          post.comment.push(comment);
-        }
-        return post;
-      });
-      observer.next(this.listPosts);
-    });
-  }
-
-  removeComment(postId: any, commentId: any): Observable<any> {
-    return new Observable((observer) => {
-      this.listPosts = this.listPosts.map((post) => {
-        if (post.id === postId) {
-          post.comment = post.comment.filter(
-            (comment: any) => comment.id !== commentId
-          );
-        }
-        return post;
-      });
-      observer.next(this.listPosts);
-    });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

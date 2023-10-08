@@ -1,13 +1,14 @@
 .list-img {
   display: flex;
   flex-wrap: wrap;
+  height: 100%;
 
   .img-item {
     flex-grow: 1;
     flex-basis: 25%;
-    max-height: 15rem;
     position: relative;
     padding: 0.25rem;
+    max-height: 30rem;
     .btn {
       display: none;
       position: absolute;

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,13 +13,14 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UpdateProfileComponent {
   userInfo: User = {} as User;
-  avatarImg: string = '';
-  account: any = {};
+  avatarImg: any = '';
+  isLoading: boolean = false;
 
   profileForm = this.fb.group({
     fullName: ['', [Validators.required]],
     birthday: [''],
     hometown: [''],
+    avatar: ['', [Validators.required]],
     live: [''],
     relationship: [''],
     facebook: [''],
@@ -37,52 +39,47 @@ export class UpdateProfileComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router,
+    private cloudinary: CloudinaryService
   ) {
-    const token = localStorage.getItem('_sa-user');
-    this.userService.getUserByUsername(String(token)).subscribe((data) => {
-      this.userInfo = data;
-      this.profileForm.patchValue(this.userInfo);
-      this.avatarImg = this.userInfo.avatar || '';
-      this.account = {
-        username: this.userInfo.account.username,
-        password: this.userInfo.account.password,
-        permission: '_sa-user',
-        token: this.account.token,
-      };
-      document.getElementById('avatar')?.setAttribute('src', this.avatarImg);
-    });
-  }
-
-  ngOnInit() {
-    this.loginService.getUser().subscribe((data) => {
-      this.userInfo = data;
-      console.log(this.userInfo);
-    });
+    this.userInfo = this.loginService.userData;
   }
 
   onSubmit() {
     if (this.profileForm.valid) {
-      const data = {
-        avatar: this.avatarImg,
-        account: this.account,
-        ...this.profileForm.value,
-      };
-      this.userService.updateUser(data as any).subscribe();
-      this.loginService.login(data.account);
+      const data = this.profileForm.value;
+      this.loginService.userData = data;
+      const username = this.loginService.user;
+      this.loginService.updateProfile(data, username).subscribe((res) => {
+        if (res) {
+          this.router.navigate(['/login']);
+        }
+      });
     }
   }
 
   onFileChange(event: any) {
-    const reader = new FileReader();
     if (event.target.files && event.target.files.length) {
-      const [file]: any = event.target.files;
+      const [file] = event.target.files;
+      // Convert to Base64
+      const reader = new FileReader();
       reader.readAsDataURL(file);
-
       reader.onload = () => {
-        this.avatarImg = reader.result as string;
-        document.getElementById('avatar')?.setAttribute('src', this.avatarImg);
+        this.isLoading = true;
+        const data = new FormData();
+        data.append('file', event.target.files[0]);
+        data.append('upload_preset', 'barefans');
+        data.append('cloud_name', 'dklzco9qq');
+        this.cloudinary.uploadImage(data).subscribe((res) => {
+          if (res) {
+            this.avatarImg = res.url;
+            this.isLoading = false;
+            this.profileForm.patchValue({
+              avatar: this.avatarImg,
+            });
+          }
+        });
       };
     }
   }

@@ -8,13 +8,17 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() isAuth: any = {};
-  constructor(private router: Router) {}
+  @Input() myUser: any;
+  constructor(private router: Router, private loginService: LoginService) {
+    // this.myUser = this.loginService.getUser();
+    // console.log(this.myUser);
+  }
 
   isHovered = false;
 
   logout() {
-    localStorage.removeItem('_sa');
+    localStorage.removeItem('_saBareFans');
+    localStorage.removeItem('_saBareUser');
     this.router.navigate(['/login']);
   }
 }

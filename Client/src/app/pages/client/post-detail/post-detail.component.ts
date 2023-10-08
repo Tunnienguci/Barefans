@@ -11,20 +11,14 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostDetailComponent {
   post: any[] = [];
-  isAuth: User = {} as User;
+  myUser: any;
 
   constructor(
     private loginService: LoginService,
     private postService: PostService,
     private route: ActivatedRoute
   ) {
-    this.loginService.getUser().subscribe((data) => {
-      this.isAuth = data;
-    });
-
+    this.myUser = this.loginService.userData;
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.postService.getPostById(id).subscribe((res) => {
-      this.post = res;
-    });
   }
 }

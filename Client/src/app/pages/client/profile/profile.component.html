@@ -1,3 +1,4 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="profile">
   <div class="main-info">
     <div class="cover-img">
@@ -8,9 +9,7 @@
         <img src="{{ currentUser.avatar }}" alt="avatar" />
         <div class="name mx-3">
           <h2>{{ currentUser.fullName }}</h2>
-          <a class="mb-0 text-decoration-none"
-            >@{{ currentUser.account.username }}</a
-          >
+          <a class="mb-0 text-decoration-none">@{{ currentUser.username }}</a>
         </div>
       </div>
       <div class="action">
@@ -27,7 +26,7 @@
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile', isAuth.account.username]"
+          [routerLink]="['/profile', currentUser.username]"
           [routerLinkActive]="['active']"
           [routerLinkActiveOptions]="{ exact: true }"
           >Timeline</a

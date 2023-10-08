@@ -1,8 +1,9 @@
 <!-- This is the main component of the application. -->
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="container-group">
   <app-sidebar></app-sidebar>
   <div class="content">
-    <app-header [isAuth]="user"></app-header>
+    <app-header [myUser]="myUser"></app-header>
     <div class="page">
       <router-outlet></router-outlet>
     </div>

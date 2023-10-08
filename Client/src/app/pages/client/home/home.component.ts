@@ -9,29 +9,20 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class HomeComponent {
   listPosts: any[] = [];
-  isAuth: any = {};
+  myUser: any;
+  isLoading: boolean = true;
+
   constructor(
     private loginService: LoginService,
     private postService: PostService
   ) {
-    this.loginService.getUser().subscribe((data) => {
-      this.isAuth = data;
+    this.myUser = this.loginService.getUser().subscribe((res: any) => {
+      this.myUser = res.user;
     });
 
-    this.postService.getListPosts().subscribe((res) => {
-      this.listPosts = res;
-    });
-  }
-
-  ngOnInit() {
-    this.postService.getListPosts().subscribe((res) => {
-      this.listPosts = res;
-    });
-  }
-
-  ngOnChanges() {
-    this.postService.getListPosts().subscribe((res) => {
-      this.listPosts = res;
+    this.postService.listPosts$.subscribe((listPosts: any[]) => {
+      this.listPosts = listPosts;
+      this.isLoading = false;
     });
   }
 }

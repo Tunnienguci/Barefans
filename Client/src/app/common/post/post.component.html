@@ -7,7 +7,7 @@
       </div>
       <div class="info mx-3">
         <div class="name d-flex flex-column">
-          <a [routerLink]="['/profile', item.user.account.username]">{{
+          <a [routerLink]="['/profile', item.user.username]">{{
             item.user.fullName
           }}</a>
           <small>{{ calculateTime(item.time) }}</small>
@@ -22,21 +22,19 @@
           <i class="fa-solid fa-ellipsis"></i>
         </button>
         <ul class="dropdown-menu">
-          <ng-container
-            *ngIf="item.user.account.username == isAuth.account.username"
-          >
+          <ng-container *ngIf="item.user.username === userName">
             <li>
-              <button class="dropdown-item" (click)="removePost(item.id)">
+              <button class="dropdown-item" (click)="removePost(item._id)">
                 <i class="fa-regular fa-square-minus mx-3"></i>
                 Delete
               </button>
             </li>
-            <!-- <li>
+            <li>
               <button class="dropdown-item">
                 <i class="fa-regular fa-edit mx-3"></i>
                 Edit
               </button>
-            </li> -->
+            </li>
           </ng-container>
           <li>
             <button class="dropdown-item" (click)="openLink(item.id)">
@@ -90,6 +88,6 @@
         <i class="bi bi-share"></i>
       </button>
     </div>
-    <app-comment [id]="item.id"></app-comment>
+    <app-comment [id]="item.id" [myUser]="myUser"></app-comment>
   </div>
 </div>

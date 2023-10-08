@@ -1,7 +1,4 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-about-item',
@@ -9,21 +6,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./about-item.component.scss'],
 })
 export class AboutItemComponent {
-  user: User = {} as User;
-
-  constructor(private userService: UserService, private route: ActivatedRoute) {
-    const id = String(this.route.snapshot.paramMap.get('id'));
-
-    this.userService.getUserByUsername(id).subscribe((data) => {
-      this.user = data;
-    });
-  }
-
-  ngDoCheck(): void {
-    const id = String(this.route.snapshot.paramMap.get('id'));
-
-    this.userService.getUserByUsername(id).subscribe((data) => {
-      this.user = data;
-    });
-  }
+  @Input() currentUser: any;
+  @Input() myUser: any;
 }

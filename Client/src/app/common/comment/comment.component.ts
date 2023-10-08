@@ -8,27 +8,11 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class CommentComponent {
   @Input() id: any;
+  @Input() myUser: any;
+
   commentList: any[] = [];
 
-  constructor(private postService: PostService) {
-    if (this.id) {
-      this.postService.getListComments(this.id).subscribe((data) => {
-        this.commentList = data;
-      });
-    }
-  }
+  constructor(private postService: PostService) {}
 
-  ngDoCheck() {
-    if (this.id) {
-      this.postService.getListComments(this.id).subscribe((data) => {
-        this.commentList = data;
-      });
-    }
-  }
-
-  removeComment(idCmt: any) {
-    this.postService.removeComment(this.id, idCmt).subscribe((data) => {
-      this.commentList = data;
-    });
-  }
+  removeComment(idCmt: any) {}
 }

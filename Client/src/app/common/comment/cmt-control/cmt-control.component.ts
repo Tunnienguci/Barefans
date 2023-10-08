@@ -10,33 +10,23 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class CmtControlComponent {
   @Input() postId: any;
+  @Input() myUser: any;
+
   comment: string = '';
   formComment: FormGroup = new FormGroup({
     comment: new FormControl('', [Validators.required]),
   });
 
-  user: any = {};
-  constructor(
-    private postService: PostService,
-    private loginService: LoginService
-  ) {
-    this.loginService.getUser().subscribe((data) => {
-      this.user = data;
-    });
-  }
+  constructor(private postService: PostService) {}
 
   onSubmit() {
     if (this.formComment.valid) {
       const comment = {
         id: Date.now(),
-        user: this.user,
+        user: this.myUser,
         content: this.formComment.value.comment,
         time: new Date().toDateString() + ' ' + new Date().toLocaleTimeString(),
       };
-      this.postService.addComment(this.postId, comment).subscribe((data) => {
-        this.comment = '';
-        this.formComment.reset();
-      });
     }
   }
 }

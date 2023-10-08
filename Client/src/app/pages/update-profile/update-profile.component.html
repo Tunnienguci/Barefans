@@ -1,3 +1,4 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="modal-dialog modal-dialog-centered modal-xl">
   <div class="modal-content">
     <div class="modal-header border-0 p-3">
@@ -9,13 +10,15 @@
       <div class="modal-body">
         <div class="grid-item">
           <div class="avatar">
-            <img src="{{ avatarImg }}" />
+            <!-- Preview image -->
+            <img [src]="profileForm.value.avatar" />
+
             <label for="avatar"><i class="fa-regular fa-image"></i></label>
             <input
               type="file"
               class="d-none"
               id="avatar"
-              (click)="onFileChange($event)"
+              (change)="onFileChange($event)"
             />
           </div>
           <div class="form-group my-4">

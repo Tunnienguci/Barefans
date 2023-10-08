@@ -4,7 +4,7 @@ export interface User {
   id: number;
   fullName: string;
   birthday?: string;
-  avatar?: string;
+  avatar: string;
   bio?: string;
   email?: string;
   hometown?: string;
@@ -28,6 +28,7 @@ export interface User {
   requests?: friendRequest[];
   account: Account;
   verify: boolean;
+  username?: string;
 }
 
 export interface friendRequest {
@@ -40,5 +41,4 @@ export interface Account {
   username: string;
   password: string;
   permission: string;
-  token: string;
 }

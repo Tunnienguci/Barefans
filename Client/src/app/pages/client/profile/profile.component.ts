@@ -10,31 +10,25 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent {
-  isAuth: User = {} as User;
-  currentUser: User = {} as User;
+  myUser: any;
+  currentUser: any;
+  isLoading: boolean = true;
 
   constructor(
     private loginService: LoginService,
     private route: ActivatedRoute,
     private userService: UserService
   ) {
-    // Authenticated user
-    this.loginService.getUser().subscribe((data) => {
-      this.isAuth = data;
-    });
+    this.myUser = this.loginService.userData;
 
-    // Get User by username
-    const id = String(this.route.snapshot.paramMap.get('id'));
-    this.userService.getUserByUsername(id).subscribe((res) => {
-      this.currentUser = res;
-    });
-  }
-
-  ngDoCheck(): void {
-    // Triggered when user changes
-    const id = String(this.route.snapshot.paramMap.get('id'));
-    this.userService.getUserByUsername(id).subscribe((res) => {
-      this.currentUser = res;
+    this.route.params.subscribe((params) => {
+      this.userService.getUserByUsername(params['id']).subscribe((res) => {
+        if (res) {
+          this.currentUser = res;
+          this.userService.currentUser = res;
+          this.isLoading = false;
+        }
+      });
     });
   }
 }

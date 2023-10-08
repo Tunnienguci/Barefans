@@ -1,5 +1,10 @@
 <ng-container
-  *ngIf="user.work && user.work.position && user.work && user.work.company"
+  *ngIf="
+    currentUser.work &&
+    currentUser.work.position &&
+    currentUser.work &&
+    currentUser.work.company
+  "
 >
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
@@ -7,18 +12,18 @@
     </div>
     <div class="text">
       <p>
-        {{ user.work.position }} at
+        {{ currentUser.work.position }} at
         <a
-          href="https://www.google.com/search?q={{ user.work.company }}"
+          href="https://www.google.com/search?q={{ currentUser.work.company }}"
           target="_blank"
-          >{{ user.work.company }}</a
+          >{{ currentUser.work.company }}</a
         >
       </p>
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.secondarySchool">
+<ng-container *ngIf="currentUser.secondarySchool">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-school-flag"></i>
@@ -28,10 +33,10 @@
         Studied at
         <a
           href="https://www.google.com/search?q={{
-            user.secondarySchool
+            currentUser.secondarySchool
           }}secondary school"
           target="_blank"
-          >{{ user.secondarySchool }}</a
+          >{{ currentUser.secondarySchool }}</a
         >
         secondary school
       </p>
@@ -39,7 +44,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.highSchool">
+<ng-container *ngIf="currentUser.highSchool">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-school"></i>
@@ -49,10 +54,10 @@
         Studied at
         <a
           href="https://www.google.com/search?q={{
-            user.highSchool
+            currentUser.highSchool
           }}high school"
           target="_blank"
-          >{{ user.highSchool }}</a
+          >{{ currentUser.highSchool }}</a
         >
         high school
       </p>
@@ -60,7 +65,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.college">
+<ng-container *ngIf="currentUser.college">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-graduation-cap"></i>
@@ -69,9 +74,11 @@
       <p>
         Studied at
         <a
-          href="https://www.google.com/search?q={{ user.college }} college"
+          href="https://www.google.com/search?q={{
+            currentUser.college
+          }} college"
           target="_blank"
-          >{{ user.college }}</a
+          >{{ currentUser.college }}</a
         >
         college
       </p>
@@ -79,7 +86,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.university">
+<ng-container *ngIf="currentUser.university">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-building-columns"></i>
@@ -89,10 +96,10 @@
         Studied at
         <a
           href="https://www.google.com/search?q={{
-            user.university
+            currentUser.university
           }} university"
           target="_blank"
-          >{{ user.university }}</a
+          >{{ currentUser.university }}</a
         >
         university
       </p>
@@ -100,7 +107,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.birthday">
+<ng-container *ngIf="currentUser.birthday">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-cake-candles"></i>
@@ -108,13 +115,13 @@
     <div class="text">
       <p>
         Born on
-        {{ user.birthday | date }}
+        {{ currentUser.birthday | date }}
       </p>
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.linkedin">
+<ng-container *ngIf="currentUser.linkedin">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-brands fa-linkedin-in"></i>
@@ -122,15 +129,15 @@
     <div class="text">
       <a
         class="fw-normal text-primary"
-        href="https://www.linkedin.com/in/{{ user.linkedin }}"
+        href="https://www.linkedin.com/in/{{ currentUser.linkedin }}"
         target="_blank"
-        >{{ user.linkedin }}</a
+        >{{ currentUser.linkedin }}</a
       >
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.facebook">
+<ng-container *ngIf="currentUser.facebook">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-brands fa-facebook"></i>
@@ -138,15 +145,15 @@
     <div class="text">
       <a
         class="fw-normal text-primary"
-        href="https://www.facebook.com/{{ user.facebook }}"
+        href="https://www.facebook.com/{{ currentUser.facebook }}"
         target="_blank"
-        >{{ user.facebook }}</a
+        >{{ currentUser.facebook }}</a
       >
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.instagram">
+<ng-container *ngIf="currentUser.instagram">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-brands fa-instagram"></i>
@@ -154,15 +161,15 @@
     <div class="text">
       <a
         class="fw-normal text-primary"
-        href="https://www.instagram.com/{{ user.instagram }}"
+        href="https://www.instagram.com/{{ currentUser.instagram }}"
         target="_blank"
-        >{{ user.instagram }}</a
+        >{{ currentUser.instagram }}</a
       >
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.twitter">
+<ng-container *ngIf="currentUser.twitter">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-brands fa-x-twitter"></i>
@@ -170,15 +177,15 @@
     <div class="text">
       <a
         class="fw-normal text-primary"
-        href="https://www.twitter.com/{{ user.twitter }}"
+        href="https://www.twitter.com/{{ currentUser.twitter }}"
         target="_blank"
-        >{{ user.twitter }}</a
+        >{{ currentUser.twitter }}</a
       >
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.hometown">
+<ng-container *ngIf="currentUser.hometown">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-house-chimney"></i>
@@ -187,16 +194,16 @@
       <p>
         From
         <a
-          href="https://www.google.com/search?q={{ user.hometown }}"
+          href="https://www.google.com/search?q={{ currentUser.hometown }}"
           target="_blank"
-          >{{ user.hometown }}</a
+          >{{ currentUser.hometown }}</a
         >
       </p>
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.live">
+<ng-container *ngIf="currentUser.live">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-location-dot"></i>
@@ -205,23 +212,23 @@
       <p>
         Live in
         <a
-          href="https://www.google.com/search?q={{ user.live }}"
+          href="https://www.google.com/search?q={{ currentUser.live }}"
           target="_blank"
-          >{{ user.live }}</a
+          >{{ currentUser.live }}</a
         >
       </p>
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="user.relationship">
+<ng-container *ngIf="currentUser.relationship">
   <div class="about">
     <div class="icon d-flex align-items-center justify-content-center">
       <i class="fa-solid fa-heart"></i>
     </div>
     <div class="text">
       <p>
-        {{ user.relationship }}
+        {{ currentUser.relationship }}
       </p>
     </div>
   </div>

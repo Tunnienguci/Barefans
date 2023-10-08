@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { User } from 'src/app/models/user';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
@@ -11,57 +10,38 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./timeline.component.scss'],
 })
 export class TimelineComponent {
-  isAuth: User = {} as User;
-  posts: any[] = [];
-  currentUser: User = {} as User;
+  myUser: any;
+  currentUser: any;
+  posts: any;
   permission: boolean = false;
+  isLoading: boolean = true;
+  private userPostsSubscription: Subscription;
 
   constructor(
     private loginService: LoginService,
-    private postService: PostService,
-    private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private postService: PostService
   ) {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.currentUser = this.userService.currentUser;
+    this.myUser = this.loginService.userData;
 
-    // Authenticated user
-    this.loginService.getUser().subscribe((data) => {
-      this.isAuth = data;
-    });
-
-    // Posts by user
-    this.postService.getPostByUser(String(id)).subscribe((res) => {
-      this.posts = res;
-    });
-
-    // Get User by username
-    this.userService.getUserByUsername(String(id)).subscribe((res) => {
-      this.currentUser = res;
-    });
-
-    // Check permission to edit
-    if (this.isAuth.account.username === this.currentUser.account.username) {
-      this.permission = true;
+    if (this.currentUser) {
+      this.permission = this.currentUser.username === this.myUser.username;
     }
+
+    this.userPostsSubscription = this.postService
+      .getPostByUser(this.currentUser.username)
+      .subscribe((res) => {
+        this.posts = res.posts;
+        this.isLoading = false;
+      });
+
+    this.postService.listPosts$.subscribe((userPosts: any[]) => {
+      this.posts = userPosts;
+    });
   }
 
-  // [EN]: Triggered when user changes
-  ngDoCheck(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-
-    // Posts by user
-    this.postService.getPostByUser(String(id)).subscribe((res) => {
-      this.posts = res;
-    });
-
-    // Get User by username
-    this.userService.getUserByUsername(String(id)).subscribe((res) => {
-      this.currentUser = res;
-    });
-
-    // Check permission to edit
-    if (this.isAuth.account.username === this.currentUser.account.username) {
-      this.permission = true;
-    }
+  ngOnDestroy() {
+    this.userPostsSubscription.unsubscribe();
   }
 }

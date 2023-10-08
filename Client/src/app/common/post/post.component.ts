@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -9,27 +8,27 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostComponent {
   @Input() posts: any[] = [];
-  @Input() isAuth: any = {};
+  @Input() currentUser: any;
+  @Input() myUser: any;
+
+  userName = localStorage.getItem('_saBareUser');
 
   editable: boolean = false;
 
-  constructor(private postService: PostService, private router: Router) {}
+  constructor(private postService: PostService) {}
 
   removePost(id: any) {
-    this.postService.removePost(id).subscribe((res) => {
-      this.posts = res;
-      this.router.navigate(['/home']);
-    });
+    this.postService.removePost(id);
   }
 
   openLink(link: any) {
-    this.router.navigate(['/post', link]);
+    // this.router.navigate(['/post', link]);
   }
 
   likePost(id: any) {
-    this.postService.likePost(id).subscribe((res) => {
-      this.posts = res;
-    });
+    // this.postService.likePost(id).subscribe((res) => {
+    //   this.posts = res;
+    // });
   }
 
   calculateTime(time: any) {
@@ -59,6 +58,6 @@ export class PostComponent {
   }
 
   copyLink(link: any) {
-    this.router.navigate(['/post', link]);
+    // this.router.navigate(['/post', link]);
   }
 }

@@ -1,7 +1,8 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="login">
   <div class="container" id="container">
     <div class="form-container sign-up-container">
-      <form [formGroup]="loginForm" (submit)="register()">
+      <form [formGroup]="registerForm" (submit)="register()">
         <h1>Create Account</h1>
         <div class="social-container">
           <a class="social"><i class="fab fa-google-plus-g"></i></a>

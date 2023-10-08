@@ -12,15 +12,22 @@ import { AboutComponent } from './common/profile/about/about.component';
 import { FriendComponent } from './common/profile/friend/friend.component';
 import { PhotoComponent } from './common/profile/photo/photo.component';
 import { VideoComponent } from './common/profile/video/video.component';
-import { authGuard } from './helpers/auth.guard';
-import { FormEditComponent } from './common/profile/timeline/form-edit/form-edit.component';
+import { AuthGuard } from './helpers/auth.guard';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 
 const routes: Routes = [
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'update-profile',
+    component: UpdateProfileComponent,
+  },
+  {
     path: '',
     component: ClientComponent,
-    canActivate: [authGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -70,14 +77,6 @@ const routes: Routes = [
         ],
       },
     ],
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'update-profile',
-    component: UpdateProfileComponent,
   },
   {
     path: '**',

@@ -21,7 +21,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NotificationComponent } from './pages/client/notification/notification.component';
 import { AlertComponent } from './common/alert/alert.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { HttpClientModule } from '@angular/common/http';
 import { PostDetailComponent } from './pages/client/post-detail/post-detail.component';
 import { ListImageComponent } from './common/list-image/list-image.component';
 import { ClientComponent } from './pages/client/client.component';
@@ -39,6 +38,9 @@ import { AboutItemComponent } from './common/profile/timeline/about-item/about-i
 import { BioComponent } from './common/profile/timeline/bio/bio.component';
 import { FormEditComponent } from './common/profile/timeline/form-edit/form-edit.component';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CloudinaryModule } from '@cloudinary/ng';
+import { LoadingComponent } from './common/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { UpdateProfileComponent } from './pages/update-profile/update-profile.co
     BioComponent,
     FormEditComponent,
     UpdateProfileComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { UpdateProfileComponent } from './pages/update-profile/update-profile.co
     ReactiveFormsModule,
     PickerComponent,
     HttpClientModule,
+    CloudinaryModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -54,9 +54,9 @@
         Logout
       </button>
       <img
-        src="{{ isAuth.avatar }}"
+        src="{{ myUser.avatar }}"
         class="img-avatar"
-        [routerLink]="['profile/', isAuth.account.username]"
+        [routerLink]="['profile/', myUser.username]"
       />
     </div>
   </div>

@@ -1,3 +1,4 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="timeline">
   <div class="grid-item">
     <div class="authentication">
@@ -19,10 +20,13 @@
       <h2>Introduction</h2>
       <app-bio
         [permission]="permission"
-        [isAuth]="isAuth"
-        [user]="currentUser"
+        [myUser]="myUser"
+        [currentUser]="currentUser"
       ></app-bio>
-      <app-about-item></app-about-item>
+      <app-about-item
+        [myUser]="myUser"
+        [currentUser]="currentUser"
+      ></app-about-item>
       <button
         class="btn btn-secondary"
         data-bs-toggle="modal"
@@ -35,11 +39,11 @@
   </div>
   <div class="grid-item">
     <app-update-status
-      [isAuth]="isAuth"
+      [isAuth]="myUser"
       [ngClass]="{ 'd-none': !permission }"
     ></app-update-status>
-    <app-post [posts]="posts" [isAuth]="isAuth"></app-post>
+    <app-post [posts]="posts" [currentUser]="currentUser"></app-post>
   </div>
 </div>
 
-<app-form-edit [userInfo]="isAuth"></app-form-edit>
+<app-form-edit [userInfo]="myUser"></app-form-edit>

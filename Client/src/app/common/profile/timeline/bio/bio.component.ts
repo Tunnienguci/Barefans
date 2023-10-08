@@ -12,14 +12,8 @@ export class BioComponent {
   character: number = 0;
   bio: string = '';
   @Input() permission: boolean = false;
-  @Input() isAuth: User = {} as User;
-  @Input() user: User = {} as User;
-
-  constructor(private userService: UserService) {}
-
-  ngDoCheck(): void {
-    this.bio = this.user.bio || '';
-  }
+  @Input() myUser: any;
+  @Input() currentUser: any;
 
   checkCharacter(e: any) {
     this.character = e.target.value.length;
@@ -28,12 +22,5 @@ export class BioComponent {
 
   editBioToggle() {
     this.editBio = !this.editBio;
-    if (!this.editBio) {
-      const user = {
-        ...this.isAuth,
-        bio: this.bio,
-      };
-      this.userService.updateUser(user).subscribe();
-    }
   }
 }
