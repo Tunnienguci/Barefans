@@ -8,9 +8,9 @@ const {
 	updateProfile,
 } = require("../Controllers/authController");
 
-router.post("/login", login);
-router.post("/register", register);
-router.get("/myuser", getMyUser);
-router.post("/register/update-profile", updateProfile);
+router.post("/sign-in", login);
+router.post("/sign-up", register);
+router.get("/my-user", getMyUser);
+router.post("/sign-up/update-profile", updateProfile);
 
 module.exports = router;

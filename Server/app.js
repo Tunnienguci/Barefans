@@ -19,6 +19,6 @@ mongoose.connect(process.env.URI).then(() => {
 	});
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/post", postRoutes);
+app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
+app.use("/post", postRoutes);
