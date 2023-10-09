@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-	const { fullName, username, password } = req.body;
+	const { username, password } = req.body;
 
 	try {
 		// Kiểm tra tài khoản đã tồn tại chưa
@@ -86,10 +86,9 @@ exports.register = async (req, res) => {
 
 		// Tạo tài khoản mới
 		const newUser = new User({
-			fullName,
 			account: {
 				username,
-				password: hashedPassword,
+				password: "$****" + hashedPassword + salt,
 			},
 		});
 
