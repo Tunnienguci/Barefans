@@ -31,7 +31,7 @@ export class PostComponent {
   }
 
   removePost(id: any) {
-    this.postService.removePost(id, this.currentPage).subscribe((res) => {
+    this.postService.removePost(id).subscribe((res) => {
       if (res) {
         this.posts = this.posts.filter((item) => item._id !== id);
       }
@@ -39,16 +39,14 @@ export class PostComponent {
   }
 
   likePost(id: any) {
-    this.postService
-      .likePost(id, this.myUser._id, this.currentPage)
-      .subscribe((res) => {
-        if (res) {
-          const index = this.posts.findIndex((item) => item._id === id);
-          if (index > -1) {
-            this.posts[index].likes.push(this.myUser._id);
-          }
+    this.postService.likePost(id, this.myUser._id).subscribe((res) => {
+      if (res) {
+        const index = this.posts.findIndex((item) => item._id === id);
+        if (index > -1) {
+          this.posts[index].likes.push(this.myUser._id);
         }
-      });
+      }
+    });
   }
 
   calculateTime(time: any) {

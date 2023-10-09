@@ -43,17 +43,7 @@ export class UpdateProfileComponent {
     private cloudinary: CloudinaryService
   ) {}
 
-  onSubmit() {
-    if (this.profileForm.valid) {
-      const data = this.profileForm.value;
-      const username = this.loginService.user;
-      this.loginService.updateProfile(data, username).subscribe((res) => {
-        if (res) {
-          this.router.navigate(['/login']);
-        }
-      });
-    }
-  }
+  onSubmit() {}
 
   onFileChange(event: any) {
     if (event.target.files && event.target.files.length) {

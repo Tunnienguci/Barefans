@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import task from '../../data/task.json';
 
 @Component({
   selector: 'app-list-task',
@@ -7,5 +6,5 @@ import task from '../../data/task.json';
   styleUrls: ['./list-task.component.scss'],
 })
 export class ListTaskComponent {
-  listTask: any[] = [...task];
+  listTask: any[] = [];
 }

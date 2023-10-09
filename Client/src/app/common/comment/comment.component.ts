@@ -20,6 +20,6 @@ export class CommentComponent {
   }
 
   removeComment(idCmt: any) {
-    this.postService.removeCommentById(this.id, idCmt, this.currentPage);
+    this.postService.removeCommentById(this.id, idCmt);
   }
 }
