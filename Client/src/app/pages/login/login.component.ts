@@ -58,14 +58,7 @@ export class LoginComponent {
         password: this.registerForm.value.password,
         fullName: this.registerForm.value.fullname,
       };
-      this.isLoading = true;
-      this.loginService.register(data).subscribe((res: any) => {
-        if (res) {
-          this.loginService.user = res.username;
-          this.isLoading = false;
-          this.router.navigate(['/update-profile']);
-        }
-      });
+      this.loginService.register(data);
     }
   }
 }

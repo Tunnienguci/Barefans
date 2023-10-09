@@ -11,9 +11,15 @@ export class CommentComponent {
   @Input() id: any;
   @Input() myUser: any;
   @Input() commentList: any;
-  constructor(private postService: PostService) {}
+  currentPage: string = '';
+
+  constructor(private postService: PostService, private route: ActivatedRoute) {
+    this.route.params.subscribe((params: any) => {
+      this.currentPage = params.id;
+    });
+  }
 
   removeComment(idCmt: any) {
-    this.postService.removeCommentById(this.id, idCmt);
+    this.postService.removeCommentById(this.id, idCmt, this.currentPage);
   }
 }

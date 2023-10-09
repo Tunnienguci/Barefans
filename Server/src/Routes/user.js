@@ -12,8 +12,8 @@ const {
 
 router.get("/", getUser);
 router.post("/follow", followUser);
-router.post("/accept", acceptFollow);
-router.post("/reject", rejectFollow);
+router.post("/follow/accept", acceptFollow);
+router.post("/follow/reject", rejectFollow);
 router.get("/myreceive", getReceiveRequest);
 router.get("/myfriend", getFriends);
 

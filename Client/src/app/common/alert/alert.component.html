@@ -1,5 +1,3 @@
-<app-loading [isLoading]="isLoading"></app-loading>
-
 <div
   class="alert mb-5"
   *ngFor="let item of receivedUser | slice : 0 : 1; let i = index"
@@ -15,16 +13,10 @@
     </p>
   </div>
   <div class="alert-action">
-    <button
-      class="btn btn-primary"
-      (click)="acceptFollowRequest(item.username)"
-    >
+    <button class="btn btn-primary" (click)="accept(item.username)">
       Accept
     </button>
-    <button
-      class="btn btn-outline-primary"
-      (click)="recjectFollowRequest(item.username)"
-    >
+    <button class="btn btn-outline-primary" (click)="reject(item.username)">
       Cancel
     </button>
   </div>

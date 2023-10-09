@@ -9,40 +9,32 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private currentUserSubject: BehaviorSubject<User | null> =
-    new BehaviorSubject<User | null>(null);
+  // Constructor
+  constructor(private http: HttpClient) {}
 
-  public currentUser$: Observable<any | null> =
-    this.currentUserSubject.asObservable();
-
-  constructor(private http: HttpClient, private router: Router) {}
-
+  // [GET] Get user by username
   getUserByUsername(username: string): Observable<User> {
-    return this.http
-      .get<User>(`${environment.apiUrl}/user?username=${username}`)
-      .pipe(
-        tap((user: User) => {
-          this.currentUserSubject.next(user);
-        })
-      );
+    return this.http.get<User>(
+      `${environment.apiUrl}/user?username=${username}`
+    );
   }
 
+  // [POST] Update user
   followUser(sendUser: any, receiveUser: any) {
-    return this.http
-      .post(`${environment.apiUrl}/user/follow?username=${sendUser}`, {
+    return this.http.post(
+      `${environment.apiUrl}/user/follow?username=${sendUser}`,
+      {
         usernameFollow: receiveUser,
-      })
-      .subscribe((res: any) => {
-        if (res) {
-          this.getUserByUsername(receiveUser).subscribe();
-        }
-      });
+      }
+    );
   }
 
+  // [GET] Get received follow requests
   getReceivedFollowRequests(id: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/user/myreceive?id=${id}`);
   }
 
+  // [POST] Accept follow request
   acceptFollowRequest(sendUser: any, receiveUser: any) {
     return this.http.post(
       `${environment.apiUrl}/user/accept?username=${sendUser}`,
@@ -52,6 +44,7 @@ export class UserService {
     );
   }
 
+  // [POST] Reject follow request
   recjectFollowRequest(username: any, id: any) {
     return this.http.post(
       `${environment.apiUrl}/user/reject?username=${username}&reqname=${id}`,
@@ -59,6 +52,7 @@ export class UserService {
     );
   }
 
+  // [GET] Get friends
   getFriends(username: any): Observable<any> {
     return this.http.get(
       `${environment.apiUrl}/user/myfriend?username=${username}`

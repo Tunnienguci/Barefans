@@ -1,26 +1,13 @@
 import { User } from './user';
 
 export interface Post {
-  id: number;
-  like: number;
-  comment: any[];
+  _id: string;
   user: User;
-  liked: boolean;
   content: string;
-  images: any[];
-  video: any[];
-  time: string;
+  images: string[];
+  video: string[];
   emoji: string;
-}
-
-export interface Comment {
-  id: number;
-  content: string;
+  like: any[];
+  comment: any[];
   time: string;
-  user: User;
-}
-
-export interface Like {
-  id: number;
-  user: User;
 }

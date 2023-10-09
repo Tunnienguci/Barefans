@@ -1,15 +1,26 @@
 <app-loading [isLoading]="isLoading"></app-loading>
-<div class="homepage">
-  <div class="start-column">
-    <app-alert [myUser]="myUser" [receivedUser]="receivedUser"></app-alert>
-    <app-contacts [friends]="friends"></app-contacts>
-  </div>
-  <div class="center-column">
-    <app-update-status [isAuth]="myUser"></app-update-status>
-    <app-post [posts]="listPosts" [myUser]="myUser"></app-post>
-  </div>
-  <div class="end-column">
-    <app-stories></app-stories>
-    <app-list-task></app-list-task>
+<div class="container-group">
+  <app-sidebar></app-sidebar>
+  <div class="content">
+    <app-header></app-header>
+    <div class="page">
+      <div class="homepage">
+        <div class="start-column">
+          <app-alert
+            [myUser]="myUser"
+            [receivedUser]="receivedUser"
+          ></app-alert>
+          <app-contacts [friends]="friends"></app-contacts>
+        </div>
+        <div class="center-column">
+          <app-update-status [isAuth]="myUser"></app-update-status>
+          <app-post [posts]="listPosts" [myUser]="myUser"></app-post>
+        </div>
+        <div class="end-column">
+          <app-stories></app-stories>
+          <app-list-task></app-list-task>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

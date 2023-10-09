@@ -12,11 +12,9 @@ export class LoginService {
   // DataStore
   private baseAPI: string = environment.apiUrl;
   private TOKEN_KEY = '_saBareFans';
-  user: any;
-  isLoading: boolean = false;
-  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public userData$ = this.userSubject.asObservable();
+  private user: any;
 
+  // Constructor
   constructor(private http: HttpClient, private router: Router) {
     let token = localStorage.getItem(this.TOKEN_KEY);
     let username = localStorage.getItem('_saBareUser');
@@ -36,20 +34,11 @@ export class LoginService {
 
   // [POST] /auth/login
   login(data: any) {
-    return this.http
-      .post(`${this.baseAPI}/auth/login`, data)
-      .subscribe((res: any) => {
-        if (res) {
-          this.user = res.username;
-          this.saveToken(res.token);
-          this.router.navigate(['']);
-        }
-      });
+    return this.http.post(`${this.baseAPI}/auth/login`, data);
   }
 
   // [POST] /auth/register
   register(data: any) {
-    console.log(data);
     return this.http.post(`${this.baseAPI}/auth/register`, data);
   }
 
@@ -61,19 +50,12 @@ export class LoginService {
     );
   }
 
-  getUser(): Observable<any> {
-    let username = localStorage.getItem('_saBareUser');
-    this.http.get(`${this.baseAPI}/auth/user?username=${username}`).subscribe(
-      (user) => {
-        this.userSubject.next(user);
-      },
-      (error) => {
-        this.userSubject.error(error);
-      }
-    );
-    return this.userSubject.asObservable();
+  // [GET] /auth/myuser?username=${username}
+  getUser(username: string): Observable<any> {
+    return this.http.get(`${this.baseAPI}/auth/myuser?username=${username}`);
   }
 
+  // Process save token
   saveToken(token: string) {
     let userObj: any = jwt(token);
     this.user = userObj.username;

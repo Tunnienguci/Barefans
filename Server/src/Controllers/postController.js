@@ -261,3 +261,16 @@ exports.removeCommentById = async (req, res) => {
 		});
 	}
 };
+
+exports.getLatestPost = async (req, res) => {
+	try {
+		const latest = await Post.find().sort({ time: -1 }).limit(1);
+		return res.status(200).json({
+			post: latest[0],
+		});
+	} catch (err) {
+		return res.status(500).json({
+			messages: "Lỗi Server nè",
+		});
+	}
+};

@@ -16,61 +16,13 @@ export class ProfileComponent {
   currentUser: any = {};
   isLoading: boolean = true;
 
-  private myUserSubscription: Subscription;
-  private currentUserSubscription: Subscription;
-  private userPostsSubscription: Subscription;
-
   constructor(
     private loginService: LoginService,
-    private route: ActivatedRoute,
     private userService: UserService,
     private postService: PostService
-  ) {
-    // BehaviorSubject
-    this.myUserSubscription = this.loginService.userData$.subscribe(
-      (res: any) => {
-        this.isLoading = true;
-        if (res) {
-          this.myUser = res;
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1500);
-        }
-      }
-    );
+  ) {}
 
-    // Subject
-    this.currentUserSubscription = this.userService.currentUser$.subscribe(
-      (res) => {
-        this.isLoading = true;
-        if (res) {
-          this.currentUser = res;
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1500);
-        }
-      }
-    );
-
-    this.userPostsSubscription = this.postService.userPosts$.subscribe(
-      (res) => {
-        this.isLoading = true;
-        if (res) {
-          this.currentUser.posts = res;
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1500);
-        }
-      }
-    );
-  }
-
-  ngOnInit(): void {
-    this.route.params.subscribe((params: any) => {
-      this.userService.getUserByUsername(params.id).subscribe();
-      this.postService.getPostByUser(params.id).subscribe();
-    });
-  }
+  ngOnInit(): void {}
 
   followUser() {
     this.userService.followUser(
@@ -86,11 +38,5 @@ export class ProfileComponent {
       });
     }
     return false;
-  }
-
-  ngOnDestroy(): void {
-    this.myUserSubscription.unsubscribe();
-    this.currentUserSubscription.unsubscribe();
-    this.userPostsSubscription.unsubscribe();
   }
 }

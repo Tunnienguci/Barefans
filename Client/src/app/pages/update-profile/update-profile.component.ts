@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { LoginService } from 'src/app/services/login.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -38,38 +36,12 @@ export class UpdateProfileComponent {
     }),
   });
 
-  private myUserSubscription: Subscription;
-
   constructor(
     private fb: FormBuilder,
     private loginService: LoginService,
     private router: Router,
     private cloudinary: CloudinaryService
-  ) {
-    this.myUserSubscription = this.loginService.userData$.subscribe(
-      (res: any) => {
-        if (res) {
-          this.userInfo = res;
-          this.profileForm.patchValue({
-            fullName: this.userInfo.fullName,
-            birthday: this.userInfo.birthday,
-            hometown: this.userInfo.hometown,
-            avatar: this.userInfo.avatar,
-            live: this.userInfo.live,
-            relationship: this.userInfo.relationship,
-            facebook: this.userInfo.facebook,
-            twitter: this.userInfo.twitter,
-            instagram: this.userInfo.instagram,
-            linkedin: this.userInfo.linkedin,
-            secondarySchool: this.userInfo.secondarySchool,
-            highSchool: this.userInfo.highSchool,
-            college: this.userInfo.college,
-            university: this.userInfo.university,
-          });
-        }
-      }
-    );
-  }
+  ) {}
 
   onSubmit() {
     if (this.profileForm.valid) {
@@ -106,9 +78,5 @@ export class UpdateProfileComponent {
         });
       };
     }
-  }
-
-  ngOnDestroy(): void {
-    this.myUserSubscription.unsubscribe();
   }
 }

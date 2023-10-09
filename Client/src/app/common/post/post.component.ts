@@ -13,9 +13,7 @@ export class PostComponent {
   @Input() myUser: any;
 
   currentPage: string = '';
-
   userName = localStorage.getItem('_saBareUser');
-
   editable: boolean = false;
 
   constructor(private postService: PostService, private route: ActivatedRoute) {
@@ -25,23 +23,32 @@ export class PostComponent {
   }
 
   checkStatusLike(arr: any) {
-    const index = arr.findIndex((item: any) => item === this.myUser._id);
-    if (index > -1) {
+    if (arr.includes(this.myUser._id)) {
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
   removePost(id: any) {
-    this.postService.removePost(id, this.currentPage);
-  }
-
-  openLink(link: any) {
-    // this.router.navigate(['/post', link]);
+    this.postService.removePost(id, this.currentPage).subscribe((res) => {
+      if (res) {
+        this.posts = this.posts.filter((item) => item._id !== id);
+      }
+    });
   }
 
   likePost(id: any) {
-    this.postService.likePost(id, this.myUser._id, this.currentPage);
+    this.postService
+      .likePost(id, this.myUser._id, this.currentPage)
+      .subscribe((res) => {
+        if (res) {
+          const index = this.posts.findIndex((item) => item._id === id);
+          if (index > -1) {
+            this.posts[index].likes.push(this.myUser._id);
+          }
+        }
+      });
   }
 
   calculateTime(time: any) {
@@ -70,7 +77,7 @@ export class PostComponent {
     }
   }
 
-  copyLink(link: any) {
-    // this.router.navigate(['/post', link]);
-  }
+  copyLink(link: any) {}
+
+  openLink(link: any) {}
 }

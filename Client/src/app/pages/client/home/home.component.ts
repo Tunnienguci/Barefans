@@ -17,72 +17,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   friends: any;
   isLoading: boolean = true;
 
-  // Subscription
-  private listPostsSubscription: Subscription;
-  private myUserSubscription: Subscription;
-
   constructor(
     private loginService: LoginService,
     private postService: PostService,
     private userService: UserService
-  ) {
-    this.listPostsSubscription = this.postService.listPosts$.subscribe(
-      (listPosts: any[]) => {
-        this.isLoading = true;
-        if (listPosts) {
-          this.listPosts = listPosts;
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1000);
-        }
-      }
-    );
+  ) {}
 
-    this.myUserSubscription = this.loginService.userData$.subscribe(
-      (res: any) => {
-        this.isLoading = true;
-        if (res) {
-          this.myUser = res;
-          this.userService
-            .getReceivedFollowRequests(this.myUser._id)
-            .subscribe((res: any) => {
-              if (res) {
-                this.receivedUser = res;
-              }
-            });
+  ngOnInit(): void {}
 
-          this.userService
-            .getFriends(this.myUser.username)
-            .subscribe((res: any) => {
-              if (res) {
-                this.friends = res.friends;
-              }
-            });
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1000);
-        }
-      }
-    );
-  }
+  ngOnDestroy(): void {}
 
-  ngOnInit(): void {
-    this.listPostsSubscription = this.postService.listPosts$.subscribe(
-      (listPosts: any[]) => {
-        this.isLoading = true;
-        if (listPosts) {
-          this.listPosts = listPosts;
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1000);
-        }
-      }
-    );
-    this.loginService.getUser();
-  }
+  acceptFollowRequest(receivedUser: any) {}
 
-  ngOnDestroy(): void {
-    this.listPostsSubscription.unsubscribe();
-    this.myUserSubscription.unsubscribe();
-  }
+  recjectFollowRequest(id: any) {}
 }

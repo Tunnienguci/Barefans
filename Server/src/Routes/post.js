@@ -9,6 +9,7 @@ const {
 	likePost,
 	commentPost,
 	removeCommentById,
+	getLatestPost,
 } = require("../Controllers/postController");
 
 router.post("/create", createPost);
@@ -17,6 +18,7 @@ router.get("/userpost", getPostFromUser);
 router.delete("/delete", removePost);
 router.post("/like", likePost);
 router.post("/comment", commentPost);
-router.post("/removeCommentById", removeCommentById);
+router.post("/comment/delete", removeCommentById);
+router.get("/latest", getLatestPost);
 
 module.exports = router;

@@ -7,10 +7,5 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./photo.component.scss'],
 })
 export class PhotoComponent {
-  albums: any[] = [];
-  constructor(private userService: UserService) {
-    this.userService.currentUser$.subscribe((user: any) => {
-      this.albums = user.albums;
-    });
-  }
+  @Input() albums: any[] = [];
 }

@@ -90,31 +90,42 @@ exports.register = async (req, res) => {
 
 exports.getMyUser = async (req, res) => {
 	const { username } = req.query;
-	const user = await User.findOne({ "account.username": username });
-	if (user) {
+
+	// Lấy thông tin user
+	const data = await User.findOne({ "account.username": username });
+
+	try {
 		return res.status(200).json({
-			username: user.account.username,
-			fullName: user.fullName,
-			birthday: user.birthday,
-			avatar: user.avatar,
-			bio: user.bio,
-			hometown: user.hometown,
-			live: user.live,
-			relationship: user.relationship,
-			facebook: user.facebook,
-			twitter: user.twitter,
-			instagram: user.instagram,
-			linkedin: user.linkedin,
-			highSchool: user.highSchool,
-			secondarySchool: user.secondarySchool,
-			college: user.college,
-			posts: user.posts,
-			university: user.university,
-			albums: user.albums,
-			friends: user.friends,
-			requests: user.requests,
-			verify: user.verify,
-			_id: user._id,
+			resultCd: 0,
+			user: {
+				username: data.account.username,
+				fullName: data.fullName,
+				birthday: data.birthday,
+				avatar: data.avatar,
+				bio: data.bio,
+				hometown: data.hometown,
+				live: data.live,
+				relationship: data.relationship,
+				facebook: data.facebook,
+				twitter: data.twitter,
+				instagram: data.instagram,
+				linkedin: data.linkedin,
+				highSchool: data.highSchool,
+				secondarySchool: data.secondarySchool,
+				college: data.college,
+				posts: data.posts,
+				university: data.university,
+				albums: data.albums,
+				friends: data.friends,
+				requests: data.requests,
+				verify: data.verify,
+				_id: data._id,
+			},
+		});
+	} catch (error) {
+		console.error("Lỗi server:", error);
+		return res.status(500).json({
+			message: "Lỗi server",
 		});
 	}
 };

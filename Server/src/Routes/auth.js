@@ -10,7 +10,7 @@ const {
 
 router.post("/login", login);
 router.post("/register", register);
-router.get("/user", getMyUser);
+router.get("/myuser", getMyUser);
 router.post("/register/update-profile", updateProfile);
 
 module.exports = router;
