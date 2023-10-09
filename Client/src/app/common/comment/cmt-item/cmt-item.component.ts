@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-cmt-item',
