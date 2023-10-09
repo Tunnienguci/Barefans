@@ -4,28 +4,35 @@ import { LoginService } from 'src/app/services/login.service';
 import { PostService } from 'src/app/services/post.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  listPosts: any[] = [];
-  myUser: any;
-  receivedUser: any;
-  friends: any;
-  isLoading: boolean = true;
+export class HomeComponent {
+  listPosts: Post[];
+  isLoading: boolean = false;
+  authUser: User;
 
   constructor(
     private loginService: LoginService,
     private postService: PostService,
     private userService: UserService
-  ) {}
+  ) {
+    this.authUser = this.loginService.authUser;
+    this.listPosts = this.postService.listPosts;
+  }
 
-  ngOnInit(): void {}
-
-  ngOnDestroy(): void {}
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.postService.getListPosts().subscribe((res: any) => {
+      this.listPosts = res.posts;
+      this.postService.listPosts = res.posts;
+      this.isLoading = false;
+    });
+  }
 
   acceptFollowRequest(receivedUser: any) {}
 

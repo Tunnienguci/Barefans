@@ -25,7 +25,7 @@
     <div class="modal-content">
       <div class="modal-header border-0">
         <div class="profile">
-          <img src="{{ isAuth && isAuth.avatar ? isAuth.avatar : ava }}" />
+          <img src="{{ isAuth && isAuth.avatar }}" />
           <div class="profile-info">
             <h3 class="profile-info__name">
               {{ isAuth && isAuth.fullName ? isAuth.fullName : "Unknown" }}
@@ -88,25 +88,6 @@
               (change)="onFileChange($event)"
               multiple
             />
-            <label for="video" title="Video">
-              <i class="fa-solid fa-photo-film" style="color: #0866ff"></i>
-            </label>
-            <input
-              type="file"
-              id="video"
-              name="video"
-              accept="video/mp4"
-              class="d-none"
-              (change)="onVideoChange($event)"
-            />
-            <label
-              for="emoji"
-              title="Emoji"
-              data-bs-toggle="modal"
-              data-bs-target="#emojiList"
-            >
-              <i class="fa-regular fa-smile" style="color: #f7b928"></i>
-            </label>
           </div>
           <div class="modal-footer border-0">
             <button

@@ -23,11 +23,14 @@ export class PostComponent {
   }
 
   checkStatusLike(arr: any) {
-    if (arr.includes(this.myUser._id)) {
-      return true;
-    } else {
-      return false;
+    if (this.myUser) {
+      if (arr.includes(this.myUser._id)) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   }
 
   removePost(id: any) {

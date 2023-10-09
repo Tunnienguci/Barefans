@@ -1,5 +1,5 @@
 <ng-container *ngFor="let item of commentList">
-  <div class="cmt-item my-2">
+  <div class="cmt-item my-2" *ngIf="myUser && item.user">
     <div class="user">
       <img src="{{ item.user.avatar }}" class="user__avatar" />
     </div>
@@ -14,7 +14,7 @@
     </div>
     <div
       class="action ms-auto dropdown-center"
-      *ngIf="item.user.username === myUser.username"
+      *ngIf="item.user && item.user.username === myUser.account.username"
     >
       <button
         class="btn dropdown-toggle border-0"

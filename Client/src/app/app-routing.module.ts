@@ -4,7 +4,6 @@ import { HomeComponent } from './pages/client/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotificationComponent } from './pages/client/notification/notification.component';
 import { PostDetailComponent } from './pages/client/post-detail/post-detail.component';
-import { ClientComponent } from './pages/client/client.component';
 import { WatchComponent } from './pages/client/watch/watch.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { TimelineComponent } from './common/profile/timeline/timeline.component';
@@ -24,55 +23,55 @@ const routes: Routes = [
     path: 'update-profile',
     component: UpdateProfileComponent,
   },
+
   {
     path: '',
-    component: ClientComponent,
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'post/:id',
+    component: PostDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'notification',
+    component: NotificationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'watch',
+    component: WatchComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/:id',
+    component: ProfileComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: '',
-        component: HomeComponent,
+        component: TimelineComponent,
       },
       {
-        path: 'post/:id',
-        component: PostDetailComponent,
+        path: 'about',
+        component: AboutComponent,
       },
       {
-        path: 'notification',
-        component: NotificationComponent,
+        path: 'friends',
+        component: FriendComponent,
       },
       {
-        path: 'watch',
-        component: WatchComponent,
+        path: 'photos',
+        component: PhotoComponent,
       },
       {
-        path: 'profile/:id',
-        component: ProfileComponent,
-        children: [
-          {
-            path: '',
-            component: TimelineComponent,
-          },
-          {
-            path: 'about',
-            component: AboutComponent,
-          },
-          {
-            path: 'friends',
-            component: FriendComponent,
-          },
-          {
-            path: 'photos',
-            component: PhotoComponent,
-          },
-          {
-            path: 'videos',
-            component: VideoComponent,
-          },
-        ],
+        path: 'videos',
+        component: VideoComponent,
       },
     ],
   },
+
   {
     path: '**',
     redirectTo: '',

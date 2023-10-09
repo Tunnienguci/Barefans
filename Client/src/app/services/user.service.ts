@@ -9,6 +9,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
+  // DataStore
+  curUser: User | any = {};
+
   // Constructor
   constructor(private http: HttpClient) {}
 

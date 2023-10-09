@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -43,7 +43,22 @@ export class UpdateProfileComponent {
     private cloudinary: CloudinaryService
   ) {}
 
-  onSubmit() {}
+  onSubmit() {
+    if (this.profileForm.valid) {
+      this.isLoading = true;
+      const username: any = localStorage.getItem('_saBareUser');
+      const data: any = {
+        ...this.profileForm.value,
+      };
+      this.loginService.updateProfile(data, username).subscribe((res: any) => {
+        if (res) {
+          localStorage.removeItem('_saBareUser');
+          this.isLoading = false;
+          this.router.navigate(['/login']);
+        }
+      });
+    }
+  }
 
   onFileChange(event: any) {
     if (event.target.files && event.target.files.length) {

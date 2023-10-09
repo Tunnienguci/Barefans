@@ -7,8 +7,6 @@ import { HeaderComponent } from './common/header/header.component';
 import { PostComponent } from './common/post/post.component';
 import { ContactsComponent } from './common/contacts/contacts.component';
 import { FriendComponent } from './common/contacts/friend/friend.component';
-import { StoriesComponent } from './common/stories/stories.component';
-import { StoryComponent } from './common/stories/story/story.component';
 import { RecommendComponent } from './common/recommend/recommend.component';
 import { UserComponent } from './common/recommend/user/user.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
@@ -23,7 +21,6 @@ import { AlertComponent } from './common/alert/alert.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { PostDetailComponent } from './pages/client/post-detail/post-detail.component';
 import { ListImageComponent } from './common/list-image/list-image.component';
-import { ClientComponent } from './pages/client/client.component';
 import { CommentComponent } from './common/comment/comment.component';
 import { CmtControlComponent } from './common/comment/cmt-control/cmt-control.component';
 import { CmtItemComponent } from './common/comment/cmt-item/cmt-item.component';
@@ -49,8 +46,6 @@ import { LoadingComponent } from './common/loading/loading.component';
     PostComponent,
     ContactsComponent,
     FriendComponent,
-    StoriesComponent,
-    StoryComponent,
     RecommendComponent,
     UserComponent,
     SidebarComponent,
@@ -63,7 +58,6 @@ import { LoadingComponent } from './common/loading/loading.component';
     AlertComponent,
     PostDetailComponent,
     ListImageComponent,
-    ClientComponent,
     CommentComponent,
     CmtControlComponent,
     CmtItemComponent,

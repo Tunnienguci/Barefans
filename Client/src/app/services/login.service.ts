@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import jwt from 'jwt-decode';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -12,16 +13,16 @@ export class LoginService {
   // DataStore
   private baseAPI: string = environment.apiUrl;
   private TOKEN_KEY = '_saBareFans';
-  private user: any;
+  authUser: User | any = {};
 
   // Constructor
   constructor(private http: HttpClient, private router: Router) {
     let token = localStorage.getItem(this.TOKEN_KEY);
     let username = localStorage.getItem('_saBareUser');
     if (token) {
-      let userObj: any = jwt(token);
-      this.user = userObj.username;
-      if (username == this.user) {
+      let userObj: User = jwt(token);
+      this.authUser = userObj;
+      if (username == this.authUser.username) {
         this.router.navigate(['']);
       } else {
         localStorage.removeItem('_saBareFans');
@@ -34,32 +35,27 @@ export class LoginService {
 
   // [POST] /auth/login
   login(data: any) {
-    return this.http.post(`${this.baseAPI}/auth/login`, data);
+    return this.http.post(`${this.baseAPI}/auth/sign-in`, data);
   }
 
   // [POST] /auth/register
   register(data: any) {
-    return this.http.post(`${this.baseAPI}/auth/register`, data);
+    return this.http.post(`${this.baseAPI}/auth/sign-up`, data);
   }
 
   // [POST] /auth/register/update-profile
   updateProfile(data: any, username: string) {
     return this.http.post(
-      `${this.baseAPI}/auth/register/update-profile?username=${username}`,
+      `${this.baseAPI}/auth/sign-up/update-profile?username=${username}`,
       data
     );
   }
 
-  // [GET] /auth/myuser?username=${username}
-  getUser(username: string): Observable<any> {
-    return this.http.get(`${this.baseAPI}/auth/myuser?username=${username}`);
-  }
-
   // Process save token
-  saveToken(token: string) {
-    let userObj: any = jwt(token);
-    this.user = userObj.username;
+  saveToken(token: string, username: string) {
+    let decodeJwt: User = jwt(token);
+    this.authUser = decodeJwt;
     localStorage.setItem(this.TOKEN_KEY, token);
-    localStorage.setItem('_saBareUser', this.user);
+    localStorage.setItem('_saBareUser', username);
   }
 }

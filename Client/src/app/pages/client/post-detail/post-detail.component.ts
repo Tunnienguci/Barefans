@@ -11,8 +11,7 @@ import { PostService } from 'src/app/services/post.service';
   styleUrls: ['./post-detail.component.scss'],
 })
 export class PostDetailComponent {
-  post: any[] = [];
-  myUser: any;
+  isLoading: boolean = false;
 
   constructor(
     private loginService: LoginService,

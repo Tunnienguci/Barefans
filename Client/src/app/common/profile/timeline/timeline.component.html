@@ -1,5 +1,5 @@
-<!-- <ng-container *ngIf="currentUser">
-  <app-loading [isLoading]="isLoading"></app-loading>
+<app-loading [isLoading]="isLoading"></app-loading>
+<ng-container *ngIf="currentUser && authUser">
   <div class="timeline">
     <div class="grid-item">
       <div class="authentication">
@@ -21,11 +21,11 @@
         <h2>Introduction</h2>
         <app-bio
           [permission]="permission"
-          [myUser]="myUser"
+          [myUser]="authUser"
           [currentUser]="currentUser"
         ></app-bio>
         <app-about-item
-          [myUser]="myUser"
+          [myUser]="authUser"
           [currentUser]="currentUser"
         ></app-about-item>
         <button
@@ -40,16 +40,15 @@
     </div>
     <div class="grid-item">
       <app-update-status
-        [isAuth]="myUser"
+        [isAuth]="authUser"
         [ngClass]="{ 'd-none': !permission }"
       ></app-update-status>
       <app-post
         [posts]="posts"
         [currentUser]="currentUser"
-        [myUser]="myUser"
+        [myUser]="authUser"
       ></app-post>
     </div>
   </div>
-
-  <app-form-edit [userInfo]="myUser"></app-form-edit>
-</ng-container> -->
+  <app-form-edit [userInfo]="authUser"></app-form-edit>
+</ng-container>

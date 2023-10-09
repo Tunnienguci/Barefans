@@ -1,10 +1,10 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="container-group">
   <app-sidebar></app-sidebar>
   <div class="content">
     <app-header></app-header>
     <div class="page">
       <ng-container *ngIf="currentUser">
-        <app-loading [isLoading]="isLoading"></app-loading>
         <div class="profile">
           <div class="main-info">
             <div class="cover-img">
@@ -24,7 +24,7 @@
               </div>
               <div
                 class="action"
-                *ngIf="myUser.username !== currentUser.username"
+                *ngIf="authUser.username !== currentUser.username"
               >
                 <ng-container *ngIf="findRequest()">
                   <button class="btn btn-secondary mx-3">

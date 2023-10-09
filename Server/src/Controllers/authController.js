@@ -86,6 +86,7 @@ exports.register = async (req, res) => {
 
 		// Tạo tài khoản mới
 		const newUser = new User({
+			fullName: "BareFans@" + username,
 			account: {
 				username,
 				password: "$****" + hashedPassword + salt,

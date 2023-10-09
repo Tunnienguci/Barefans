@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -23,7 +22,6 @@ export class LoginComponent {
     this.registerForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
-      fullname: new FormControl('', [Validators.required]),
     });
   }
 
@@ -47,7 +45,13 @@ export class LoginComponent {
         username: this.loginForm.value.username,
         password: this.loginForm.value.password,
       };
-      this.loginService.login(data);
+      this.loginService.login(data).subscribe((res: any) => {
+        this.isLoading = true;
+        if (res && res.token) {
+          this.loginService.saveToken(res.token, res.username);
+          this.router.navigate(['/']);
+        }
+      });
     }
   }
 
@@ -56,9 +60,14 @@ export class LoginComponent {
       const data = {
         username: this.registerForm.value.username,
         password: this.registerForm.value.password,
-        fullName: this.registerForm.value.fullname,
       };
-      this.loginService.register(data);
+      this.loginService.register(data).subscribe((res: any) => {
+        this.isLoading = true;
+        if (res) {
+          localStorage.setItem('_saBareUser', res.username);
+          this.router.navigate([`/update-profile`]);
+        }
+      });
     }
   }
 }
