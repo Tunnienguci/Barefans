@@ -28,6 +28,8 @@ export class ProfileComponent {
     this.isLoading = true;
     this.currentUser = this.userService.curUser;
     this.authUser = this.loginService.authUser;
+    this.findRequest();
+    this.isFriend();
     if (this.currentPage == this.authUser.account.username) {
       this.permission = true;
     }
@@ -60,12 +62,19 @@ export class ProfileComponent {
   followUser() {}
 
   findRequest(): boolean {
-    if (this.currentUser && this.currentUser.requests) {
-      return this.currentUser.requests.some((request: any) => {
-        return request.receiveRequest === this.authUser._id;
+    if (this.currentUser && this.currentUser.request) {
+      return this.currentUser.request.some((request: any) => {
+        return request._id === this.authUser._id;
       });
     }
     return false;
+  }
+
+  isFriend(): boolean {
+    // Search in friends list myUser check if currentUser is friend
+    return this.authUser.friends.some((friend: any) => {
+      return friend._id === this.authUser._id;
+    });
   }
 
   changeTab(tab: string) {

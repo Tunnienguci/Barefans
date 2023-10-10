@@ -16,16 +16,22 @@
       </div>
 
       <div class="action" *ngIf="!permission">
-        <ng-container *ngIf="findRequest()">
+        <ng-container *ngIf="findRequest() && !isFriend()">
           <button class="btn btn-secondary mx-3">
             <i class="fa-regular fa-square-plus me-2"></i>
             Requested
           </button>
         </ng-container>
-        <ng-container *ngIf="!findRequest()">
+        <ng-container *ngIf="!findRequest() && !isFriend()">
           <button class="btn btn-primary mx-3" (click)="followUser()">
             <i class="fa-regular fa-square-plus me-2"></i>
             Follow
+          </button>
+        </ng-container>
+        <ng-container *ngIf="isFriend()">
+          <button class="btn btn-primary mx-3">
+            <i class="fa-regular fa-square-plus me-2"></i>
+            Friend
           </button>
         </ng-container>
 
@@ -69,19 +75,13 @@
           >Photos</a
         >
       </div>
-      <div
-        class="nav-item"
-        [class.active]="currentTab == 'video'"
-        (click)="changeTab('video')"
-      >
-        <a class="nav-link">Videos</a>
-      </div>
-      <div
-        class="nav-item"
-        [class.active]="currentTab == 'timeline'"
-        (click)="changeTab('timeline')"
-      >
-        <a class="nav-link">More</a>
+      <div class="nav-item">
+        <a
+          class="nav-link"
+          [class.active]="currentTab == 'video'"
+          (click)="changeTab('video')"
+          >Videos</a
+        >
       </div>
     </div>
   </div>
@@ -98,12 +98,12 @@
       <app-about></app-about>
     </ng-container>
     <ng-container *ngIf="currentTab === 'friends'">
-      <app-friend></app-friend>
+      <app-friend [username]="currentUser.account.username"></app-friend>
     </ng-container>
     <ng-container *ngIf="currentTab === 'photos'">
       <app-photo [albums]="currentUser.albums"></app-photo>
     </ng-container>
-    <ng-container *ngIf="currentTab === 'videos'">
+    <ng-container *ngIf="currentTab === 'video'">
       <app-video></app-video>
     </ng-container>
   </div>

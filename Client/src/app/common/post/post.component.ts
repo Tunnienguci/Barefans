@@ -15,6 +15,7 @@ export class PostComponent {
   currentPage: string = '';
   userName = localStorage.getItem('_saBareUser');
   editable: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private postService: PostService, private route: ActivatedRoute) {
     this.route.params.subscribe((params: any) => {
@@ -43,12 +44,13 @@ export class PostComponent {
 
   likePost(id: any) {
     if (this.myUser) {
-      this.postService.likePost(id, this.myUser._id).subscribe((res) => {
+      this.postService.likePost(id, this.myUser._id).subscribe((res: any) => {
+        this.isLoading = true;
         if (res) {
-          const index = this.posts.findIndex((item) => item._id === id);
-          if (index > -1) {
-            this.posts[index].likes.push(this.myUser._id);
-          }
+          this.posts.find((item) => item._id === id).like = res.post.like;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1000);
         }
       });
     }

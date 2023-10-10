@@ -14,7 +14,9 @@ export class CmtControlComponent {
   });
 
   onSubmit() {
-    this.commentPost.emit(this.formComment.value.comment);
-    this.formComment.reset();
+    if (this.formComment.valid) {
+      this.commentPost.emit(this.formComment.value.comment);
+      this.formComment.reset();
+    }
   }
 }
