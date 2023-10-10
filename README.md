@@ -5,9 +5,9 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=tunnienguci&label=Profile%20views&color=0e75b6&style=flat" alt="tunnienguci" /> </p>
 
-- ⚡ Fun fact **This website is developing base on Angular 16 and NodeJS. I'll update soon**
+- ⚡ Fun fact **This website is developed based on Angular 15 and NodeJS. I'll update soon**
 
-<p>Currently, I am taking on the role of Developer developing this project with FE and BE. It might be difficult because I'm not a NodeJS expert, but I'll get used to it to get started. The project I am building is expected to be completed on October 10, 2023 and start construction on October 15, 2023. If nothing changes then arise. The website will be fully completed by November 15, 2023. I will strive to complete the website as completely as possible and optimize functions including performance and UXUI.</p>
+<p>Currently, I am taking on the role of Developer developing this project with FE and BE. It might be not easy because I'm not a NodeJS expert, but I'll get used to it to get started. The project I am building is expected to be completed on October 10, 2023, and start construction on October 15, 2023. If nothing changes then arise. The website will be fully completed by November 15, 2023. I will strive to achieve the website as completely as possible and optimize functions including performance and UXUI.</p>
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
