@@ -9,7 +9,6 @@ const signToken = (user) => {
 		"Bearer " +
 		jwt.sign(
 			{
-				username: user.account.username,
 				fullName: user.fullName,
 				birthday: user.birthday,
 				avatar: user.avatar,
@@ -31,6 +30,13 @@ const signToken = (user) => {
 				requests: user.requests,
 				verify: user.verify,
 				_id: user._id,
+				account: {
+					username: user.account.username,
+				},
+				work: {
+					company: user.work.company,
+					position: user.work.position,
+				},
 			},
 			process.env.JWT_SECRET,
 			{

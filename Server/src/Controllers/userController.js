@@ -7,7 +7,6 @@ exports.getUser = async (req, res) => {
 	const user = await User.findOne({ "account.username": username });
 	if (user) {
 		return res.status(200).json({
-			username: user.account.username,
 			fullName: user.fullName,
 			birthday: user.birthday,
 			avatar: user.avatar,
@@ -29,6 +28,13 @@ exports.getUser = async (req, res) => {
 			requests: user.requests,
 			verify: user.verify,
 			_id: user._id,
+			account: {
+				username: user.account.username,
+			},
+			work: {
+				company: user.work.company,
+				position: user.work.position,
+			},
 		});
 	}
 };

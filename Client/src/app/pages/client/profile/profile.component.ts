@@ -20,9 +20,20 @@ export class ProfileComponent {
     private userService: UserService,
     private postService: PostService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.currentUser = this.userService.curUser;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.params.subscribe((params: any) => {
+      this.currentPage = params.id;
+      this.userService.getUserByUsername(this.currentPage).subscribe((res) => {
+        this.currentUser = res;
+        this.userService.curUser = res;
+        this.isLoading = false;
+      });
+    });
+  }
 
   followUser() {}
 
