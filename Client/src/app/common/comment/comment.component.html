@@ -1,3 +1,4 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="collapse" id="collapseComment{{ id }}">
   <div class="comment">
     <div class="cmt__list">
@@ -7,6 +8,6 @@
         [myUser]="myUser"
       ></app-cmt-item>
     </div>
-    <app-cmt-control [postId]="id" [myUser]="myUser"></app-cmt-control>
+    <app-cmt-control (commentPost)="submitComment($event)"></app-cmt-control>
   </div>
 </div>

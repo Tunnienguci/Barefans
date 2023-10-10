@@ -1,5 +1,4 @@
-<app-loading [isLoading]="isLoading"></app-loading>
-<ng-container *ngIf="currentUser && authUser">
+<ng-container>
   <div class="timeline">
     <div class="grid-item">
       <div class="authentication">
@@ -50,5 +49,5 @@
       ></app-post>
     </div>
   </div>
-  <app-form-edit [userInfo]="authUser"></app-form-edit>
+  <app-form-edit [userInfo]="authUser" *ngIf="permission"></app-form-edit>
 </ng-container>

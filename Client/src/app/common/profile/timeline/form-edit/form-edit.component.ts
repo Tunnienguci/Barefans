@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-form-edit',
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./form-edit.component.scss'],
 })
 export class FormEditComponent {
-  @Input() userInfo: User = {} as User;
+  @Input() userInfo: User;
 
   profileForm = this.fb.group({
     fullName: ['', [Validators.required]],
@@ -31,29 +31,8 @@ export class FormEditComponent {
     }),
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-    this.profileForm.patchValue({
-      fullName: this.userInfo.fullName,
-      birthday: this.userInfo.birthday?.split('/').reverse().join('-'),
-      hometown: this.userInfo.hometown,
-      live: this.userInfo.live,
-      relationship: this.userInfo.relationship,
-      facebook: this.userInfo.facebook,
-      twitter: this.userInfo.twitter,
-      instagram: this.userInfo.instagram,
-      linkedin: this.userInfo.linkedin,
-      secondarySchool: this.userInfo.secondarySchool,
-      highSchool: this.userInfo.highSchool,
-      college: this.userInfo.college,
-      university: this.userInfo.university,
-      work: {
-        company: this.userInfo.work?.company,
-        position: this.userInfo.work?.position,
-      },
-    });
-  }
-
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private loginService: LoginService) {
+    this.userInfo = this.loginService.authUser;
     this.profileForm.patchValue({
       fullName: this.userInfo.fullName,
       birthday: this.userInfo.birthday?.split('/').reverse().join('-'),

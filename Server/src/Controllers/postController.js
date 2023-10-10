@@ -218,11 +218,18 @@ exports.likePost = async (req, res) => {
 exports.commentPost = async (req, res) => {
 	const { id, user, content } = req.body;
 
+	const user$ = await User.findById(user);
+
 	try {
 		const post = await Post.findById(id);
 		post.comment.push({
 			id: Math.floor(Math.random() * 100000000000000000).toString(),
-			user: user,
+			user: {
+				username: user$.account.username,
+				fullName: user$.fullName,
+				avatar: user$.avatar,
+				_id: user$._id,
+			},
 			content: content,
 			time: new Date().toISOString(),
 		});

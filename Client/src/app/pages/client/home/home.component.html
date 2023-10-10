@@ -1,11 +1,12 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="homepage">
   <div class="start-column">
     <app-alert></app-alert>
-    <app-contacts></app-contacts>
+    <app-contacts [friends]="friends"></app-contacts>
   </div>
   <div class="center-column">
     <app-update-status [isAuth]="authUser"></app-update-status>
-    <app-post [posts]="listPosts"></app-post>
+    <app-post [posts]="listPosts" [myUser]="authUser"></app-post>
   </div>
   <div class="end-column">
     <app-list-task></app-list-task>

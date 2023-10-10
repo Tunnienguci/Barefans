@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Post } from 'src/app/models/post';
 import { LoginService } from 'src/app/services/login.service';
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
@@ -13,7 +14,10 @@ export class ProfileComponent {
   authUser: any;
   currentUser: any = {};
   currentPage: string = '';
-  isLoading: boolean = true;
+  isLoading: boolean = false;
+  currentTab: string = '';
+  permission: boolean = false;
+  posts: Post[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -21,7 +25,15 @@ export class ProfileComponent {
     private postService: PostService,
     private route: ActivatedRoute
   ) {
+    this.isLoading = true;
     this.currentUser = this.userService.curUser;
+    this.authUser = this.loginService.authUser;
+    if (this.currentPage == this.authUser.account.username) {
+      this.permission = true;
+    }
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   }
 
   ngOnInit(): void {
@@ -30,7 +42,17 @@ export class ProfileComponent {
       this.userService.getUserByUsername(this.currentPage).subscribe((res) => {
         this.currentUser = res;
         this.userService.curUser = res;
-        this.isLoading = false;
+        this.postService
+          .getPostByUser(this.currentUser.account.username)
+          .subscribe((res) => {
+            this.posts = res.posts;
+          });
+        if (this.currentPage == this.authUser.account.username) {
+          this.permission = true;
+        }
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1500);
       });
     });
   }
@@ -44,5 +66,10 @@ export class ProfileComponent {
       });
     }
     return false;
+  }
+
+  changeTab(tab: string) {
+    console.log(tab);
+    this.currentTab = tab;
   }
 }

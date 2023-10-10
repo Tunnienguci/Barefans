@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -9,17 +8,38 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class CommentComponent {
   @Input() id: any;
-  @Input() myUser: any;
   @Input() commentList: any;
-  currentPage: string = '';
+  @Input() myUser: any;
+  isLoading: boolean = false;
 
-  constructor(private postService: PostService, private route: ActivatedRoute) {
-    this.route.params.subscribe((params: any) => {
-      this.currentPage = params.id;
+  constructor(private postService: PostService) {}
+
+  removeComment(idCmt: any) {
+    this.postService.removeCommentById(this.id, idCmt).subscribe((res: any) => {
+      this.isLoading = true;
+      if (res) {
+        this.commentList = res.post.comment;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
+      }
     });
   }
 
-  removeComment(idCmt: any) {
-    this.postService.removeCommentById(this.id, idCmt);
+  submitComment(event: any) {
+    const data: any = {
+      id: this.id,
+      user: this.myUser,
+      content: event,
+    };
+    this.postService.commentPost(data).subscribe((res: any) => {
+      this.isLoading = true;
+      if (res) {
+        this.commentList = res.post.comment;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
+      }
+    });
   }
 }

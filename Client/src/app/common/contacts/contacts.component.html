@@ -14,10 +14,11 @@
 <div class="contacts">
   <ng-container *ngIf="friends && friends.length > 0">
     <div class="friend-list" *ngFor="let item of friends">
-      <app-friend
+      <app-friends
         [frAvatar]="item.avatar"
         [frName]="item.fullName"
-      ></app-friend>
+        [frUsername]="item.username"
+      ></app-friends>
     </div>
   </ng-container>
   <ng-container *ngIf="friends && friends.length <= 0">

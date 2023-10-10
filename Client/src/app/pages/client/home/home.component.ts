@@ -13,8 +13,9 @@ import { Post } from 'src/app/models/post';
 })
 export class HomeComponent {
   listPosts: Post[];
-  isLoading: boolean = false;
+  isLoading: boolean = true;
   authUser: User;
+  friends: User[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -23,14 +24,28 @@ export class HomeComponent {
   ) {
     this.authUser = this.loginService.authUser;
     this.listPosts = this.postService.listPosts;
+    if (this.listPosts.length > 0) {
+      this.isLoading = false;
+    }
   }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.postService.getListPosts().subscribe((data) => {
-      this.listPosts = data.posts;
-      this.isLoading = false;
+      if (data) {
+        this.listPosts = data.posts;
+      }
     });
+    this.userService
+      .getFriends(this.authUser.account.username)
+      .subscribe((data) => {
+        if (data) {
+          setTimeout(() => {
+            this.friends = data.friends;
+            this.isLoading = false;
+          }, 1000);
+        }
+      });
   }
 
   acceptFollowRequest(receivedUser: any) {}

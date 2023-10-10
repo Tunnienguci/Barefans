@@ -23,7 +23,7 @@ export interface User {
     position?: string;
   };
   posts?: Post[];
-  friends?: User[];
+  friends: User[];
   requests?: [
     {
       _id: string;

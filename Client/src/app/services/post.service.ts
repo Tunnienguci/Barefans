@@ -42,12 +42,12 @@ export class PostService {
 
   // [POST] Comment post
   commentPost(comment: any) {
-    return this.http.put(`${environment.apiUrl}/post/comment`, comment);
+    return this.http.post(`${environment.apiUrl}/post/comment`, comment);
   }
 
   // [POST] Remove comment by id
   removeCommentById(id: any, commentId: any) {
-    return this.http.post(
+    return this.http.put(
       `${environment.apiUrl}/post/comment/delete?id=${id}&commentId=${commentId}`,
       {}
     );

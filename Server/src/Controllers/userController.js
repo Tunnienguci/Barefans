@@ -200,7 +200,7 @@ exports.getFriends = async (req, res) => {
 	} catch (err) {
 		return res.status(500).json({
 			message: "Can not get friends, please try again",
-			error: error.message,
+			err: error.message,
 		});
 	}
 };

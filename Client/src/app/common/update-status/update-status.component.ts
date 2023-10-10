@@ -114,7 +114,17 @@ export class UpdateStatusComponent {
     };
 
     if (post.content || post.images.length > 0 || post.video.length > 0) {
-      this.postService.createPost(post);
+      this.postService.createPost(post).subscribe((res) => {
+        this.isLoading = true;
+        if (res) {
+          this.postService.getLatestPosts().subscribe((res) => {
+            if (res) {
+              this.postService.listPosts.unshift(res.post);
+            }
+            this.isLoading = false;
+          });
+        }
+      });
       this.postForm.reset();
       this.searchInput = '';
       this.selectedEmoji = '';

@@ -1,4 +1,4 @@
-<div class="friend">
+<div class="friend" [routerLink]="['/profile', frUsername]">
   <div class="img-friend rounded-circle">
     <img
       class="rounded-circle"
@@ -8,6 +8,6 @@
     />
   </div>
   <div class="friend__name">
-    <p>{{ frName | titlecase }}</p>
+    <p>{{ frName }}</p>
   </div>
 </div>

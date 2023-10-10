@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-cmt-item',
@@ -10,6 +11,8 @@ export class CmtItemComponent {
   @Input() commentList: any;
   @Input() myUser: any;
   @Output() removeCmt = new EventEmitter<any>();
+
+  constructor() {}
 
   calculateTime(time: any) {
     const date = new Date(time);

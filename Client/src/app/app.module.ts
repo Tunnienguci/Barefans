@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { PostComponent } from './common/post/post.component';
 import { ContactsComponent } from './common/contacts/contacts.component';
-import { FriendComponent } from './common/contacts/friend/friend.component';
 import { RecommendComponent } from './common/recommend/recommend.component';
 import { UserComponent } from './common/recommend/user/user.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
@@ -39,6 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { LoadingComponent } from './common/loading/loading.component';
 import { ClientComponent } from './pages/client/client.component';
+import { FriendComponent } from './common/profile/friend/friend.component';
+import { FriendsComponent } from './common/contacts/friend/friend.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,6 @@ import { ClientComponent } from './pages/client/client.component';
     HeaderComponent,
     PostComponent,
     ContactsComponent,
-    FriendComponent,
     RecommendComponent,
     UserComponent,
     SidebarComponent,
@@ -75,6 +75,8 @@ import { ClientComponent } from './pages/client/client.component';
     UpdateProfileComponent,
     LoadingComponent,
     ClientComponent,
+    FriendComponent,
+    FriendsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+<app-loading [isLoading]="isLoading"></app-loading>
 <div class="profile">
   <div class="main-info">
     <div class="cover-img">
@@ -5,20 +6,16 @@
     </div>
     <div class="infomation">
       <div class="avatar">
-        <ng-container *ngIf="currentUser">
-          <img [src]="currentUser.avatar" alt="avatar" />
-        </ng-container>
+        <img [src]="currentUser.avatar" alt="avatar" />
         <div class="name mx-3">
           <h2>{{ currentUser.fullName }}</h2>
-          <a class="mb-0 text-decoration-none"
+          <a class="mb-0 text-decoration-none" *ngIf="currentUser.account"
             >@{{ currentUser.account.username }}</a
           >
         </div>
       </div>
-      <div
-        class="action"
-        *ngIf="authUser.account.username !== currentUser.account.username"
-      >
+
+      <div class="action" *ngIf="!permission">
         <ng-container *ngIf="findRequest()">
           <button class="btn btn-secondary mx-3">
             <i class="fa-regular fa-square-plus me-2"></i>
@@ -39,59 +36,75 @@
       </div>
     </div>
 
-    <div class="nav-menu">
+    <div class="nav nav-menu">
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['/profile', currentUser.username]"
-          [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{ exact: true }"
+          [class.active]="currentTab == ''"
+          (click)="changeTab('')"
           >Timeline</a
         >
       </div>
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['about']"
-          [routerLinkActive]="['active']"
+          [class.active]="currentTab == 'about'"
+          (click)="changeTab('about')"
           >About</a
         >
       </div>
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['friends']"
-          [routerLinkActive]="['active']"
+          [class.active]="currentTab == 'friends'"
+          (click)="changeTab('friends')"
           >Friends</a
         >
       </div>
       <div class="nav-item">
         <a
           class="nav-link"
-          [routerLink]="['photos']"
-          [routerLinkActive]="['active']"
+          [class.active]="currentTab == 'photos'"
+          (click)="changeTab('photos')"
           >Photos</a
         >
       </div>
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['videos']"
-          [routerLinkActive]="['active']"
-          >Videos</a
-        >
+      <div
+        class="nav-item"
+        [class.active]="currentTab == 'video'"
+        (click)="changeTab('video')"
+      >
+        <a class="nav-link">Videos</a>
       </div>
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['more']"
-          [routerLinkActive]="['active']"
-          >More</a
-        >
+      <div
+        class="nav-item"
+        [class.active]="currentTab == 'timeline'"
+        (click)="changeTab('timeline')"
+      >
+        <a class="nav-link">More</a>
       </div>
     </div>
   </div>
   <div class="body-info">
-    <router-outlet></router-outlet>
+    <ng-container *ngIf="currentTab === ''">
+      <app-timeline
+        [currentUser]="currentUser"
+        [authUser]="authUser"
+        [posts]="posts"
+        [permission]="permission"
+      ></app-timeline>
+    </ng-container>
+    <ng-container *ngIf="currentTab === 'about'">
+      <app-about></app-about>
+    </ng-container>
+    <ng-container *ngIf="currentTab === 'friends'">
+      <app-friend></app-friend>
+    </ng-container>
+    <ng-container *ngIf="currentTab === 'photos'">
+      <app-photo [albums]="currentUser.albums"></app-photo>
+    </ng-container>
+    <ng-container *ngIf="currentTab === 'videos'">
+      <app-video></app-video>
+    </ng-container>
   </div>
 </div>
