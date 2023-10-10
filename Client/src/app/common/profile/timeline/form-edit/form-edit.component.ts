@@ -13,7 +13,6 @@ export class FormEditComponent {
 
   profileForm = this.fb.group({
     fullName: ['', [Validators.required]],
-    username: ['', [Validators.required]],
     birthday: [''],
     hometown: [''],
     live: [''],
@@ -51,7 +50,6 @@ export class FormEditComponent {
         company: this.userInfo.work?.company,
         position: this.userInfo.work?.position,
       },
-      username: this.userInfo.account?.username,
     });
   }
 
@@ -74,7 +72,6 @@ export class FormEditComponent {
         company: this.userInfo.work?.company,
         position: this.userInfo.work?.position,
       },
-      username: this.userInfo.account?.username,
     });
   }
 

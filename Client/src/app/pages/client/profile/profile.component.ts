@@ -20,28 +20,9 @@ export class ProfileComponent {
     private userService: UserService,
     private postService: PostService,
     private route: ActivatedRoute
-  ) {
-    if (this.currentUser.username !== this.currentPage) {
-      this.authUser = this.loginService.authUser;
-      this.currentUser = this.userService.curUser;
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 100);
-    }
-  }
+  ) {}
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params: any) => {
-      if (this.currentUser.username !== params.id) {
-        this.isLoading = true;
-        this.userService.getUserByUsername(params.id).subscribe((res: any) => {
-          this.currentUser = res;
-          this.userService.curUser = res;
-          this.isLoading = false;
-        });
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   followUser() {}
 

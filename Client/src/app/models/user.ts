@@ -31,8 +31,8 @@ export interface User {
       receiveRequest: User['_id'];
     }
   ];
-  account?: {
-    username?: string;
+  account: {
+    username: string;
     password?: string;
     permission?: string;
     token?: string;

@@ -25,14 +25,7 @@ export class HomeComponent {
     this.listPosts = this.postService.listPosts;
   }
 
-  ngOnInit(): void {
-    this.isLoading = true;
-    this.postService.getListPosts().subscribe((res: any) => {
-      this.listPosts = res.posts;
-      this.postService.listPosts = res.posts;
-      this.isLoading = false;
-    });
-  }
+  ngOnInit(): void {}
 
   acceptFollowRequest(receivedUser: any) {}
 

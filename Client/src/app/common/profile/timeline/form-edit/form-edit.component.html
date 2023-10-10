@@ -44,25 +44,7 @@
                   profileForm.get('fullName')?.touched
               }"
             />
-            <input
-              type="text"
-              class="form-control"
-              placeholder="@Username"
-              formControlName="username"
-              [readOnly]="true"
-              [ngStyle]="{
-                'border-color':
-                  profileForm.get('username')?.invalid &&
-                  profileForm.get('username')?.touched
-                    ? 'red'
-                    : ''
-              }"
-              [ngClass]="{
-                'is-invalid':
-                  profileForm.get('username')?.invalid &&
-                  profileForm.get('username')?.touched
-              }"
-            />
+
             <input
               type="date"
               class="form-control"

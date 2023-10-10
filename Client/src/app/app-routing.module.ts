@@ -23,7 +23,6 @@ const routes: Routes = [
     path: 'update-profile',
     component: UpdateProfileComponent,
   },
-
   {
     path: '',
     component: HomeComponent,
@@ -70,12 +69,6 @@ const routes: Routes = [
         component: VideoComponent,
       },
     ],
-  },
-
-  {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

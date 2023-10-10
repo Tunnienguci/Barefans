@@ -59,12 +59,12 @@ exports.followUser = async (req, res) => {
 		await recReq.save();
 
 		return res.status(200).json({
-			message: "Gửi lời mời kết bạn thành công",
+			message: "Requested to follow successfully",
 			status: 2,
 		});
 	} catch (error) {
 		return res.status(500).json({
-			message: "Đã xảy ra lỗi",
+			message: "Can not follow this user, please try again",
 			error: error.message,
 		});
 	}
@@ -117,11 +117,11 @@ exports.rejectFollow = async (req, res) => {
 		await userReq.save();
 
 		return res.status(200).json({
-			message: "Xóa thành công",
+			message: "Rejected request successfully",
 		});
 	} catch (error) {
 		return res.status(500).json({
-			message: "Đã xảy ra lỗi",
+			message: "Can not reject this request, please try again",
 			error: error.message,
 		});
 	}
@@ -139,7 +139,7 @@ exports.acceptFollow = async (req, res) => {
 		// Nếu đã kết bạn thì không thực hiện
 		if (sendReq.friends.includes(recReq._id)) {
 			return res.status(200).json({
-				message: "Đã kết bạn",
+				message: "Both of you are friends",
 			});
 		} else {
 			// Thêm friend
@@ -159,11 +159,11 @@ exports.acceptFollow = async (req, res) => {
 		await recReq.save();
 
 		return res.status(200).json({
-			message: "Xác nhận thành công",
+			message: "Accepted request successfully",
 		});
 	} catch (error) {
 		return res.status(500).json({
-			message: "Đã xảy ra lỗi",
+			message: "Can not accept this request, please try again",
 			error: error.message,
 		});
 	}
@@ -193,7 +193,7 @@ exports.getFriends = async (req, res) => {
 		});
 	} catch (err) {
 		return res.status(500).json({
-			message: "Đã xảy ra lỗi",
+			message: "Can not get friends, please try again",
 			error: error.message,
 		});
 	}

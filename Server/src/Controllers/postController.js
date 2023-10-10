@@ -35,7 +35,7 @@ exports.createPost = async (req, res) => {
 		await user.save();
 
 		return res.status(200).json({
-			message: "Đăng bài thành công",
+			message: "Posted successfully",
 			post: {
 				_id: post._id,
 				user: {
@@ -72,9 +72,8 @@ exports.createPost = async (req, res) => {
 			},
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -122,9 +121,8 @@ exports.getAllPost = async (req, res) => {
 				.reverse(),
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -175,7 +173,7 @@ exports.getPostFromUser = async (req, res) => {
 		});
 	} catch (error) {
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -185,13 +183,12 @@ exports.removePost = async (req, res) => {
 	try {
 		const result = await Post.findByIdAndDelete(id);
 		return res.status(200).json({
-			message: "Xóa bài viết thành công",
+			message: "Deleted post successfully",
 			result: result,
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -208,13 +205,12 @@ exports.likePost = async (req, res) => {
 		}
 		await post.save();
 		return res.status(200).json({
-			message: "Thành công",
+			message: "Liked successfully",
 			post: post,
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -232,13 +228,12 @@ exports.commentPost = async (req, res) => {
 		});
 		await post.save();
 		return res.status(200).json({
-			message: "Thành công",
+			message: "Commented successfully",
 			post: post,
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -251,13 +246,12 @@ exports.removeCommentById = async (req, res) => {
 		post.comment = post.comment.filter((item) => item.id != commentId);
 		await post.save();
 		return res.status(200).json({
-			message: "Thành công",
+			message: "Deleted comment successfully",
 			post: post,
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -270,7 +264,7 @@ exports.getLatestPost = async (req, res) => {
 		});
 	} catch (err) {
 		return res.status(500).json({
-			messages: "Lỗi Server nè",
+			messages: "Cannot connect to server",
 		});
 	}
 };

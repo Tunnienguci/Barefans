@@ -1,5 +1,6 @@
 /** @format */
 require("dotenv").config();
+require("./src/Controllers/newsController");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");

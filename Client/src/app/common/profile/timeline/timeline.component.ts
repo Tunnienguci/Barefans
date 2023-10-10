@@ -11,8 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TimelineComponent {
   // Data from parent component
-  authUser: User | undefined;
-  currentUser: User | undefined;
+  authUser: User;
+  currentUser: User;
   posts: any[] = [];
   isLoading: boolean = true;
   permission: boolean = false;
@@ -22,11 +22,13 @@ export class TimelineComponent {
     private postService: PostService,
     private userService: UserService
   ) {
-    this.permission = this.authUser?._id === this.currentUser?._id;
     this.authUser = this.loginService.authUser;
     this.currentUser = this.userService.curUser;
+    if (this.currentUser._id == this.authUser._id) {
+      this.permission = true;
+    }
     setTimeout(() => {
       this.isLoading = false;
-    }, 100);
+    }, 1000);
   }
 }

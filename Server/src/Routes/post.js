@@ -18,7 +18,7 @@ router.get("/userpost", getPostFromUser);
 router.delete("/delete", removePost);
 router.post("/like", likePost);
 router.post("/comment", commentPost);
-router.post("/comment/delete", removeCommentById);
+router.put("/comment/delete", removeCommentById);
 router.get("/latest", getLatestPost);
 
 module.exports = router;

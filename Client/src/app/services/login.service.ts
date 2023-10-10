@@ -57,5 +57,6 @@ export class LoginService {
     this.authUser = decodeJwt;
     localStorage.setItem(this.TOKEN_KEY, token);
     localStorage.setItem('_saBareUser', username);
+    this.router.navigate([`/`]);
   }
 }

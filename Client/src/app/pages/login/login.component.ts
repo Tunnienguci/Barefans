@@ -49,7 +49,6 @@ export class LoginComponent {
         this.isLoading = true;
         if (res && res.token) {
           this.loginService.saveToken(res.token, res.username);
-          this.router.navigate(['/']);
         }
       });
     }

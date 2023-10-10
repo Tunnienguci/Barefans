@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" *ngIf="authUser">
   <div class="nav">
     <div class="nav-empty"></div>
     <div class="nav-links">
@@ -53,13 +53,11 @@
         ></i>
         Logout
       </button>
-      <ng-container *ngIf="myUser">
-        <img
-          [src]="myUser.avatar"
-          class="img-avatar"
-          [routerLink]="['profile/', myUser.username]"
-        />
-      </ng-container>
+      <img
+        [src]="authUser.avatar"
+        class="img-avatar"
+        [routerLink]="['profile/', authUser.account.username]"
+      />
     </div>
   </div>
 </div>

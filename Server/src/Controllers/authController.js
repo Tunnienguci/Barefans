@@ -46,13 +46,13 @@ exports.login = async (req, res) => {
 		const user = await User.findOne({ "account.username": username });
 		if (!user) {
 			return res.status(400).json({
-				message: "Tài khoản không tồn tại",
+				message: "Account does not exist",
 			});
 		}
 		const isMatch = await bcrypt.compare(password, user.account.password);
 		if (!isMatch) {
 			return res.status(400).json({
-				message: "Mật khẩu không chính xác",
+				message: "Password is incorrect",
 			});
 		}
 		const token = signToken(user);
@@ -62,9 +62,8 @@ exports.login = async (req, res) => {
 			token: token,
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -77,7 +76,7 @@ exports.register = async (req, res) => {
 		const user = await User.findOne({ "account.username": username });
 		if (user) {
 			return res.status(400).json({
-				message: "Tài khoản đã tồn tại",
+				message: "Account already exists",
 			});
 		}
 		// Mã hóa mật khẩu
@@ -89,7 +88,7 @@ exports.register = async (req, res) => {
 			fullName: "BareFans@" + username,
 			account: {
 				username,
-				password: "$****" + hashedPassword + salt,
+				password: hashedPassword,
 			},
 		});
 
@@ -100,9 +99,8 @@ exports.register = async (req, res) => {
 			username: newUser.account.username,
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
@@ -131,7 +129,7 @@ exports.updateProfile = async (req, res) => {
 		const user = await User.findOne({ "account.username": username });
 		if (!user) {
 			return res.status(400).json({
-				message: "Tài khoản không tồn tại",
+				message: "Account does not exist",
 			});
 		}
 		user.fullName = fullName;
@@ -180,9 +178,8 @@ exports.updateProfile = async (req, res) => {
 			},
 		});
 	} catch (error) {
-		console.error("Lỗi server:", error);
 		return res.status(500).json({
-			message: "Lỗi server",
+			message: "Cannot connect to server",
 		});
 	}
 };
