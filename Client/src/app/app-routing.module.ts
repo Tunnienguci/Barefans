@@ -13,6 +13,7 @@ import { PhotoComponent } from './common/profile/photo/photo.component';
 import { VideoComponent } from './common/profile/video/video.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
+import { ClientComponent } from './pages/client/client.component';
 
 const routes: Routes = [
   {
@@ -25,50 +26,57 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'post/:id',
-    component: PostDetailComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'notification',
-    component: NotificationComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'watch',
-    component: WatchComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'profile/:id',
-    component: ProfileComponent,
+    component: ClientComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: '',
-        component: TimelineComponent,
+        component: HomeComponent,
       },
       {
-        path: 'about',
-        component: AboutComponent,
+        path: 'post/:id',
+        component: PostDetailComponent,
       },
       {
-        path: 'friends',
-        component: FriendComponent,
+        path: 'notification',
+        component: NotificationComponent,
       },
       {
-        path: 'photos',
-        component: PhotoComponent,
+        path: 'watch',
+        component: WatchComponent,
       },
       {
-        path: 'videos',
-        component: VideoComponent,
+        path: 'profile/:id',
+        component: ProfileComponent,
+        children: [
+          {
+            path: '',
+            component: TimelineComponent,
+          },
+          {
+            path: 'about',
+            component: AboutComponent,
+          },
+          {
+            path: 'friends',
+            component: FriendComponent,
+          },
+          {
+            path: 'photos',
+            component: PhotoComponent,
+          },
+          {
+            path: 'videos',
+            component: VideoComponent,
+          },
+        ],
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
   },
 ];
 

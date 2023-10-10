@@ -4,18 +4,3 @@
   grid-gap: 1rem;
   padding: 1rem;
 }
-
-.container-group {
-  display: flex;
-  app-sidebar {
-    flex: 0 0 5rem;
-  }
-  .content {
-    flex: 1;
-    background-color: #f5f5f5;
-    min-height: 100vh;
-    .page {
-      padding: 1rem;
-    }
-  }
-}

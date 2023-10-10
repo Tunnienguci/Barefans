@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://barefans.onrender.com',
+  apiUrl: 'http://localhost:5000',
 };

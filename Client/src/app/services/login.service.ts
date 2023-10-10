@@ -22,7 +22,7 @@ export class LoginService {
     if (token) {
       let userObj: User = jwt(token);
       this.authUser = userObj;
-      if (username == this.authUser.username) {
+      if (username == this.authUser.account.username) {
         this.router.navigate(['']);
       } else {
         localStorage.removeItem('_saBareFans');

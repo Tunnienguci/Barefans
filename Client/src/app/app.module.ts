@@ -38,6 +38,7 @@ import { UpdateProfileComponent } from './pages/update-profile/update-profile.co
 import { HttpClientModule } from '@angular/common/http';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { LoadingComponent } from './common/loading/loading.component';
+import { ClientComponent } from './pages/client/client.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { LoadingComponent } from './common/loading/loading.component';
     FormEditComponent,
     UpdateProfileComponent,
     LoadingComponent,
+    ClientComponent,
   ],
   imports: [
     BrowserModule,
