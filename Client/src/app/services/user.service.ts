@@ -60,4 +60,12 @@ export class UserService {
       `${environment.apiUrl}/user/myfriend?username=${username}`
     );
   }
+
+  updateAvatar(username: any, avatar: any) {
+    const data = {
+      id: username,
+      path: avatar,
+    };
+    return this.http.put(`${environment.apiUrl}/user/update/avatar`, data);
+  }
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="content-group">
       <div class="content">
-        <p class="username" [routerLink]="['/profile', item.user.username]">
+        <p class="username" [routerLink]="['/' + item.user.username]">
           {{ item.user.fullName }}
         </p>
         <p class="text">{{ item.content }}</p>
@@ -22,7 +22,7 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <button class="dropdown-item" (click)="removeComment(item.id)">
+          <button class="dropdown-item" (click)="removeComment(item._id)">
             <i class="fa-regular fa-square-minus mx-3"></i>
             Delete
           </button>

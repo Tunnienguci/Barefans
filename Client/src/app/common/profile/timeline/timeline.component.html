@@ -41,6 +41,7 @@
       <app-update-status
         [isAuth]="authUser"
         *ngIf="permission"
+        (newPost)="createPost($event)"
       ></app-update-status>
       <app-post
         [posts]="posts"
@@ -49,5 +50,9 @@
       ></app-post>
     </div>
   </div>
-  <app-form-edit [userInfo]="authUser" *ngIf="permission"></app-form-edit>
+  <app-form-edit
+    [userInfo]="authUser"
+    *ngIf="permission"
+    (updateData)="updateDataEvent($event)"
+  ></app-form-edit>
 </ng-container>

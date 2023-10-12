@@ -18,7 +18,10 @@ export class CommentComponent {
     this.postService.removeCommentById(this.id, idCmt).subscribe((res: any) => {
       this.isLoading = true;
       if (res) {
-        this.commentList = res.post.comment;
+        this.commentList.splice(
+          this.commentList.findIndex((item: any) => item._id === idCmt),
+          1
+        );
         setTimeout(() => {
           this.isLoading = false;
         }, 1000);
@@ -35,7 +38,7 @@ export class CommentComponent {
     this.postService.commentPost(data).subscribe((res: any) => {
       this.isLoading = true;
       if (res) {
-        this.commentList = res.post.comment;
+        this.commentList.push(res.comment);
         setTimeout(() => {
           this.isLoading = false;
         }, 1000);

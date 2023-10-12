@@ -200,7 +200,27 @@ exports.getFriends = async (req, res) => {
 	} catch (err) {
 		return res.status(500).json({
 			message: "Can not get friends, please try again",
-			err: error.message,
+			error: err.message,
+		});
+	}
+};
+
+exports.updateAvatar = async (req, res) => {
+	const { id, path } = req.body;
+
+	const user = await User.findById(id);
+	user.avatar = path;
+
+	try {
+		await user.save();
+		return res.status(200).json({
+			message: "Updated avatar successfully",
+			path: path,
+		});
+	} catch (error) {
+		return res.status(500).json({
+			message: "Can not update avatar, please try again",
+			error: error.message,
 		});
 	}
 };

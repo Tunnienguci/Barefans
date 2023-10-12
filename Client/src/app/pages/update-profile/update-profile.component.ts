@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -12,7 +12,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class UpdateProfileComponent {
   userInfo: User = {} as User;
-  avatarImg: any = '';
+  avatarImg: string = '';
   isLoading: boolean = false;
 
   profileForm = this.fb.group({

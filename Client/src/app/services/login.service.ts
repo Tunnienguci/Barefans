@@ -13,7 +13,7 @@ export class LoginService {
   // DataStore
   private baseAPI: string = environment.apiUrl;
   private TOKEN_KEY = '_saBareFans';
-  authUser: User | any = {};
+  authUser: User | any;
 
   // Constructor
   constructor(private http: HttpClient, private router: Router) {

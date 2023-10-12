@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
@@ -10,6 +10,8 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class FormEditComponent {
   @Input() userInfo: User;
+  @Output() updateData = new EventEmitter<any>();
+  isLoading: boolean = false;
 
   profileForm = this.fb.group({
     fullName: ['', [Validators.required]],
@@ -57,9 +59,17 @@ export class FormEditComponent {
   onSubmit() {
     if (this.profileForm.valid) {
       const data = {
-        ...this.userInfo,
         ...this.profileForm.value,
       };
+      this.loginService
+        .updateProfile(data, this.userInfo.account.username)
+        .subscribe((res: any) => {
+          this.isLoading = true;
+          if (res) {
+            this.updateData.emit();
+            this.isLoading = false;
+          }
+        });
     }
   }
 }

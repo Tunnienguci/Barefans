@@ -41,7 +41,7 @@ const routes: Routes = [
         component: WatchComponent,
       },
       {
-        path: 'profile/:id',
+        path: ':id',
         component: ProfileComponent,
       },
     ],

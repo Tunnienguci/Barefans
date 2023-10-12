@@ -23,9 +23,12 @@ const postSchema = new Schema({
 	like: {
 		type: Array,
 	},
-	comment: {
-		type: Array,
-	},
+	comment: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "Comment",
+		},
+	],
 	time: {
 		type: String,
 	},

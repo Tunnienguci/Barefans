@@ -6,7 +6,18 @@
     </div>
     <div class="infomation">
       <div class="avatar">
-        <img [src]="currentUser.avatar" alt="avatar" />
+        <div class="avatar-img">
+          <img [src]="avatarImg" alt="avatar" />
+          <label for="avatar">
+            <i class="fa-solid fa-camera"></i>
+          </label>
+          <input
+            type="file"
+            class="d-none"
+            id="avatar"
+            (change)="onFileChange($event)"
+          />
+        </div>
         <div class="name mx-3">
           <h2>{{ currentUser.fullName }}</h2>
           <a class="mb-0 text-decoration-none" *ngIf="currentUser.account"
@@ -92,6 +103,8 @@
         [authUser]="authUser"
         [posts]="posts"
         [permission]="permission"
+        (updateData)="updateDataEvent($event)"
+        (newPost)="createPost($event)"
       ></app-timeline>
     </ng-container>
     <ng-container *ngIf="currentTab === 'about'">

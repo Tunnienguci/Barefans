@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-timeline',
@@ -11,4 +11,14 @@ export class TimelineComponent {
   @Input() currentUser: any;
   @Input() posts: any[] = [];
   @Input() permission: boolean = false;
+  @Output() updateData = new EventEmitter<any>();
+  @Output() newPost = new EventEmitter<any>();
+
+  updateDataEvent(e: any) {
+    this.updateData.emit();
+  }
+
+  createPost(post: any) {
+    this.newPost.emit(post);
+  }
 }

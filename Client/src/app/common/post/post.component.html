@@ -7,9 +7,7 @@
       </div>
       <div class="info mx-3">
         <div class="name d-flex flex-column">
-          <a [routerLink]="['/profile', item.user.username]">{{
-            item.user.fullName
-          }}</a>
+          <a [routerLink]="[item.user.username]">{{ item.user.fullName }}</a>
           <small>{{ calculateTime(item.time) }}</small>
         </div>
       </div>

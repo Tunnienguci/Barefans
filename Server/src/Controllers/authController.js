@@ -116,8 +116,8 @@ exports.updateProfile = async (req, res) => {
 	const {
 		fullName,
 		birthday,
-		avatar,
 		bio,
+		avatar,
 		hometown,
 		live,
 		relationship,
@@ -140,8 +140,8 @@ exports.updateProfile = async (req, res) => {
 		}
 		user.fullName = fullName;
 		user.birthday = birthday;
-		user.avatar = avatar;
 		user.bio = bio;
+		user.avatar = avatar;
 		user.hometown = hometown;
 		user.live = live;
 		user.relationship = relationship;
@@ -157,31 +157,7 @@ exports.updateProfile = async (req, res) => {
 		await user.save();
 
 		return res.status(200).json({
-			resultCd: 0,
-			user: {
-				username: user.account.username,
-				fullName: user.fullName,
-				birthday: user.birthday,
-				avatar: user.avatar,
-				bio: user.bio,
-				hometown: user.hometown,
-				live: user.live,
-				relationship: user.relationship,
-				facebook: user.facebook,
-				twitter: user.twitter,
-				instagram: user.instagram,
-				linkedin: user.linkedin,
-				highSchool: user.highSchool,
-				secondarySchool: user.secondarySchool,
-				college: user.college,
-				posts: user.posts,
-				university: user.university,
-				albums: user.albums,
-				friends: user.friends,
-				requests: user.requests,
-				verify: user.verify,
-				_id: user._id,
-			},
+			message: "Update profile successfully",
 		});
 	} catch (error) {
 		return res.status(500).json({

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CloudinaryService } from 'src/app/services/cloudinary.service';
 import { PostService } from 'src/app/services/post.service';
@@ -20,6 +20,7 @@ export class UpdateStatusComponent {
   ava: string = '../../../assets/images/avatar-profile.png';
   @Input() isAuth: any;
   @Input() permission: boolean = false;
+  @Output() newPost: any = new EventEmitter();
 
   isLoading: boolean = false;
 
@@ -114,17 +115,7 @@ export class UpdateStatusComponent {
     };
 
     if (post.content || post.images.length > 0 || post.video.length > 0) {
-      this.postService.createPost(post).subscribe((res) => {
-        this.isLoading = true;
-        if (res) {
-          this.postService.getLatestPosts().subscribe((res) => {
-            if (res) {
-              this.postService.listPosts.unshift(res.post);
-            }
-            this.isLoading = false;
-          });
-        }
-      });
+      this.newPost.emit(post);
       this.postForm.reset();
       this.searchInput = '';
       this.selectedEmoji = '';

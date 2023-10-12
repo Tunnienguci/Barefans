@@ -2,6 +2,7 @@
 
 const User = require("../Model/user");
 const Post = require("../Model/post");
+const Comment = require("../Model/comment");
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
@@ -41,25 +42,7 @@ exports.createPost = async (req, res) => {
 				user: {
 					username: user.account.username,
 					fullName: user.fullName,
-					birthday: user.birthday,
 					avatar: user.avatar,
-					bio: user.bio,
-					hometown: user.hometown,
-					live: user.live,
-					relationship: user.relationship,
-					facebook: user.facebook,
-					twitter: user.twitter,
-					instagram: user.instagram,
-					linkedin: user.linkedin,
-					highSchool: user.highSchool,
-					secondarySchool: user.secondarySchool,
-					college: user.college,
-					posts: user.posts,
-					university: user.university,
-					albums: user.albums,
-					friends: user.friends,
-					requests: user.requests,
-					verify: user.verify,
 					_id: user._id,
 				},
 				content: post.content,
@@ -81,6 +64,26 @@ exports.createPost = async (req, res) => {
 exports.getAllPost = async (req, res) => {
 	try {
 		const posts = await Post.find().populate("user");
+		const commentFromPost = await Promise.all(
+			posts.map(async (post) => {
+				const comment = await Promise.all(
+					post.comment.map(async (item) => {
+						const _id = item.toString();
+						const comment$ = await Comment.findById(_id).populate(
+							"user"
+						);
+						return comment$;
+					})
+				);
+				return comment;
+			})
+		);
+
+		// Lấy thông tin comment và tham chiếu sang comment ở post
+		posts.forEach((post, index) => {
+			post.comment = commentFromPost[index];
+		});
+
 		return res.status(200).json({
 			// User không được trả về account.password và account.username
 			posts: posts
@@ -89,25 +92,7 @@ exports.getAllPost = async (req, res) => {
 					user: {
 						username: post.user.account.username,
 						fullName: post.user.fullName,
-						birthday: post.user.birthday,
 						avatar: post.user.avatar,
-						bio: post.user.bio,
-						hometown: post.user.hometown,
-						live: post.user.live,
-						relationship: post.user.relationship,
-						facebook: post.user.facebook,
-						twitter: post.user.twitter,
-						instagram: post.user.instagram,
-						linkedin: post.user.linkedin,
-						highSchool: post.user.highSchool,
-						secondarySchool: post.user.secondarySchool,
-						college: post.user.college,
-						posts: post.user.posts,
-						university: post.user.university,
-						albums: post.user.albums,
-						friends: post.user.friends,
-						requests: post.user.requests,
-						verify: post.user.verify,
 						_id: post.user._id,
 					},
 					content: post.content,
@@ -115,7 +100,17 @@ exports.getAllPost = async (req, res) => {
 					video: post.video,
 					emoji: post.emoji,
 					like: post.like,
-					comment: post.comment,
+					comment: post.comment.map((item) => ({
+						user: {
+							username: item.user.account.username,
+							fullName: item.user.fullName,
+							avatar: item.user.avatar,
+							_id: item.user._id,
+						},
+						content: item.content,
+						time: item.time,
+						_id: item._id,
+					})),
 					time: post.time,
 				}))
 				.reverse(),
@@ -133,6 +128,26 @@ exports.getPostFromUser = async (req, res) => {
 	try {
 		const user = await User.findOne({ "account.username": username });
 		const posts = await Post.find({ user: user._id }).populate("user");
+		const commentByPost = await Promise.all(
+			posts.map(async (post) => {
+				const comment = await Promise.all(
+					post.comment.map(async (item) => {
+						const _id = item.toString();
+						const comment$ = await Comment.findById(_id).populate(
+							"user"
+						);
+						return comment$;
+					})
+				);
+				return comment;
+			})
+		);
+
+		// Lấy thông tin comment và tham chiếu sang comment ở post
+		posts.forEach((post, index) => {
+			post.comment = commentByPost[index];
+		});
+
 		return res.status(200).json({
 			posts: posts
 				.map((post) => ({
@@ -140,25 +155,7 @@ exports.getPostFromUser = async (req, res) => {
 					user: {
 						username: post.user.account.username,
 						fullName: post.user.fullName,
-						birthday: post.user.birthday,
 						avatar: post.user.avatar,
-						bio: post.user.bio,
-						hometown: post.user.hometown,
-						live: post.user.live,
-						relationship: post.user.relationship,
-						facebook: post.user.facebook,
-						twitter: post.user.twitter,
-						instagram: post.user.instagram,
-						linkedin: post.user.linkedin,
-						highSchool: post.user.highSchool,
-						secondarySchool: post.user.secondarySchool,
-						college: post.user.college,
-						posts: post.user.posts,
-						university: post.user.university,
-						albums: post.user.albums,
-						friends: post.user.friends,
-						requests: post.user.requests,
-						verify: post.user.verify,
 						_id: post.user._id,
 					},
 					content: post.content,
@@ -166,7 +163,17 @@ exports.getPostFromUser = async (req, res) => {
 					video: post.video,
 					emoji: post.emoji,
 					like: post.like,
-					comment: post.comment,
+					comment: post.comment.map((item) => ({
+						user: {
+							username: item.user.account.username,
+							fullName: item.user.fullName,
+							avatar: item.user.avatar,
+							_id: item.user._id,
+						},
+						content: item.content,
+						time: item.time,
+						_id: item._id,
+					})),
 					time: post.time,
 				}))
 				.reverse(),
@@ -182,6 +189,12 @@ exports.removePost = async (req, res) => {
 	const { id } = req.query;
 	try {
 		const result = await Post.findByIdAndDelete(id);
+
+		// Remove post from user posts
+		const user = await User.findById(result.user);
+		user.posts = user.posts.filter((item) => item != id);
+		await user.save();
+
 		return res.status(200).json({
 			message: "Deleted post successfully",
 			result: result,
@@ -218,25 +231,32 @@ exports.likePost = async (req, res) => {
 exports.commentPost = async (req, res) => {
 	const { id, user, content } = req.body;
 
-	const user$ = await User.findById(user);
-
 	try {
 		const post = await Post.findById(id);
-		post.comment.push({
-			id: Math.floor(Math.random() * 100000000000000000).toString(),
-			user: {
-				username: user$.account.username,
-				fullName: user$.fullName,
-				avatar: user$.avatar,
-				_id: user$._id,
-			},
+		const newComment = new Comment({
+			user: user,
 			content: content,
 			time: new Date().toISOString(),
 		});
+		const comment = await newComment.save();
+		post.comment.push(comment._id);
 		await post.save();
+
+		const user$ = await User.findById(user);
+
 		return res.status(200).json({
 			message: "Commented successfully",
-			post: post,
+			comment: {
+				user: {
+					username: user$.account.username,
+					fullName: user$.fullName,
+					avatar: user$.avatar,
+					_id: user$._id,
+				},
+				content: content,
+				time: new Date().toISOString(),
+				_id: comment._id,
+			},
 		});
 	} catch (error) {
 		return res.status(500).json({
@@ -249,12 +269,16 @@ exports.removeCommentById = async (req, res) => {
 	const { id, commentId } = req.query;
 
 	try {
+		const comment = await Comment.findByIdAndDelete(commentId);
+
 		const post = await Post.findById(id);
-		post.comment = post.comment.filter((item) => item.id != commentId);
+		post.comment = post.comment.filter((item) => item != commentId);
+
 		await post.save();
+
 		return res.status(200).json({
 			message: "Deleted comment successfully",
-			post: post,
+			comment: comment,
 		});
 	} catch (error) {
 		return res.status(500).json({

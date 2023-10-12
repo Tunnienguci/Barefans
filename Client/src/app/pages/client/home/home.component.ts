@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
 import { PostService } from 'src/app/services/post.service';
-import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { Post } from 'src/app/models/post';
 
@@ -51,4 +50,18 @@ export class HomeComponent {
   acceptFollowRequest(receivedUser: any) {}
 
   recjectFollowRequest(id: any) {}
+
+  createPost(post: any) {
+    this.postService.createPost(post).subscribe((res) => {
+      this.isLoading = true;
+      this.postService.getListPosts().subscribe((data) => {
+        if (data) {
+          this.listPosts = data.posts;
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1000);
+        }
+      });
+    });
+  }
 }
