@@ -1,7 +1,12 @@
 <app-loading [isLoading]="isLoading"></app-loading>
 <div class="homepage">
   <div class="start-column">
-    <app-alert></app-alert>
+    <app-alert
+      [myUser]="authUser"
+      [receivedUser]="receivedRequests"
+      (acceptFollowRequest)="acceptFollowRequest($event)"
+      (recjectFollowRequest)="recjectFollowRequest($event)"
+    ></app-alert>
     <app-contacts [friends]="friends"></app-contacts>
   </div>
   <div class="center-column">

@@ -1,0 +1,308 @@
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#projectInitialize"
+>
+  Create Project
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="projectInitialize"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="projectInitializeLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Let's build team in project
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h3 class="text-center">Build Project with Barefans</h3>
+        <small class="text-danger text-center d-block mb-4"
+          >Remember, all information fields below need to be filled out
+          completely and cannot be left blank.</small
+        >
+        <form [formGroup]="project" (submit)="onSubmit()">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-group my-4">
+                  <label for="ProjectName" class="mb-1">Project Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ProjectName"
+                    placeholder="Enter your Project Name"
+                    formControlName="projectName"
+                  />
+                </div>
+                <div class="form-group my-4">
+                  <label for="member" class="mb-1">Member</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="member"
+                    min="1"
+                    placeholder="Enter your member of project"
+                    formControlName="members"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group my-4">
+                  <label for="startdate" class="mb-1">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="startdate"
+                    placeholder="Enter your start date"
+                    formControlName="startDate"
+                  />
+                </div>
+                <div class="form-group my-4">
+                  <label for="description" class="mb-1"
+                    >Software Development Life Cycle</label
+                  >
+                  <select
+                    class="form-select"
+                    formControlName="softwareDevelopment"
+                  >
+                    <option>Agile</option>
+                    <option>Scrum</option>
+                    <option>Kanban</option>
+                    <option>Waterfall</option>
+                    <option>Lean</option>
+                    <option>XP</option>
+                    <option>Crystal</option>
+                    <option>FDD</option>
+                    <option>DSDM</option>
+                    <option>Others</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group my-4">
+                  <label for="enddate" class="mb-1">End Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="enddate"
+                    placeholder="Enter your end date"
+                    formControlName="endDate"
+                  />
+                </div>
+                <div class="form-group my-4">
+                  <label for="dailymeeting" class="mb-1"
+                    >Set Time Daily Meeting</label
+                  >
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="dailymeeting"
+                    formControlName="dailyMeetingTime"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group my-4">
+                  <label for="typeProject" class="mb-1">Type of Project</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="typeProject"
+                    placeholder="Enter your type of project"
+                    formControlName="typeProject"
+                  />
+                </div>
+                <div class="form-group my-4">
+                  <label for="logwork" class="mb-1">Set Time Log Work</label>
+                  <input
+                    type="time"
+                    class="form-control"
+                    id="logwork"
+                    formControlName="logWorkTime"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <label for="description" class="mb-1">Description</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  rows="5"
+                  placeholder="Enter your description"
+                  formControlName="description"
+                ></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <!-- Files -->
+                <div class="form-group my-4">
+                  <label for="document">
+                    <span class="ms-2">Files / Docs</span>
+                  </label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="document"
+                    placeholder="Document of project"
+                    formControlName="fileDoc01"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Files -->
+                <div class="form-group my-4">
+                  <label for="document">
+                    <span class="ms-2">Files / Docs</span>
+                  </label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="document"
+                    placeholder="Document of project"
+                    formControlName="fileDoc02"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <!-- Files -->
+                <div class="form-group my-4">
+                  <label for="document">
+                    <span class="ms-2">Files / Docs</span>
+                  </label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="document"
+                    placeholder="Document of project"
+                    formControlName="fileDoc03"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="form-check form-switch my-4">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="flexSwitchCheckDefault"
+                    formControlName="meetingRoom"
+                  />
+                  <label class="form-check-label" for="flexSwitchCheckDefault"
+                    >Meeting Room</label
+                  >
+                </div>
+                <div class="form-check form-switch my-4">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="flexSwitchCheckDefault"
+                    formControlName="progressCheck"
+                  />
+                  <label class="form-check-label" for="flexSwitchCheckDefault"
+                    >Progress of Project</label
+                  >
+                </div>
+                <div class="form-check form-switch my-4">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="flexSwitchCheckDefault"
+                    formControlName="checkingTask"
+                  />
+                  <label class="form-check-label" for="flexSwitchCheckDefault"
+                    >Checking Task</label
+                  >
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group my-4">
+                  <label for="github">
+                    <i class="fa-brands fa-github"></i>
+                    <span class="ms-2">GitHub</span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="github"
+                    placeholder="Enter your GitHub"
+                    formControlName="github"
+                  />
+                </div>
+                <div class="form-group my-4">
+                  <label for="gitlab">
+                    <i class="fa-brands fa-gitlab"></i>
+                    <span class="ms-2">GitLab</span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="gitlab"
+                    placeholder="Enter your GitLab"
+                    formControlName="gitlab"
+                  />
+                </div>
+                <div class="form-group my-4">
+                  <label for="docker">
+                    <i class="fa-brands fa-docker"></i>
+                    <span class="ms-2">Docker</span>
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="docker"
+                    placeholder="Enter your Docker"
+                    formControlName="docker"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group my-4">
+                  <label for="note">Note</label>
+                  <textarea
+                    class="form-control"
+                    id="note"
+                    rows="8"
+                    placeholder="Enter your note"
+                    formControlName="note"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+          Build
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

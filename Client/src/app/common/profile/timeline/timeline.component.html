@@ -22,6 +22,7 @@
           [myUser]="authUser"
           [currentUser]="currentUser"
           [permission]="permission"
+          [bio]="currentUser && currentUser.bio ? currentUser.bio : ''"
         ></app-bio>
         <app-about-item
           [myUser]="authUser"

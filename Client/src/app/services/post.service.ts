@@ -57,4 +57,9 @@ export class PostService {
   getLatestPosts(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/post/latest`);
   }
+
+  // [GET] Get post by id
+  getPostById(id: any): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/post/postDetail?id=${id}`);
+  }
 }

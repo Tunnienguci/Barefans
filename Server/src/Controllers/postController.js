@@ -299,3 +299,55 @@ exports.getLatestPost = async (req, res) => {
 		});
 	}
 };
+
+exports.getPostById = async (req, res) => {
+	const { id } = req.query;
+
+	try {
+		// Chỉ tìm kiếm post theo id và trả ra đúng post đó
+		const post = await Post.findById(id).populate("user");
+		const commentByPost = await Promise.all(
+			post.comment.map(async (item) => {
+				const _id = item.toString();
+				const comment$ = await Comment.findById(_id).populate("user");
+				return comment$;
+			})
+		);
+
+		// Lấy thông tin comment và tham chiếu sang comment ở post
+		post.comment = commentByPost;
+
+		return res.status(200).json({
+			post: {
+				_id: post._id,
+				user: {
+					username: post.user.account.username,
+					fullName: post.user.fullName,
+					avatar: post.user.avatar,
+					_id: post.user._id,
+				},
+				content: post.content,
+				images: post.images,
+				video: post.video,
+				emoji: post.emoji,
+				like: post.like,
+				comment: post.comment.map((item) => ({
+					user: {
+						username: item.user.account.username,
+						fullName: item.user.fullName,
+						avatar: item.user.avatar,
+						_id: item.user._id,
+					},
+					content: item.content,
+					time: item.time,
+					_id: item._id,
+				})),
+				time: post.time,
+			},
+		});
+	} catch (error) {
+		return res.status(500).json({
+			message: "Cannot connect to server",
+		});
+	}
+};

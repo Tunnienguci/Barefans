@@ -4,11 +4,12 @@ import { HomeComponent } from './pages/client/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotificationComponent } from './pages/client/notification/notification.component';
 import { PostDetailComponent } from './pages/client/post-detail/post-detail.component';
-import { WatchComponent } from './pages/client/watch/watch.component';
 import { ProfileComponent } from './pages/client/profile/profile.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 import { ClientComponent } from './pages/client/client.component';
+import { GroupComponent } from './pages/client/group/group.component';
+import { DramaComponent } from './pages/client/drama/drama.component';
 
 const routes: Routes = [
   {
@@ -33,23 +34,22 @@ const routes: Routes = [
         component: PostDetailComponent,
       },
       {
-        path: 'notification',
+        path: 'workplace',
         component: NotificationComponent,
       },
       {
-        path: 'watch',
-        component: WatchComponent,
+        path: 'group',
+        component: GroupComponent,
+      },
+      {
+        path: 'drama',
+        component: DramaComponent,
       },
       {
         path: ':id',
         component: ProfileComponent,
       },
     ],
-  },
-  {
-    path: '**',
-    redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

@@ -15,6 +15,7 @@ export class HomeComponent {
   isLoading: boolean = true;
   authUser: User;
   friends: User[] = [];
+  receivedRequests: User[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -39,17 +40,73 @@ export class HomeComponent {
       .getFriends(this.authUser.account.username)
       .subscribe((data) => {
         if (data) {
-          setTimeout(() => {
-            this.friends = data.friends;
-            this.isLoading = false;
-          }, 1000);
+          this.friends = data.friends;
+          this.userService
+            .getReceivedFollowRequests(this.authUser._id)
+            .subscribe((res) => {
+              if (res) {
+                this.receivedRequests = res;
+                setTimeout(() => {
+                  this.isLoading = false;
+                }, 1000);
+              }
+            });
         }
       });
   }
 
-  acceptFollowRequest(receivedUser: any) {}
+  acceptFollowRequest(receivedUser: any) {
+    this.userService
+      .acceptFollowRequest(this.authUser.account.username, receivedUser)
+      .subscribe((res) => {
+        this.isLoading = true;
+        if (res) {
+          this.userService
+            .getFriends(this.authUser.account.username)
+            .subscribe((data) => {
+              if (data) {
+                this.userService
+                  .getFriends(this.authUser.account.username)
+                  .subscribe((data) => {
+                    if (data) {
+                      this.friends = data.friends;
+                    }
+                  });
+              }
+            });
+          this.userService
+            .getReceivedFollowRequests(this.authUser._id)
+            .subscribe((res) => {
+              if (res) {
+                this.receivedRequests = res;
+                setTimeout(() => {
+                  this.isLoading = false;
+                }, 1000);
+              }
+            });
+        }
+      });
+  }
 
-  recjectFollowRequest(id: any) {}
+  recjectFollowRequest(id: any) {
+    this.userService
+      .recjectFollowRequest(this.authUser.account.username, id)
+      .subscribe((res) => {
+        this.isLoading = true;
+        if (res) {
+          this.userService
+            .getReceivedFollowRequests(this.authUser._id)
+            .subscribe((res) => {
+              if (res) {
+                this.receivedRequests = res;
+                setTimeout(() => {
+                  this.isLoading = false;
+                }, 1000);
+              }
+            });
+        }
+      });
+  }
 
   createPost(post: any) {
     this.postService.createPost(post).subscribe((res) => {

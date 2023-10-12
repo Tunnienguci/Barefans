@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { LoginService } from 'src/app/services/login.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-form-edit',
@@ -33,7 +34,11 @@ export class FormEditComponent {
     }),
   });
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(
+    private fb: FormBuilder,
+    private loginService: LoginService,
+    private userService: UserService
+  ) {
     this.userInfo = this.loginService.authUser;
     this.profileForm.patchValue({
       fullName: this.userInfo.fullName,
@@ -61,7 +66,7 @@ export class FormEditComponent {
       const data = {
         ...this.profileForm.value,
       };
-      this.loginService
+      this.userService
         .updateProfile(data, this.userInfo.account.username)
         .subscribe((res: any) => {
           this.isLoading = true;

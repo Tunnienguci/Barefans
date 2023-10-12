@@ -27,29 +27,40 @@
       </div>
 
       <div class="action" *ngIf="!permission">
-        <ng-container *ngIf="findRequest() && !isFriend()">
+        <ng-container *ngIf="isRequest && !isFriend">
           <button class="btn btn-secondary mx-3">
             <i class="fa-regular fa-square-plus me-2"></i>
             Requested
           </button>
         </ng-container>
-        <ng-container *ngIf="!findRequest() && !isFriend()">
+        <ng-container *ngIf="!isRequest && !isFriend">
           <button class="btn btn-primary mx-3" (click)="followUser()">
             <i class="fa-regular fa-square-plus me-2"></i>
             Follow
           </button>
         </ng-container>
-        <ng-container *ngIf="isFriend()">
-          <button class="btn btn-primary mx-3">
-            <i class="fa-regular fa-square-plus me-2"></i>
-            Friend
+        <ng-container *ngIf="isFriend">
+          <div class="dropdown">
+            <button
+              class="btn btn-primary mx-3 dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-user-group me-2"></i>
+              Friend
+            </button>
+            <ul class="dropdown-menu p-0">
+              <li class="dropdown-item">
+                <i class="fa-solid fa-heart-crack me-3"></i>Unfriend
+              </li>
+            </ul>
+          </div>
+          <button class="btn btn-primary">
+            <i class="fa-regular fa-message me-2"></i>
+            Message
           </button>
         </ng-container>
-
-        <button class="btn btn-primary">
-          <i class="fa-regular fa-message me-2"></i>
-          Message
-        </button>
       </div>
     </div>
 

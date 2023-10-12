@@ -40,25 +40,21 @@ exports.getUser = async (req, res) => {
 };
 
 exports.followUser = async (req, res) => {
-	const { username } = req.query;
-	const { usernameFollow } = req.body;
+	const { sendId } = req.query;
+	const { receiveId } = req.body;
 
 	try {
-		const sendReq = await User.findOne({ "account.username": username });
-		const recReq = await User.findOne({
-			"account.username": usernameFollow,
-		});
+		const sendReq = await User.findById(sendId);
+		const recReq = await User.findById(receiveId);
 
 		// Thêm request vào danh sách request
 		sendReq.requests.push({
 			sendRequest: recReq._id,
 			receiveRequest: sendReq._id,
-			status: false,
 		});
 		recReq.requests.push({
 			sendRequest: recReq._id,
 			receiveRequest: sendReq._id,
-			status: false,
 		});
 
 		await sendReq.save();
@@ -220,6 +216,81 @@ exports.updateAvatar = async (req, res) => {
 	} catch (error) {
 		return res.status(500).json({
 			message: "Can not update avatar, please try again",
+			error: error.message,
+		});
+	}
+};
+
+exports.updateProfile = async (req, res) => {
+	const { username } = req.query;
+	const {
+		fullName,
+		birthday,
+		hometown,
+		live,
+		relationship,
+		facebook,
+		twitter,
+		instagram,
+		linkedin,
+		highSchool,
+		secondarySchool,
+		college,
+		university,
+		work,
+	} = req.body;
+
+	try {
+		const user = await User.findOne({ "account.username": username });
+		if (!user) {
+			return res.status(400).json({
+				message: "Account does not exist",
+			});
+		}
+		user.fullName = fullName;
+		user.birthday = birthday;
+		user.hometown = hometown;
+		user.live = live;
+		user.relationship = relationship;
+		user.facebook = facebook;
+		user.twitter = twitter;
+		user.instagram = instagram;
+		user.linkedin = linkedin;
+		user.highSchool = highSchool;
+		user.secondarySchool = secondarySchool;
+		user.college = college;
+		user.university = university;
+		user.work = {
+			company: work.company,
+			position: work.position,
+		};
+
+		await user.save();
+
+		return res.status(200).json({
+			message: "Update profile successfully",
+		});
+	} catch (error) {
+		return res.status(500).json({
+			message: "Cannot connect to server",
+		});
+	}
+};
+
+exports.updateBio = async (req, res) => {
+	const { bio, id } = req.body;
+
+	try {
+		const user = await User.findById(id);
+		user.bio = bio;
+		await user.save();
+		return res.status(200).json({
+			message: "Updated bio successfully",
+			bio: bio,
+		});
+	} catch (error) {
+		return res.status(500).json({
+			message: "Can not update bio, please try again",
 			error: error.message,
 		});
 	}

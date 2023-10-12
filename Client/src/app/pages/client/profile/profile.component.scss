@@ -17,6 +17,27 @@
       }
     }
 
+    .dropdown-menu {
+      border-radius: 5px;
+      background-color: #eeeeee;
+      color: #333436;
+      border: none;
+      cursor: pointer;
+      li {
+        i {
+          font-size: 1rem;
+        }
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        &:hover {
+          border-radius: 5px;
+          background-color: #0866ff;
+          color: #fff;
+        }
+      }
+    }
+
     .infomation {
       width: 100%;
       display: flex;

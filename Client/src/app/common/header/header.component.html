@@ -11,31 +11,19 @@
       >
       <a
         class="nav-item"
-        [routerLink]="['/notification']"
+        [routerLink]="['workplace']"
         [routerLinkActive]="['active']"
         >In Working</a
       >
       <a
         class="nav-item"
-        [routerLink]="['/marketplace']"
-        [routerLinkActive]="['active']"
-        >Assignment Job</a
-      >
-      <a
-        class="nav-item"
-        [routerLink]="['/watch']"
-        [routerLinkActive]="['active']"
-        >Watch</a
-      >
-      <a
-        class="nav-item"
-        [routerLink]="['/group']"
+        [routerLink]="['group']"
         [routerLinkActive]="['active']"
         >Group</a
       >
       <a
         class="nav-item"
-        [routerLink]="['/live']"
+        [routerLink]="['drama']"
         [routerLinkActive]="['active']"
         >Drama</a
       >
@@ -48,10 +36,10 @@
         (mouseleave)="isHovered = false"
       >
         <i
-          class="fa-solid fa-lock-open me-2"
+          class="fa-solid fa-lock me-2"
           [ngClass]="{ 'fa-bounce': isHovered }"
         ></i>
-        Logout
+        Sign Out
       </button>
       <img
         [src]="authUser.avatar"

@@ -24,9 +24,9 @@ export class UserService {
   // [POST] Update user
   followUser(sendUser: any, receiveUser: any) {
     return this.http.post(
-      `${environment.apiUrl}/user/follow?username=${sendUser}`,
+      `${environment.apiUrl}/user/follow?sendId=${sendUser}`,
       {
-        usernameFollow: receiveUser,
+        receiveId: receiveUser,
       }
     );
   }
@@ -39,7 +39,7 @@ export class UserService {
   // [POST] Accept follow request
   acceptFollowRequest(sendUser: any, receiveUser: any) {
     return this.http.post(
-      `${environment.apiUrl}/user/accept?username=${sendUser}`,
+      `${environment.apiUrl}/user/follow/accept?username=${sendUser}`,
       {
         usernameAccept: receiveUser,
       }
@@ -49,7 +49,7 @@ export class UserService {
   // [POST] Reject follow request
   recjectFollowRequest(username: any, id: any) {
     return this.http.post(
-      `${environment.apiUrl}/user/reject?username=${username}&reqname=${id}`,
+      `${environment.apiUrl}/user/follow/reject?username=${username}&reqname=${id}`,
       {}
     );
   }
@@ -67,5 +67,22 @@ export class UserService {
       path: avatar,
     };
     return this.http.put(`${environment.apiUrl}/user/update/avatar`, data);
+  }
+
+  // [POST] /auth/register/update-profile
+  updateProfile(data: any, username: string) {
+    return this.http.post(
+      `${environment.apiUrl}/user/update-profile?username=${username}`,
+      data
+    );
+  }
+
+  // [POST] /user/update-bio
+  updateBio(bio: string, id: string) {
+    const data = {
+      bio: bio,
+      id: id,
+    };
+    return this.http.post(`${environment.apiUrl}/user/bio`, data);
   }
 }

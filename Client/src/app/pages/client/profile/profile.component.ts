@@ -20,6 +20,8 @@ export class ProfileComponent {
   permission: boolean = false;
   avatarImg: string = '';
   posts: Post[] = [];
+  isFriend: boolean = false;
+  isRequest: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -32,11 +34,10 @@ export class ProfileComponent {
     this.isLoading = true;
     this.currentUser = this.userService.curUser;
     this.authUser = this.loginService.authUser;
-    this.findRequest();
-    this.isFriend();
     if (this.currentPage == this.authUser.account.username) {
       this.permission = true;
     }
+
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);
@@ -57,6 +58,16 @@ export class ProfileComponent {
         if (this.currentPage == this.authUser.account.username) {
           this.permission = true;
         }
+
+        this.isFriend = this.currentUser.friends.some((friend: any) => {
+          return friend === this.authUser._id.toString();
+        });
+
+        this.isRequest = this.currentUser.requests.some((request: any) => {
+          console.log(request.receiveRequest, this.authUser._id);
+          return request.receiveRequest === this.authUser._id;
+        });
+
         setTimeout(() => {
           this.isLoading = false;
         }, 1500);
@@ -64,22 +75,35 @@ export class ProfileComponent {
     });
   }
 
-  followUser() {}
-
-  findRequest(): boolean {
-    if (this.currentUser && this.currentUser.request) {
-      return this.currentUser.request.some((request: any) => {
-        return request._id === this.authUser._id;
+  followUser() {
+    this.isLoading = true;
+    this.userService
+      .followUser(this.authUser._id, this.currentUser._id)
+      .subscribe((res: any) => {
+        if (res) {
+          if (res.status == 2) {
+            this.isRequest = true;
+          }
+          this.userService
+            .getUserByUsername(this.currentPage)
+            .subscribe((res) => {
+              this.currentUser = res;
+              this.avatarImg = res.avatar;
+              this.userService.curUser = res;
+              this.postService
+                .getPostByUser(this.currentUser.account.username)
+                .subscribe((res) => {
+                  this.posts = res.posts;
+                });
+              if (this.currentPage == this.authUser.account.username) {
+                this.permission = true;
+              }
+              setTimeout(() => {
+                this.isLoading = false;
+              }, 1500);
+            });
+        }
       });
-    }
-    return false;
-  }
-
-  isFriend(): boolean {
-    // Search in friends list myUser check if currentUser is friend
-    return this.authUser.friends.some((friend: any) => {
-      return friend._id === this.authUser._id;
-    });
   }
 
   changeTab(tab: string) {

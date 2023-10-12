@@ -11,7 +11,6 @@ import { UserComponent } from './common/recommend/user/user.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { ItemComponent } from './common/sidebar/item/item.component';
 import { HomeComponent } from './pages/client/home/home.component';
-import { WatchComponent } from './pages/client/watch/watch.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UpdateStatusComponent } from './common/update-status/update-status.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,6 +39,9 @@ import { LoadingComponent } from './common/loading/loading.component';
 import { ClientComponent } from './pages/client/client.component';
 import { FriendComponent } from './common/profile/friend/friend.component';
 import { FriendsComponent } from './common/contacts/friend/friend.component';
+import { GroupComponent } from './pages/client/group/group.component';
+import { DramaComponent } from './pages/client/drama/drama.component';
+import { JoinComponent } from './teams/join/join.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,6 @@ import { FriendsComponent } from './common/contacts/friend/friend.component';
     SidebarComponent,
     ItemComponent,
     HomeComponent,
-    WatchComponent,
     LoginComponent,
     UpdateStatusComponent,
     NotificationComponent,
@@ -77,6 +78,9 @@ import { FriendsComponent } from './common/contacts/friend/friend.component';
     ClientComponent,
     FriendComponent,
     FriendsComponent,
+    GroupComponent,
+    DramaComponent,
+    JoinComponent,
   ],
   imports: [
     BrowserModule,

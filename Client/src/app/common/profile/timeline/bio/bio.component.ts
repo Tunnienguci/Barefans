@@ -15,6 +15,8 @@ export class BioComponent {
   @Input() myUser: any;
   @Input() currentUser: any;
 
+  constructor(private userService: UserService) {}
+
   checkCharacter(e: any) {
     this.character = e.target.value.length;
     this.bio = e.target.value;
@@ -22,5 +24,12 @@ export class BioComponent {
 
   editBioToggle() {
     this.editBio = !this.editBio;
+    if (!this.editBio) {
+      this.userService.updateBio(this.bio, this.myUser._id).subscribe((res) => {
+        if (res) {
+          this.userService.curUser.bio = this.bio;
+        }
+      });
+    }
   }
 }

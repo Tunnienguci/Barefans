@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -17,7 +17,11 @@ export class PostComponent {
   editable: boolean = false;
   isLoading: boolean = false;
 
-  constructor(private postService: PostService, private route: ActivatedRoute) {
+  constructor(
+    private postService: PostService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.route.params.subscribe((params: any) => {
       this.currentPage = params.id;
     });
@@ -84,5 +88,7 @@ export class PostComponent {
 
   copyLink(link: any) {}
 
-  openLink(link: any) {}
+  openLink(link: any) {
+    this.router.navigate(['/post', link]);
+  }
 }
