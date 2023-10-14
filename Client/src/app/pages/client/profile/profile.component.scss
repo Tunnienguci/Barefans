@@ -132,3 +132,49 @@
     padding: 1rem 0;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .profile {
+    margin: 0;
+    .main-info {
+      .cover-img {
+        img {
+          height: 20rem;
+        }
+      }
+      .infomation {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+        .avatar {
+          h2 {
+            font-size: 1.5rem;
+          }
+          .avatar-img {
+            img {
+              width: 7rem;
+              height: 7rem;
+            }
+          }
+        }
+
+        .action {
+          margin-top: 1rem;
+          .btn {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.7rem;
+          }
+        }
+      }
+      .nav-menu {
+        padding: 0 1rem;
+        .nav-link {
+          padding: 0.5rem;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

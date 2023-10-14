@@ -1,6 +1,11 @@
 <div class="header" *ngIf="authUser">
   <div class="nav">
     <div class="nav-empty"></div>
+    <div class="nav-logo">
+      <a [routerLink]="['']">
+        <i class="fa-brands fa-blogger" style="color: #0866ff"></i>
+      </a>
+    </div>
     <div class="nav-links">
       <a
         class="nav-item"

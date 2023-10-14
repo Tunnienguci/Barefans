@@ -17,3 +17,11 @@
   cursor: pointer;
   overflow: hidden;
 }
+
+@media screen and (max-width: 768px) {
+  .loading {
+    i {
+      font-size: 50px;
+    }
+  }
+}

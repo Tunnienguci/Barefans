@@ -8,7 +8,7 @@
       <div class="avatar">
         <div class="avatar-img">
           <img [src]="avatarImg" alt="avatar" />
-          <label for="avatar">
+          <label for="avatar" *ngIf="permission">
             <i class="fa-solid fa-camera"></i>
           </label>
           <input
@@ -42,7 +42,7 @@
         <ng-container *ngIf="isFriend">
           <div class="dropdown">
             <button
-              class="btn btn-primary mx-3 dropdown-toggle"
+              class="btn btn-primary mx-lg-3 me-2 dropdown-toggle"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"

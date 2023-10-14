@@ -12,3 +12,16 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .container-group {
+    flex-direction: column;
+    .content {
+      min-height: auto;
+    }
+
+    app-sidebar {
+      display: none;
+    }
+  }
+}

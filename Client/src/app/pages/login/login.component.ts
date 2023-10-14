@@ -45,8 +45,8 @@ export class LoginComponent {
         username: this.loginForm.value.username,
         password: this.loginForm.value.password,
       };
+      this.isLoading = true;
       this.loginService.login(data).subscribe((res: any) => {
-        this.isLoading = true;
         if (res && res.token) {
           this.loginService.saveToken(res.token, res.username);
         }
@@ -60,8 +60,8 @@ export class LoginComponent {
         username: this.registerForm.value.username,
         password: this.registerForm.value.password,
       };
+      this.isLoading = true;
       this.loginService.register(data).subscribe((res: any) => {
-        this.isLoading = true;
         if (res) {
           localStorage.setItem('_saBareUser', res.username);
           this.router.navigate([`/update-profile`]);

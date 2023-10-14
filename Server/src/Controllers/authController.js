@@ -48,6 +48,7 @@ const signToken = (user) => {
 
 exports.login = async (req, res) => {
 	const { username, password } = req.body;
+
 	try {
 		const user = await User.findOne({ "account.username": username });
 		if (!user) {

@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+
+// Khai Báo ROUTE
 const authRoutes = require("./src/Routes/auth");
 const userRoutes = require("./src/Routes/user");
 const postRoutes = require("./src/Routes/post");
@@ -19,6 +21,7 @@ mongoose.connect(process.env.URI).then(() => {
 	});
 });
 
+// Cấu Hình Trực Tiếp Đến Router
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/post", postRoutes);
